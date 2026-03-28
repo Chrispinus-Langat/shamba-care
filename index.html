@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>ShambaCare Kenya - Smart Crop Monitoring & Disease Diagnosis</title>
+    <meta name="description" content="AI-powered crop disease diagnosis for Kenyan farmers. Protect your maize, coffee, tea, and vegetables with instant leaf analysis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+
+/* Background Slideshow Container */
+.background-slideshow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+/* Individual Slide */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    animation: ken Burns 20s ease-in-out infinite alternate;
+}
+
+/* Active Slide */
+.slide.active {
+    opacity: 1;
+}
+
+/* Ken Burns Effect - Smooth Zoom & Pan */
+@keyframes kenBurns {
+    0% {
+        transform: scale(1) translateX(0);
+    }
+    100% {
+        transform: scale(1.1) translateX(-2%);
+    }
+}
+
+/* Dark Overlay for Better Text Readability */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.5) 100%);
+    z-index: -1;
+}
+
+/* Optional: Subtle Grain Texture */
+.background-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.08"/%3E%3C/svg%3E');
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.3;
+}
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4c9f70;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d7e58;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .animate-slideInLeft {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .animate-slideInRight {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .animate-scaleIn {
+            animation: scaleIn 0.4s ease-out;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Loading animation */
+        .diagnosis-loader {
+            width: 48px;
+            height: 48px;
+            border: 3px solid #e5e7eb;
+            border-bottom-color: #4c9f70;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #4c9f70 0%, #2d6a4f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Stats counter */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4c9f70 0%, #2d6a4f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Progress ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+        }
+        
+        /* Image upload area */
+        .upload-zone {
+            transition: all 0.3s ease;
+            border: 2px dashed #cbd5e1;
+        }
+        
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: #4c9f70;
+            background-color: #f0fdf4;
+            transform: scale(1.02);
+        }
+        
+        /* Toast notification */
+        .toast {
+            animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            button, .clickable {
+                min-height: 44px;
+            }
+        }
+        
+        /* Shimmer effect */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+        
+        /* Custom button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #4c9f70 0%, #2d6a4f 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(76, 159, 112, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f47e28 0%, #e65c1e 100%);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Background Slideshow -->
+    <div class="background-slideshow">
+    <div class="slide" style="background-image: url('coffee1.jpg')"></div>
+    
+    <div class="slide" style="background-image: url('maize1.0.jpg')"></div>
+    <div class="slide" style="background-image: url('passion1.jpg')"></div>
+    <div class="slide" style="background-image: url('havest.jpg')"></div>
+</div>
+    
+    <!-- Navigation Bar with Blur Effect -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <i class="fas fa-leaf text-3xl text-green-600 float-animation"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">ShambaCare<span class="gradient-text"> Kenya</span></h1>
+                        <p class="text-xs text-gray-500">Smart Farming Assistant • Tuma Picha, Pata Matokeo</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleLanguage()" class="bg-green-50 hover:bg-green-100 px-3 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2 group">
+                        <i class="fas fa-language text-green-600 group-hover:scale-110 transition"></i>
+                        <span id="langBtnText" class="text-sm font-medium text-gray-700">English</span>
+                    </button>
+                    <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
+                        <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-6 max-w-7xl">
+        <!-- Hero Section with Stats -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Welcome Card with Gradient -->
+            <div class="lg:col-span-2 bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-xl animate-fadeInUp relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mt-16 -mr-16"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -mb-12 -ml-12"></div>
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm" id="greetingText">
+                                <i class="fas fa-hand-peace mr-1"></i> Karibu Shamba!
+                            </p>
+                            <h2 class="text-2xl font-bold mt-1" id="farmerName">James Mwangi</h2>
+                            <p class="text-green-100 mt-2" id="locationText">
+                                <i class="fas fa-map-marker-alt mr-1"></i> Kiambu County, Kenya
+                            </p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-green-500/30 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+                                    <i class="fas fa-tractor mr-1"></i> 5.2 acres
+                                </span>
+                                <span class="bg-green-500/30 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+                                    <i class="fas fa-seedling mr-1"></i> 3 active crops
+                                </span>
+                                <span class="bg-green-500/30 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
+                                    <i class="fas fa-chart-line mr-1"></i> 87% health score
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="bg-white/20 rounded-full p-3 backdrop-blur-sm">
+                                <i class="fas fa-cloud-sun text-3xl"></i>
+                            </div>
+                            <p class="text-sm mt-2 font-semibold" id="weatherTemp">24°C</p>
+                            <p class="text-xs" id="weatherDesc">Partly Cloudy • Good for farming</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Cards with Counters -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover border border-green-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                        <span class="text-xs text-gray-400">+12% this month</span>
+                    </div>
+                    <p class="stat-number text-3xl font-bold" id="healthScore">87</p>
+                    <p class="text-sm text-gray-500 mt-1" id="healthLabel">Overall Health Score</p>
+                    <div class="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full" style="width: 87%"></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-lg card-hover border border-green-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <i class="fas fa-tasks text-orange-500 text-2xl"></i>
+                        <span class="text-xs text-gray-400">Urgent: 2</span>
+                    </div>
+                    <p class="stat-number text-3xl font-bold" id="pendingTasks">4</p>
+                    <p class="text-sm text-gray-500 mt-1" id="tasksLabel">Pending Tasks</p>
+                    <button onclick="showTasks()" class="mt-2 text-xs text-green-600 hover:text-green-700 font-medium">
+                        View all <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Diagnosis - Main Feature -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- AI Diagnosis Card - Enhanced -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 p-5">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-white font-bold text-xl">
+                                <i class="fas fa-microchip mr-2"></i> 
+                                <span id="diagnosisTitle">AI Crop Diagnosis</span>
+                            </h3>
+                            <p class="text-green-100 text-sm mt-1" id="diagnosisDesc">
+                                Upload leaf photo • Instant analysis • Free for Kenyan farmers
+                            </p>
+                        </div>
+                        <div class="bg-white/20 rounded-full p-2">
+                            <i class="fas fa-camera text-white text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div id="uploadArea" class="upload-zone border-2 border-dashed border-green-300 rounded-xl p-8 text-center cursor-pointer transition-all bg-green-50/30 hover:bg-green-50">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-green-400 mb-3"></i>
+                        <p class="text-gray-600 font-medium" id="uploadText">Tap to upload or take a photo</p>
+                        <p class="text-xs text-gray-400 mt-1" id="uploadHint">Supported: JPG, PNG (max 10MB) • Use clear leaf photo</p>
+                        <input type="file" id="imageInput" accept="image/*" capture="environment" class="hidden" onchange="handleImageUpload(this)">
+                    </div>
+                    <div id="imagePreview" class="hidden mt-4">
+                        <div class="relative rounded-xl overflow-hidden shadow-lg">
+                            <img id="previewImg" class="w-full max-h-64 object-cover" alt="Preview">
+                            <button onclick="clearImage()" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition shadow-lg">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <button onclick="analyzeImage()" class="mt-4 w-full btn-primary text-white font-semibold py-3 rounded-xl transition transform hover:scale-105 shadow-md">
+                            <i class="fas fa-microscope mr-2"></i> Analyze Crop Now
+                        </button>
+                    </div>
+                    <div id="diagnosisResult" class="hidden mt-6"></div>
+                </div>
+            </div>
+            
+            <!-- Weather & Alerts Card - Enhanced -->
+            <div class="bg-white rounded-2xl shadow-xl p-5 card-hover border border-green-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-gray-800">
+                        <i class="fas fa-cloud-sun-rain text-green-600 mr-2"></i> 
+                        <span id="weatherTitle">7-Day Forecast</span>
+                    </h3>
+                    <i class="fas fa-chevron-down text-gray-400"></i>
+                </div>
+                <div id="weatherForecast" class="space-y-2">
+                    <!-- Weather data populated via JS -->
+                </div>
+                <div id="weatherAlert" class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                    <div class="flex items-start gap-2">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5"></i>
+                        <p class="text-sm text-yellow-800" id="alertText">Rain expected tomorrow - delay spraying</p>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100">
+                    <p class="text-xs text-gray-500">
+                        <i class="fas fa-chart-line mr-1"></i> Based on Kenya Meteorological data
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Shambas Section - Enhanced -->
+        <div class="mb-8 animate-fadeInUp">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-tractor text-green-600 mr-2"></i> 
+                    <span id="shambasTitle">My Shambas</span>
+                </h2>
+                <button onclick="showAddFarmModal()" class="btn-primary text-white px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-md">
+                    <i class="fas fa-plus"></i> Add Shamba
+                </button>
+            </div>
+            <div id="farmsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Farms populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Crop Health Monitoring - Enhanced -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-seedling text-green-600 mr-2"></i> 
+                    <span id="cropsTitle">Active Crops Health Status</span>
+                </h2>
+                <span class="text-sm text-gray-500">Last updated today</span>
+            </div>
+            <div id="cropsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Crops populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Impact Stats Section - Inspired by Farm Africa -->
+        <div class="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Our Impact in Numbers</h2>
+                <p class="text-gray-600 mt-2">Making a difference for Kenyan farmers</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600">5,000+</div>
+                    <p class="text-sm text-gray-600 mt-1">Farmers Helped</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600">15,000+</div>
+                    <p class="text-sm text-gray-600 mt-1">Diagnoses Made</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600">87%</div>
+                    <p class="text-sm text-gray-600 mt-1">Success Rate</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-green-600">35%</div>
+                    <p class="text-sm text-gray-600 mt-1">Yield Increase</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Diagnoses -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-history text-green-600 mr-2"></i> 
+                <span id="recentTitle">Recent Diagnoses</span>
+            </h2>
+            <div id="recentDiagnoses" class="space-y-3">
+                <!-- Recent diagnoses populated -->
+            </div>
+        </div>
+
+        <!-- Disease Library - Enhanced Grid -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-book text-green-600 mr-2"></i> 
+                <span id="libraryTitle">Common Crop Issues in Kenya</span>
+            </h2>
+            <div id="diseaseLibrary" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Disease cards populated -->
+            </div>
+        </div>
+
+        <!-- Newsletter Section - Inspired by Farm Africa -->
+        <div class="bg-gradient-to-r from-green-700 to-green-800 rounded-2xl p-8 text-white">
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-2">Get Farming Tips</h3>
+                    <p class="text-green-100">Subscribe for weekly crop advice, weather alerts, and farming tips tailored to your region.</p>
+                </div>
+                <div class="flex gap-3">
+                    <input type="email" id="newsletterEmail" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <button onclick="subscribeNewsletter()" class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-semibold transition">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Modal -->
+    <div id="tasksModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('tasksModal')">
+        <div class="bg-white rounded-2xl max-w-md w-full max-h-[80vh] overflow-y-auto animate-scaleIn" onclick="event.stopPropagation()">
+            <div class="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+                <h3 class="font-bold text-lg"><i class="fas fa-tasks text-green-600 mr-2"></i> Pending Tasks</h3>
+                <button onclick="closeModal('tasksModal')" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="tasksList" class="p-4 space-y-3">
+                <!-- Tasks populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Farm Modal -->
+    <div id="addFarmModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('addFarmModal')">
+        <div class="bg-white rounded-2xl max-w-md w-full animate-scaleIn" onclick="event.stopPropagation()">
+            <div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl">
+                <h3 class="font-bold text-lg text-gray-800"><i class="fas fa-plus-circle text-green-600 mr-2"></i> Add New Shamba</h3>
+            </div>
+            <div class="p-4 space-y-3">
+                <input type="text" id="farmName" placeholder="Farm Name (e.g., Upper Shamba)" class="w-full p-3 border rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200">
+                <input type="text" id="farmLocation" placeholder="Location/County" class="w-full p-3 border rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200">
+                <input type="number" id="farmSize" placeholder="Size (acres)" class="w-full p-3 border rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200">
+                <select id="farmCrop" class="w-full p-3 border rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200">
+                    <option value="">Select Main Crop</option>
+                    <option value="Maize">🌽 Maize</option>
+                    <option value="Coffee">☕ Coffee</option>
+                    <option value="Tea">🍃 Tea</option>
+                    <option value="Beans">🫘 Beans</option>
+                    <option value="Potatoes">🥔 Potatoes</option>
+                    <option value="Vegetables">🥬 Vegetables</option>
+                </select>
+                <button onclick="addFarm()" class="w-full btn-primary text-white py-3 rounded-lg transition shadow-md">
+                    <i class="fas fa-check-circle mr-2"></i> Add Shamba
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--conatct-section-->
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+     <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Get in touch with us. We'd love to hear from you. Contact our team for inquiries, support, or collaborations.">
+    <title>Contact Us | ShambaCare Kenya</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'confetti': 'confetti 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        confetti: {
+                            '0%': { opacity: '0', transform: 'scale(0.5)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4c9f70, #2d6a4f);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #3d7e58, #1e4a38);
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Form focus effects */
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(76, 159, 112, 0.1);
+            border-color: #4c9f70;
+        }
+        
+        /* Button gradient */
+        .btn-gradient {
+            background: linear-gradient(135deg, #4c9f70 0%, #2d6a4f 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(76, 159, 112, 0.4);
+        }
+        
+        /* Floating animation */
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Confetti particles */
+        .confetti-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        
+        .ripple:active:after {
+            transform: scale(0);
+            opacity: .3;
+            transition: 0s;
+        }
+        
+        /* Loading spinner */
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Dark mode styles */
+        .dark {
+            background-color: #111827;
+            color: #f9fafb;
+        }
+        
+        .dark .bg-white {
+            background-color: #1f2937 !important;
+        }
+        
+        .dark .text-gray-600,
+        .dark .text-gray-500 {
+            color: #9ca3af !important;
+        }
+        
+        .dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+        
+        .dark .hover\:bg-gray-50:hover {
+            background-color: #374151 !important;
+        }
+        
+        .dark .bg-gray-50 {
+            background-color: #111827 !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
+    
+    <!-- Main Contact Section -->
+    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Hero Header -->
+            <div class="text-center mb-16 animate-fade-in">
+                <div class="inline-flex items-center justify-center p-2 bg-green-100 dark:bg-green-900/30 rounded-full mb-4">
+                    <i class="fas fa-envelope text-green-600 dark:text-green-400 text-sm mr-2"></i>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Get in Touch</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+                    Let's <span class="bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">Connect</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    We'd love to hear from you. Whether you have a question about our services, need support, or just want to say hello — we're here to help.
+                </p>
+            </div>
+            
+            <!-- Contact Information Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Phone Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.1s">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-phone-alt text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Phone</h3>
+                    <a href="tel:+254712345678" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition block mb-1">
+                        +254 712 345 678
+                    </a>
+                    <a href="tel:+254723456789" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">
+                        +254 723 456 789
+                    </a>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Mon-Fri, 8am-5pm</p>
+                </div>
+                
+                <!-- Email Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.2s">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-envelope text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
+                    <a href="mailto:hello@shambacare.com" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition block mb-1">
+                        hello@shambacare.com
+                    </a>
+                    <a href="mailto:support@shambacare.com" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">
+                        support@shambacare.com
+                    </a>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Response within 24 hours</p>
+                </div>
+                
+                <!-- Address Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.3s">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-map-marker-alt text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Visit Us</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-2">
+                        Westlands Business Park<br>
+                        3rd Floor, Suite 12<br>
+                        Nairobi, Kenya
+                    </p>
+                    <a href="https://maps.google.com/?q=Westlands+Nairobi+Kenya" target="_blank" class="text-sm text-green-600 dark:text-green-400 hover:underline">
+                        Get Directions <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Hours Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.4s">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-clock text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Working Hours</h3>
+                    <div class="space-y-1">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Monday - Friday</span>
+                            <span class="text-gray-900 dark:text-white font-medium">8:00 - 17:00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Saturday</span>
+                            <span class="text-gray-900 dark:text-white font-medium">9:00 - 13:00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">Sunday</span>
+                            <span class="text-gray-900 dark:text-white font-medium">Closed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form and Map Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <!-- Contact Form -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-600 to-green-700 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Send Us a Message</h2>
+                        <p class="text-green-100">We'll get back to you as soon as possible</p>
+                    </div>
+                    
+                    <form id="contactForm" class="p-6 space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Full Name <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="fullName" name="fullName" required
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
+                                    placeholder="John Mwangi">
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Email Address <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
+                                    placeholder="john@example.com">
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone"
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
+                                    placeholder="+254 712 345 678">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Subject <span class="text-red-500">*</span>
+                                </label>
+                                <select id="subject" name="subject" required
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white">
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="sales">Sales & Partnerships</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Message <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
+                                placeholder="Tell us how we can help..."></textarea>
+                            <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Attach File (Optional)
+                            </label>
+                            <input type="file" id="fileUpload" name="fileUpload"
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 dark:file:bg-green-900/50 dark:file:text-green-400">
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Max file size: 5MB (PDF, DOC, JPG)</p>
+                        </div>
+                        
+                        <!-- Honeypot Anti-spam -->
+                        <input type="text" id="honeypot" name="honeypot" style="display:none" aria-hidden="true">
+                        
+                        <button type="submit" id="submitBtn"
+                            class="w-full btn-gradient text-white font-semibold py-3 rounded-lg transition ripple">
+                            <span class="flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Send Message
+                            </span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Google Maps Embed -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-600 to-green-700 p-6">
+                        <h2 class="text-2xl font-bold text-white mb-2">Find Us Here</h2>
+                        <p class="text-green-100">Visit our office in Nairobi</p>
+                    </div>
+                    <div class="h-96 w-full">
+                        <iframe 
+                            class="w-full h-full"
+                            frameborder="0" 
+                            style="border:0"
+                            allowfullscreen
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Westlands+Nairobi+Kenya&zoom=15">
+                        </iframe>
+                    </div>
+                    <div class="p-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-location-dot text-green-600 mr-2"></i>
+                                Westlands Business Park, Nairobi
+                            </span>
+                            <a href="https://maps.google.com/?q=Westlands+Nairobi+Kenya" target="_blank" 
+                                class="text-green-600 dark:text-green-400 hover:underline">
+                                Open in Maps <i class="fas fa-external-link-alt ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Accordion Section -->
+            <div class="mb-16">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                        Frequently Asked Questions
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-300">Find quick answers to common questions</p>
+                </div>
+                
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                            <span class="font-semibold text-gray-900 dark:text-white">What is your typical response time?</span>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-4 hidden">
+                            <p class="text-gray-600 dark:text-gray-300">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call our support line directly.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                            <span class="font-semibold text-gray-900 dark:text-white">Do you offer support for international clients?</span>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-4 hidden">
+                            <p class="text-gray-600 dark:text-gray-300">Yes! We work with clients globally. Our team is available to support international clients via email and video calls.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                            <span class="font-semibold text-gray-900 dark:text-white">Can I schedule a consultation call?</span>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-4 hidden">
+                            <p class="text-gray-600 dark:text-gray-300">Absolutely! Fill out the contact form with your preferred date and time, and we'll arrange a consultation call at your convenience.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                            <span class="font-semibold text-gray-900 dark:text-white">What payment methods do you accept?</span>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 pb-4 hidden">
+                            <p class="text-gray-600 dark:text-gray-300">We accept M-Pesa, bank transfers, and major credit cards. Payment details will be provided upon confirmation of services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Newsletter Signup -->
+            <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-center mb-16">
+                <div class="max-w-2xl mx-auto">
+                    <i class="fas fa-envelope-open-text text-white text-4xl mb-4 float-animation"></i>
+                    <h3 class="text-2xl font-bold text-white mb-2">Stay Updated</h3>
+                    <p class="text-green-100 mb-6">Subscribe to our newsletter for the latest updates and farming tips</p>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletterEmail" required
+                            class="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white dark:bg-gray-800"
+                            placeholder="Enter your email address">
+                        <button type="submit" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="text-green-100 text-sm mt-4">No spam, unsubscribe anytime.</p>
+                </div>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect With Us</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
+                        <i class="fab fa-facebook-f text-gray-600 dark:text-gray-300 text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
+                        <i class="fab fa-twitter text-gray-600 dark:text-gray-300 text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
+                        <i class="fab fa-instagram text-gray-600 dark:text-gray-300 text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
+                        <i class="fab fa-linkedin-in text-gray-600 dark:text-gray-300 text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
+                        <i class="fab fa-youtube text-gray-600 dark:text-gray-300 text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="fixed bottom-6 right-6 space-y-3 z-50">
+        <button onclick="openChatModal()" class="w-14 h-14 bg-green-600 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition transform hover:scale-110 ripple">
+            <i class="fas fa-comment-dots text-white text-xl"></i>
+        </button>
+        <a href="https://wa.me/254712345678?text=Hello%21%20I%20need%20assistance" target="_blank" 
+            class="w-14 h-14 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition transform hover:scale-110 ripple">
+            <i class="fab fa-whatsapp text-white text-xl"></i>
+        </a>
+        <a href="tel:+254712345678" class="w-14 h-14 bg-blue-500 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition transform hover:scale-110 ripple">
+            <i class="fas fa-phone-alt text-white text-xl"></i>
+        </a>
+    </div>
+    
+    <!-- Live Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn">
+            <div class="bg-gradient-to-r from-green-600 to-green-700 p-4 rounded-t-2xl flex justify-between items-center">
+                <h3 class="text-white font-bold">Live Chat Support</h3>
+                <button onclick="closeChatModal()" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-4">
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-3 max-w-[80%]">
+                        <p class="text-sm text-gray-800 dark:text-gray-200">👋 Hi! How can we help you today?</p>
+                    </div>
+                    <div class="bg-green-100 dark:bg-green-900/50 rounded-lg p-3 mb-3 ml-auto max-w-[80%]">
+                        <p class="text-sm text-gray-800 dark:text-gray-200">I need help with...</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="chatMessage" placeholder="Type your message..." 
+                        class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700">
+                    <button onclick="sendChatMessage()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                        Send
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">
+                    Our support team is available 9am-5pm EAT
+                </p>
+            </div>
+        </div>
+    </div>   
+    </div>
+
+    <script>
+        // Background Slideshow with Smooth Transitions
+class BackgroundSlideshow {
+    constructor(slides, interval = 16000) {
+        this.slides = slides;
+        this.currentIndex = 0;
+        this.interval = interval; // 16 seconds between transitions
+        this.transitionSpeed = 5000; // 5 second fade
+    }
+    
+    init() {
+        // Set first slide as active
+        this.slides[0].classList.add('active');
+        
+        // Start slideshow
+        this.startSlideshow();
+    }
+    
+    nextSlide() {
+        // Remove active class from current slide
+        this.slides[this.currentIndex].classList.remove('active');
+        
+        // Move to next slide
+        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+        
+        // Add active class to new slide
+        this.slides[this.currentIndex].classList.add('active');
+    }
+    
+    startSlideshow() {
+        setInterval(() => {
+            this.nextSlide();
+        }, this.interval);
+    }
+}
+
+// Initialize slideshow when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    if (slides.length > 0) {
+        const slideshow = new BackgroundSlideshow(slides, 8000);
+        slideshow.init();
+    }
+});
+        // Language translations
+        let currentLang = 'en';
+        const translations = {
+            en: {
+                greeting: "Welcome to Shamba!",
+                healthLabel: "Overall Health Score",
+                tasksLabel: "Pending Tasks",
+                diagnosisTitle: "AI Crop Diagnosis",
+                diagnosisDesc: "Upload leaf photo for instant analysis",
+                uploadText: "Tap to upload or take a photo",
+                uploadHint: "JPG, PNG up to 10MB",
+                weatherTitle: "7-Day Forecast",
+                shambasTitle: "My Shambas",
+                cropsTitle: "Active Crops Health Status",
+                recentTitle: "Recent Diagnoses",
+                libraryTitle: "Common Crop Issues in Kenya"
+            },
+            sw: {
+                greeting: "Karibu Shamba!",
+                healthLabel: "Alama ya Afya",
+                tasksLabel: "Kazi Zinazosubiri",
+                diagnosisTitle: "Utambuzi wa Mazao AI",
+                diagnosisDesc: "Pakia picha ya jani kwa uchambuzi wa papo hapo",
+                uploadText: "Bonyeza kupakia au kuchukua picha",
+                uploadHint: "JPG, PNG hadi 10MB",
+                weatherTitle: "Tabia ya Njia Saba",
+                shambasTitle: "Shamba Zangu",
+                cropsTitle: "Afya ya Mazao Yanayolimwa",
+                recentTitle: "Utambuzi wa Hivi Karibuni",
+                libraryTitle: "Matatizo ya Kawaida ya Mazao Kenya"
+            }
+        };
+
+        // Sample data
+        let farms = [
+            { id: 1, name: "Upper Shamba", location: "Kiambu", size: 2.5, mainCrop: "Maize", healthScore: 85, crops: ["Maize", "Beans"] },
+            { id: 2, name: "Coffee Estate", location: "Murang'a", size: 3.0, mainCrop: "Coffee", healthScore: 92, crops: ["Coffee"] },
+            { id: 3, name: "Vegetable Garden", location: "Nakuru", size: 1.2, mainCrop: "Vegetables", healthScore: 78, crops: ["Kales", "Tomatoes"] }
+        ];
+
+        let crops = [
+            { id: 1, name: "Maize", variety: "H614", plantingDate: "2024-02-15", healthScore: 85, status: "Good", farm: "Upper Shamba", stage: "Vegetative" },
+            { id: 2, name: "Beans", variety: "Mwitemania", plantingDate: "2024-02-20", healthScore: 90, status: "Excellent", farm: "Upper Shamba", stage: "Flowering" },
+            { id: 3, name: "Coffee", variety: "SL28", plantingDate: "2024-01-10", healthScore: 92, status: "Excellent", farm: "Coffee Estate", stage: "Berry Development" },
+            { id: 4, name: "Kales", variety: "Marion", plantingDate: "2024-03-01", healthScore: 78, status: "Fair", farm: "Vegetable Garden", stage: "Vegetative" }
+        ];
+
+        let diagnoses = [
+            { id: 1, crop: "Maize", disease: "Fall Armyworm", date: "2024-03-20", confidence: 94, image: "https://via.placeholder.com/100", solution: "Apply Eco-friendly pesticides" },
+            { id: 2, crop: "Coffee", disease: "Coffee Leaf Rust", date: "2024-03-18", confidence: 87, image: "https://via.placeholder.com/100", solution: "Apply copper-based fungicide" }
+        ];
+
+        const diseaseLibrary = [
+            { name: "Fall Armyworm", crop: "Maize", severity: "High", solution: "Use neem oil or recommended pesticides", icon: "🐛" },
+            { name: "Coffee Leaf Rust", crop: "Coffee", severity: "High", solution: "Apply copper fungicide, prune affected leaves", icon: "🍂" },
+            { name: "Maize Lethal Necrosis", crop: "Maize", severity: "Critical", solution: "Remove infected plants, rotate crops", icon: "⚠️" },
+            { name: "Late Blight", crop: "Potatoes", severity: "High", solution: "Apply fungicides, use resistant varieties", icon: "🥔" },
+            { name: "Aphids", crop: "Vegetables", severity: "Medium", solution: "Use neem oil spray, introduce ladybugs", icon: "🦟" },
+            { name: "Nutrient Deficiency", crop: "All", severity: "Medium", solution: "Apply balanced NPK fertilizer", icon: "🧪" }
+        ];
+
+        const weatherData = [
+            { day: "Mon", temp: 24, condition: "sunny", icon: "fa-sun" },
+            { day: "Tue", temp: 23, condition: "rain", icon: "fa-cloud-rain" },
+            { day: "Wed", temp: 25, condition: "cloudy", icon: "fa-cloud" },
+            { day: "Thu", temp: 26, condition: "sunny", icon: "fa-sun" },
+            { day: "Fri", temp: 24, condition: "cloudy", icon: "fa-cloud" },
+            { day: "Sat", temp: 22, condition: "rain", icon: "fa-cloud-rain" },
+            { day: "Sun", temp: 23, condition: "partly", icon: "fa-cloud-sun" }
+        ];
+
+        let tasks = [
+            { id: 1, title: "Water maize field", crop: "Maize", dueDate: "2024-03-22", priority: "high" },
+            { id: 2, title: "Apply fertilizer", crop: "Coffee", dueDate: "2024-03-23", priority: "medium" },
+            { id: 3, title: "Spray for pests", crop: "Beans", dueDate: "2024-03-21", priority: "high" },
+            { id: 4, title: "Weeding", crop: "Kales", dueDate: "2024-03-25", priority: "low" }
+        ];
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'sw' : 'en';
+            const t = translations[currentLang];
+            document.getElementById('greetingText').innerHTML = `<i class="fas fa-hand-peace mr-1"></i> ${t.greeting}`;
+            document.getElementById('healthLabel').textContent = t.healthLabel;
+            document.getElementById('tasksLabel').textContent = t.tasksLabel;
+            document.getElementById('diagnosisTitle').textContent = t.diagnosisTitle;
+            document.getElementById('diagnosisDesc').textContent = t.diagnosisDesc;
+            document.getElementById('uploadText').textContent = t.uploadText;
+            document.getElementById('uploadHint').textContent = t.uploadHint;
+            document.getElementById('weatherTitle').innerHTML = `<i class="fas fa-cloud-sun-rain text-green-600 mr-2"></i> ${t.weatherTitle}`;
+            document.getElementById('shambasTitle').innerHTML = `<i class="fas fa-tractor text-green-600 mr-2"></i> ${t.shambasTitle}`;
+            document.getElementById('cropsTitle').innerHTML = `<i class="fas fa-seedling text-green-600 mr-2"></i> ${t.cropsTitle}`;
+            document.getElementById('recentTitle').innerHTML = `<i class="fas fa-history text-green-600 mr-2"></i> ${t.recentTitle}`;
+            document.getElementById('libraryTitle').innerHTML = `<i class="fas fa-book text-green-600 mr-2"></i> ${t.libraryTitle}`;
+            document.getElementById('langBtnText').textContent = currentLang === 'en' ? 'English' : 'Kiswahili';
+        }
+
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            if (isDark) {
+                document.body.classList.add('bg-gray-900');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                document.body.classList.remove('bg-gray-900');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        function renderFarms() {
+            const container = document.getElementById('farmsContainer');
+            container.innerHTML = farms.map(farm => `
+                <div class="bg-white rounded-xl shadow-lg p-5 card-hover border border-green-100 animate-scaleIn">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800">${farm.name}</h3>
+                            <p class="text-sm text-gray-500"><i class="fas fa-map-marker-alt mr-1"></i> ${farm.location}</p>
+                        </div>
+                        <div class="bg-green-100 rounded-full p-2">
+                            <i class="fas fa-tractor text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-sm mt-3">
+                        <div><span class="text-gray-500">Size:</span> ${farm.size} acres</div>
+                        <div><span class="text-gray-500">Main Crop:</span> ${farm.mainCrop}</div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Health Score</span>
+                            <span class="font-semibold text-green-600">${farm.healthScore}%</span>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full" style="width: ${farm.healthScore}%"></div>
+                        </div>
+                    </div>
+                    <button onclick="viewFarmDetails(${farm.id})" class="mt-4 w-full text-green-600 hover:text-green-700 text-sm font-medium">
+                        View Details <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderCrops() {
+            const container = document.getElementById('cropsContainer');
+            container.innerHTML = crops.map(crop => `
+                <div class="bg-white rounded-xl shadow-lg p-5 card-hover border border-green-100 animate-scaleIn">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800">${crop.name}</h3>
+                            <p class="text-sm text-gray-500">${crop.variety}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-2 py-1 rounded-full text-xs font-semibold ${crop.healthScore >= 80 ? 'bg-green-100 text-green-700' : crop.healthScore >= 60 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}">
+                                ${crop.status}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-3 space-y-2 text-sm">
+                        <p><i class="fas fa-map-marker-alt text-gray-400 w-5"></i> ${crop.farm}</p>
+                        <p><i class="fas fa-calendar text-gray-400 w-5"></i> Planted: ${crop.plantingDate}</p>
+                        <p><i class="fas fa-chart-line text-gray-400 w-5"></i> Stage: ${crop.stage}</p>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Health Score</span>
+                            <span class="font-semibold ${crop.healthScore >= 80 ? 'text-green-600' : crop.healthScore >= 60 ? 'text-yellow-600' : 'text-red-600'}">${crop.healthScore}%</span>
+                        </div>
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full" style="width: ${crop.healthScore}%"></div>
+                        </div>
+                    </div>
+                    <button onclick="diagnoseCrop('${crop.name}')" class="mt-4 w-full bg-green-50 hover:bg-green-100 text-green-700 py-2 rounded-lg transition text-sm font-medium">
+                        <i class="fas fa-stethoscope mr-1"></i> Diagnose Now
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderDiagnoses() {
+            const container = document.getElementById('recentDiagnoses');
+            container.innerHTML = diagnoses.map(d => `
+                <div class="bg-white rounded-xl shadow-md p-4 flex items-center justify-between card-hover border border-green-100 animate-slideInLeft">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">${d.crop} - ${d.disease}</h4>
+                            <p class="text-xs text-gray-500">${d.date} • ${d.confidence}% confidence</p>
+                            <p class="text-sm text-green-600 mt-1">💡 ${d.solution}</p>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-400"></i>
+                </div>
+            `).join('');
+        }
+
+        function renderWeather() {
+            const container = document.getElementById('weatherForecast');
+            container.innerHTML = weatherData.map(day => `
+                <div class="flex items-center justify-between p-2 hover:bg-green-50 rounded-lg transition cursor-pointer">
+                    <span class="font-medium text-gray-700 w-12">${day.day}</span>
+                    <i class="fas ${day.icon} text-${day.condition === 'sunny' ? 'yellow-500' : 'gray-500'}"></i>
+                    <span class="text-gray-600 font-medium">${day.temp}°C</span>
+                </div>
+            `).join('');
+        }
+
+        function renderDiseaseLibrary() {
+            const container = document.getElementById('diseaseLibrary');
+            const severityColors = {
+                High: 'text-red-600 bg-red-50 border-red-200',
+                Critical: 'text-purple-600 bg-purple-50 border-purple-200',
+                Medium: 'text-yellow-600 bg-yellow-50 border-yellow-200',
+                Low: 'text-green-600 bg-green-50 border-green-200'
+            };
+            container.innerHTML = diseaseLibrary.map(d => `
+                <div class="bg-white rounded-xl shadow-md p-4 card-hover border border-green-100 hover:border-green-300 transition-all">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-2xl">${d.icon}</span>
+                        <h4 class="font-bold text-gray-800">${d.name}</h4>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">Affects: ${d.crop}</p>
+                    <span class="inline-block px-2 py-1 rounded-full text-xs font-semibold ${severityColors[d.severity]} mt-2">
+                        ${d.severity} Severity
+                    </span>
+                    <p class="text-xs text-gray-600 mt-2">💡 ${d.solution.substring(0, 60)}...</p>
+                </div>
+            `).join('');
+        }
+
+        function showTasks() {
+            const modal = document.getElementById('tasksModal');
+            const tasksList = document.getElementById('tasksList');
+            const priorityColors = {
+                high: 'text-red-600 bg-red-50',
+                medium: 'text-yellow-600 bg-yellow-50',
+                low: 'text-green-600 bg-green-50'
+            };
+            tasksList.innerHTML = tasks.map(task => `
+                <div class="flex items-center justify-between p-3 border rounded-lg hover:shadow-md transition">
+                    <div>
+                        <p class="font-medium text-gray-800">${task.title}</p>
+                        <p class="text-xs text-gray-500">${task.crop} • Due: ${task.dueDate}</p>
+                    </div>
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold ${priorityColors[task.priority]}">
+                        ${task.priority}
+                    </span>
+                </div>
+            `).join('');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleImageUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    const previewImg = document.getElementById('previewImg');
+                    const uploadArea = document.getElementById('uploadArea');
+                    
+                    previewImg.src = e.target.result;
+                    uploadArea.classList.add('hidden');
+                    preview.classList.remove('hidden');
+                    
+                    // Add animation
+                    preview.classList.add('animate-scaleIn');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function clearImage() {
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('uploadArea').classList.remove('hidden');
+            document.getElementById('diagnosisResult').classList.add('hidden');
+        }
+
+        function analyzeImage() {
+            const resultDiv = document.getElementById('diagnosisResult');
+            resultDiv.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="diagnosis-loader mx-auto"></div>
+                    <p class="mt-3 text-gray-600 font-medium">Analyzing your crop with AI...</p>
+                    <p class="text-sm text-gray-400 mt-1">This may take a few seconds</p>
+                </div>
+            `;
+            resultDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                const diseases = [
+                    { name: "Fall Armyworm", confidence: 94, symptoms: "Leaf damage, holes in leaves, visible caterpillars", solution: "Apply neem oil or recommended pesticides (KES 500-1500)", organic: "Use neem oil and handpick larvae early morning", chemical: "Emamectin benzoate (1ml/L water)", cost: 1200, prevention: "Crop rotation, early planting" },
+                    { name: "Coffee Leaf Rust", confidence: 87, symptoms: "Orange-yellow powdery spots on leaves", solution: "Apply copper-based fungicide (KES 800-2000)", organic: "Sulfur spray, improve air circulation", chemical: "Copper oxychloride (2g/L water)", cost: 1500, prevention: "Prune for ventilation, resistant varieties" },
+                    { name: "Maize Lethal Necrosis", confidence: 92, symptoms: "Stunted growth, leaf yellowing, premature death", solution: "Remove infected plants immediately (KES 0-500)", organic: "Crop rotation, use certified seeds", chemical: "No chemical cure - focus on prevention", cost: 0, prevention: "Use resistant varieties, control vectors" },
+                    { name: "Aphid Infestation", confidence: 89, symptoms: "Curled leaves, sticky residue, visible insects", solution: "Apply neem oil or insecticidal soap (KES 300-800)", organic: "Neem oil spray, introduce ladybugs", chemical: "Imidacloprid (follow label instructions)", cost: 500, prevention: "Companion planting with marigolds" }
+                ];
+                
+                const randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
+                
+                resultDiv.innerHTML = `
+                    <div class="space-y-3 animate-fadeInUp">
+                        <div class="flex items-center justify-between pb-2 border-b">
+                            <h4 class="font-bold text-lg text-gray-800">
+                                <i class="fas fa-stethoscope text-green-600 mr-2"></i>
+                                Diagnosis Result
+                            </h4>
+                            <span class="text-sm font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">${randomDisease.confidence}% confidence</span>
+                        </div>
+                        <div class="bg-red-50 border-l-4 border-red-500 p-3 rounded">
+                            <p class="font-semibold text-red-700">${randomDisease.name}</p>
+                            <p class="text-sm text-red-600 mt-1">🔍 ${randomDisease.symptoms}</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded border border-green-200">
+                            <p class="font-semibold text-green-700"><i class="fas fa-leaf mr-2"></i> Organic Solution:</p>
+                            <p class="text-sm text-green-600 mt-1">${randomDisease.organic}</p>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <p class="font-semibold text-blue-700"><i class="fas fa-flask mr-2"></i> Chemical Solution:</p>
+                            <p class="text-sm text-blue-600 mt-1">${randomDisease.chemical}</p>
+                        </div>
+                        <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                            <p class="font-semibold text-yellow-700"><i class="fas fa-coins mr-2"></i> Estimated Cost:</p>
+                            <p class="text-sm text-yellow-600 mt-1">KES ${randomDisease.cost} (materials + application)</p>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                            <p class="font-semibold text-purple-700"><i class="fas fa-shield-alt mr-2"></i> Prevention Tips:</p>
+                            <p class="text-sm text-purple-600 mt-1">${randomDisease.prevention}</p>
+                        </div>
+                        <button onclick="saveDiagnosis('${randomDisease.name}', ${randomDisease.confidence})" class="w-full btn-primary text-white py-3 rounded-lg transition shadow-md">
+                            <i class="fas fa-save mr-2"></i> Save This Diagnosis
+                        </button>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        function saveDiagnosis(disease, confidence) {
+            const newDiagnosis = {
+                id: diagnoses.length + 1,
+                crop: "Maize",
+                disease: disease,
+                date: new Date().toISOString().split('T')[0],
+                confidence: confidence,
+                image: "https://via.placeholder.com/100",
+                solution: "Diagnosis saved to your history!"
+            };
+            diagnoses.unshift(newDiagnosis);
+            renderDiagnoses();
+            
+            showToast('Diagnosis saved successfully! Check your history.', 'success');
+            
+            document.getElementById('diagnosisResult').classList.add('hidden');
+            clearImage();
+        }
+
+        function diagnoseCrop(cropName) {
+            document.querySelector('.lg\\:col-span-2').scrollIntoView({ behavior: 'smooth' });
+            const uploadArea = document.getElementById('uploadArea');
+            uploadArea.classList.remove('hidden');
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('diagnosisResult').classList.add('hidden');
+            showToast(`Take a photo of your ${cropName} leaves for analysis`, 'info');
+        }
+
+        function addFarm() {
+            const name = document.getElementById('farmName').value;
+            const location = document.getElementById('farmLocation').value;
+            const size = parseFloat(document.getElementById('farmSize').value);
+            const mainCrop = document.getElementById('farmCrop').value;
+            
+            if (name && location && size && mainCrop) {
+                const newFarm = {
+                    id: farms.length + 1,
+                    name: name,
+                    location: location,
+                    size: size,
+                    mainCrop: mainCrop,
+                    healthScore: 85,
+                    crops: [mainCrop]
+                };
+                farms.push(newFarm);
+                renderFarms();
+                closeModal('addFarmModal');
+                
+                document.getElementById('farmName').value = '';
+                document.getElementById('farmLocation').value = '';
+                document.getElementById('farmSize').value = '';
+                document.getElementById('farmCrop').value = '';
+                
+                showToast('Shamba added successfully!', 'success');
+            } else {
+                showToast('Please fill all fields', 'error');
+            }
+        }
+
+        function viewFarmDetails(farmId) {
+            const farm = farms.find(f => f.id === farmId);
+            if (farm) {
+                showToast(`${farm.name}: ${farm.size} acres, ${farm.mainCrop}`, 'info');
+            }
+        }
+
+        function showAddFarmModal() {
+            document.getElementById('addFarmModal').classList.remove('hidden');
+            document.getElementById('addFarmModal').classList.add('flex');
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                info: 'fa-info-circle'
+            };
+            const colors = {
+                success: 'bg-green-600',
+                error: 'bg-red-600',
+                info: 'bg-blue-600'
+            };
+            toast.className = `fixed bottom-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg toast z-50`;
+            toast.innerHTML = `<i class="fas ${icons[type]} mr-2"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value;
+            if (email) {
+                showToast('Thanks for subscribing! You\'ll receive farming tips weekly.', 'success');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                showToast('Please enter your email address', 'error');
+            }
+        }
+
+        // Drag and drop for image upload
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const input = document.getElementById('imageInput');
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                input.files = dataTransfer.files;
+                handleImageUpload(input);
+            }
+        });
+        
+        uploadArea.addEventListener('click', () => {
+            document.getElementById('imageInput').click();
+        });
+
+        // Initialize
+        function init() {
+            renderFarms();
+            renderCrops();
+            renderDiagnoses();
+            renderWeather();
+            renderDiseaseLibrary();
+            
+            const avgHealth = Math.round(crops.reduce((sum, crop) => sum + crop.healthScore, 0) / crops.length);
+            document.getElementById('healthScore').textContent = avgHealth;
+            document.getElementById('pendingTasks').textContent = tasks.length;
+            
+            // Animate stats on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeInUp');
+                    }
+                });
+            });
+            document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+        }
+        //contact section js
+        // Dark mode detection and toggle
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                answer.classList.toggle('hidden');
+                icon.style.transform = answer.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+        });
+        
+        // Form validation and submission
+        const contactForm = document.getElementById('contactForm');
+        const newsletterForm = document.getElementById('newsletterForm');
+        
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function validatePhone(phone) {
+            return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone) || phone === '';
+        }
+        
+        function showError(input, message) {
+            const errorDiv = input.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.classList.remove('hidden');
+                input.classList.add('border-red-500');
+            }
+        }
+        
+        function hideError(input) {
+            const errorDiv = input.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.classList.add('hidden');
+                input.classList.remove('border-red-500');
+            }
+        }
+        
+        function createConfetti() {
+            const colors = ['#4c9f70', '#f47e28', '#f6ce40', '#4cb9d1', '#2d6a4f'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-particle';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.position = 'fixed';
+                confetti.style.borderRadius = '50%';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '1000';
+                confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s ease-out forwards`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Check honeypot
+            const honeypot = document.getElementById('honeypot').value;
+            if (honeypot) return;
+            
+            // Validate form
+            let isValid = true;
+            const fullName = document.getElementById('fullName');
+            const email = document.getElementById('email');
+            const subject = document.getElementById('subject');
+            const message = document.getElementById('message');
+            const phone = document.getElementById('phone');
+            
+            if (!fullName.value.trim()) {
+                showError(fullName, 'Full name is required');
+                isValid = false;
+            } else {
+                hideError(fullName);
+            }
+            
+            if (!email.value.trim()) {
+                showError(email, 'Email is required');
+                isValid = false;
+            } else if (!validateEmail(email.value)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                hideError(email);
+            }
+            
+            if (!subject.value) {
+                showError(subject, 'Please select a subject');
+                isValid = false;
+            } else {
+                hideError(subject);
+            }
+            
+            if (!message.value.trim()) {
+                showError(message, 'Message is required');
+                isValid = false;
+            } else {
+                hideError(message);
+            }
+            
+            if (phone.value && !validatePhone(phone.value)) {
+                showError(phone, 'Please enter a valid phone number');
+                isValid = false;
+            } else {
+                hideError(phone);
+            }
+            
+            if (isValid) {
+                const submitBtn = document.getElementById('submitBtn');
+                const originalContent = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="loader mr-2"></span> Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Log form data to console
+                    console.log('Form Submitted:', {
+                        fullName: fullName.value,
+                        email: email.value,
+                        phone: phone.value,
+                        subject: subject.value,
+                        message: message.value,
+                        file: document.getElementById('fileUpload').files[0]?.name || 'No file',
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Sent Successfully!';
+                    submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    
+                    createConfetti();
+                    
+                    setTimeout(() => {
+                        contactForm.reset();
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                        
+                        // Show success message
+                        const successDiv = document.createElement('div');
+                        successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+                        successDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Message sent successfully! We\'ll get back to you soon.';
+                        document.body.appendChild(successDiv);
+                        setTimeout(() => successDiv.remove(), 5000);
+                    }, 2000);
+                }, 1500);
+            }
+        });
+        
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail');
+            if (validateEmail(email.value)) {
+                console.log('Newsletter Subscription:', email.value);
+                email.value = '';
+                const successMsg = document.createElement('div');
+                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                successMsg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Subscribed successfully!';
+                document.body.appendChild(successMsg);
+                setTimeout(() => successMsg.remove(), 3000);
+            }
+        });
+        
+        function openChatModal() {
+            document.getElementById('chatModal').classList.remove('hidden');
+            document.getElementById('chatModal').classList.add('flex');
+        }
+        
+        function closeChatModal() {
+            document.getElementById('chatModal').classList.add('hidden');
+            document.getElementById('chatModal').classList.remove('flex');
+        }
+        
+        function sendChatMessage() {
+            const input = document.getElementById('chatMessage');
+            if (input.value.trim()) {
+                console.log('Chat Message:', input.value);
+                input.value = '';
+                const chatDiv = document.querySelector('#chatModal .p-6');
+                const responseDiv = document.createElement('div');
+                responseDiv.className = 'bg-green-100 dark:bg-green-900/50 rounded-lg p-3 mb-3 ml-auto max-w-[80%]';
+                responseDiv.innerHTML = `<p class="text-sm text-gray-800 dark:text-gray-200">Message sent! We'll respond shortly.</p>`;
+                chatDiv.insertBefore(responseDiv, chatDiv.lastElementChild);
+                setTimeout(() => responseDiv.remove(), 3000);
+            }
+        }
+        
+        // Add ripple effect to buttons
+        document.querySelectorAll('.ripple').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '0px';
+                ripple.style.height = '0px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.transition = 'all 0.5s';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 500);
+            });
+        });
+        
+        // Input focus animations
+        document.querySelectorAll('input, textarea, select').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-105');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-105');
+            });
+        });
+        
+        init();
+
+    </script>
+</body>
+</html>
