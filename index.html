@@ -324,6 +324,94 @@
         .float-animation {
             animation: float 3s ease-in-out infinite;
         }
+
+        /* ===== NEW MOBILE MENU & NAV LINK STYLES (ADDED ONLY) ===== */
+        /* Desktop navigation links container */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        /* Nav link styling */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #4c9f70;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #4c9f70, #2d6a4f);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile menu button - hidden on desktop */
+        .mobile-menu-btn {
+            display: none;
+        }
+        
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Mobile menu panel */
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-menu-panel.active {
+            transform: translateX(0);
+        }
+        
+        /* Hide desktop nav on mobile */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -349,6 +437,17 @@
                         <p class="text-xs text-gray-500">Smart Farming Assistant • Tuma Picha, Pata Matokeo</p>
                     </div>
                 </div>
+                
+                <!-- ===== NEW DESKTOP NAVIGATION LINKS (ADDED) ===== -->
+                <div class="desktop-nav">
+                    <a href="#" onclick="scrollToSection('home'); return false;" class="nav-link text-gray-700">Home</a>
+                    <a href="#" onclick="scrollToSection('diagnosis'); return false;" class="nav-link text-gray-700">Diagnosis</a>
+                    <a href="#" onclick="scrollToSection('shambas'); return false;" class="nav-link text-gray-700">My Shambas</a>
+                    <a href="#" onclick="scrollToSection('crops'); return false;" class="nav-link text-gray-700">Crops</a>
+                    <a href="#" onclick="scrollToSection('library'); return false;" class="nav-link text-gray-700">Disease Library</a>
+                    <a href="#" onclick="scrollToSection('contact'); return false;" class="nav-link text-gray-700">Contact</a>
+                </div>
+                
                 <div class="flex items-center space-x-3">
                     <button onclick="toggleLanguage()" class="bg-green-50 hover:bg-green-100 px-3 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2 group">
                         <i class="fas fa-language text-green-600 group-hover:scale-110 transition"></i>
@@ -357,14 +456,55 @@
                     <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
                         <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
                     </button>
+                    
+                    <!-- ===== NEW MOBILE MENU BUTTON (ADDED) ===== -->
+                    <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
+                        <i class="fas fa-bars text-green-600 text-xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- ===== NEW MOBILE MENU OVERLAY (ADDED) ===== -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+    
+    <!-- ===== NEW MOBILE MENU PANEL (ADDED) ===== -->
+    <div id="mobileMenuPanel" class="mobile-menu-panel">
+        <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+            <span class="font-bold text-gray-800"><i class="fas fa-leaf text-green-600 mr-2"></i>Menu</span>
+            <button id="closeMobileMenu" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col p-4 space-y-3">
+            <a href="#" onclick="scrollToSection('home'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-home w-6 text-green-600"></i> Home
+            </a>
+            <a href="#" onclick="scrollToSection('diagnosis'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-microscope w-6 text-green-600"></i> Diagnosis
+            </a>
+            <a href="#" onclick="scrollToSection('shambas'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-tractor w-6 text-green-600"></i> My Shambas
+            </a>
+            <a href="#" onclick="scrollToSection('crops'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-seedling w-6 text-green-600"></i> Crops
+            </a>
+            <a href="#" onclick="scrollToSection('library'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-book w-6 text-green-600"></i> Disease Library
+            </a>
+            <a href="#" onclick="scrollToSection('contact'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center">
+                <i class="fas fa-envelope w-6 text-green-600"></i> Contact
+            </a>
+            <div class="border-t border-gray-200 my-2 pt-3">
+                <p class="text-xs text-gray-400 px-3">ShambaCare Kenya © 2024</p>
+            </div>
+        </div>
+    </div>
+
     <div class="container mx-auto px-4 py-6 max-w-7xl">
         <!-- Hero Section with Stats -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div id="home" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <!-- Welcome Card with Gradient -->
             <div class="lg:col-span-2 bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-xl animate-fadeInUp relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mt-16 -mr-16"></div>
@@ -430,7 +570,7 @@
         </div>
 
         <!-- Quick Actions & Diagnosis - Main Feature -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div id="diagnosis" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <!-- AI Diagnosis Card - Enhanced -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
                 <div class="bg-gradient-to-r from-green-500 to-green-600 p-5">
@@ -498,7 +638,7 @@
         </div>
 
         <!-- My Shambas Section - Enhanced -->
-        <div class="mb-8 animate-fadeInUp">
+        <div id="shambas" class="mb-8 animate-fadeInUp">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-gray-800">
                     <i class="fas fa-tractor text-green-600 mr-2"></i> 
@@ -514,7 +654,7 @@
         </div>
 
         <!-- Crop Health Monitoring - Enhanced -->
-        <div class="mb-8">
+        <div id="crops" class="mb-8">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-gray-800">
                     <i class="fas fa-seedling text-green-600 mr-2"></i> 
@@ -565,7 +705,7 @@
         </div>
 
         <!-- Disease Library - Enhanced Grid -->
-        <div class="mb-8">
+        <div id="library" class="mb-8">
             <h2 class="text-xl font-bold text-gray-800 mb-4">
                 <i class="fas fa-book text-green-600 mr-2"></i> 
                 <span id="libraryTitle">Common Crop Issues in Kenya</span>
@@ -1729,6 +1869,31 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('imageInput').click();
         });
 
+        // ===== NEW SCROLL TO SECTION FUNCTION (ADDED) =====
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ===== NEW MOBILE MENU FUNCTIONS (ADDED) =====
+        function openMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
+            overlay.classList.add('active');
+            panel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
+            overlay.classList.remove('active');
+            panel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // Initialize
         function init() {
             renderFarms();
@@ -1750,6 +1915,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+
+            // ===== NEW MOBILE MENU EVENT LISTENERS (ADDED) =====
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const closeBtn = document.getElementById('closeMobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', openMobileMenu);
+            }
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeMobileMenu);
+            }
+            if (overlay) {
+                overlay.addEventListener('click', closeMobileMenu);
+            }
         }
         //contact section js
         // Dark mode detection and toggle
