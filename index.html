@@ -16,74 +16,72 @@
             font-family: 'Inter', sans-serif;
         }
         
-        body {
-
-/* Background Slideshow Container */
-.background-slideshow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-}
-
-/* Individual Slide */
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    animation: ken Burns 20s ease-in-out infinite alternate;
-}
-
-/* Active Slide */
-.slide.active {
-    opacity: 1;
-}
-
-/* Ken Burns Effect - Smooth Zoom & Pan */
-@keyframes kenBurns {
-    0% {
-        transform: scale(1) translateX(0);
-    }
-    100% {
-        transform: scale(1.1) translateX(-2%);
-    }
-}
-
-/* Dark Overlay for Better Text Readability */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.3) 0%, 
-        rgba(0, 0, 0, 0.5) 100%);
-    z-index: -1;
-}
-
-/* Optional: Subtle Grain Texture */
-.background-texture {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.08"/%3E%3C/svg%3E');
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.3;
-}
+        /* Background Slideshow Container */
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        /* Individual Slide */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            animation: kenBurns 20s ease-in-out infinite alternate;
+        }
+        
+        /* Active Slide */
+        .slide.active {
+            opacity: 1;
+        }
+        
+        /* Ken Burns Effect - Smooth Zoom & Pan */
+        @keyframes kenBurns {
+            0% {
+                transform: scale(1) translateX(0);
+            }
+            100% {
+                transform: scale(1.1) translateX(-2%);
+            }
+        }
+        
+        /* Dark Overlay for Better Text Readability */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.3) 0%, 
+                rgba(0, 0, 0, 0.5) 100%);
+            z-index: -1;
+        }
+        
+        /* Optional: Subtle Grain Texture */
+        .background-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.08"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+        }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar {
@@ -268,15 +266,39 @@
             }
         }
         
-        /* Mobile optimizations */
+        /* Mobile optimizations - FIXED: added overflow prevention */
         @media (max-width: 640px) {
             .container {
                 padding-left: 1rem;
                 padding-right: 1rem;
+                overflow-x: hidden;
             }
             
             button, .clickable {
                 min-height: 44px;
+            }
+            
+            /* FIX: Prevent horizontal scroll */
+            body, .mx-auto, .px-4, .px-6, .container-fluid {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            /* FIX: Images responsive */
+            img, .rounded-xl, .shadow-xl, .rounded-2xl {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            /* FIX: Grid gaps smaller on mobile */
+            .grid {
+                gap: 0.75rem;
+            }
+            
+            /* FIX: Cards full width */
+            .lg\:col-span-2, .bg-white.rounded-2xl {
+                margin-left: 0;
+                margin-right: 0;
             }
         }
         
@@ -325,7 +347,7 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* ===== NEW MOBILE MENU & NAV LINK STYLES (ADDED ONLY) ===== */
+        /* ===== NEW MOBILE MENU & NAV LINK STYLES (ADDED) ===== */
         /* Desktop navigation links container */
         .desktop-nav {
             display: flex;
@@ -412,17 +434,151 @@
                 display: block;
             }
         }
+        
+        /* Feature #1: Camera Guide Overlay */
+        .camera-guide-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .leaf-guide {
+            border: 3px dashed #4c9f70;
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            position: relative;
+            background: rgba(76,159,112,0.1);
+        }
+        .leaf-guide::before {
+            content: "🍃 Position leaf here";
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        /* Feature #6: Onboarding Tour */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .onboarding-card {
+            background: white;
+            border-radius: 24px;
+            max-width: 320px;
+            width: 90%;
+            padding: 24px;
+            text-align: center;
+            animation: scaleIn 0.4s ease;
+        }
+        
+        /* Feature #9: Gallery View */
+        .diagnosis-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .diagnosis-gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .diagnosis-gallery-item:hover { transform: scale(1.03); }
+        
+        /* Feature #13: Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e5e7eb;
+            display: none;
+            justify-content: space-around;
+            padding: 10px 16px 20px;
+            z-index: 40;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #9ca3af;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .bottom-nav-item.active { color: #4c9f70; }
+        .bottom-nav-item i { font-size: 24px; }
+        .bottom-nav-item span { font-size: 11px; font-weight: 500; }
+        @media (max-width: 768px) {
+            .bottom-nav { display: flex; }
+            body { padding-bottom: 70px; }
+        }
+        
+        /* Feature #16: High Contrast Mode & Accessibility */
+        body.high-contrast {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        body.high-contrast .bg-white,
+        body.high-contrast .bg-gray-50,
+        body.high-contrast .bg-green-50 {
+            background: #1a1a1a !important;
+            color: #fff !important;
+            border-color: #ffff00 !important;
+        }
+        body.high-contrast .text-gray-600,
+        body.high-contrast .text-gray-500 {
+            color: #ddd !important;
+        }
+        body.high-contrast button,
+        body.high-contrast .btn-primary {
+            background: #ffff00 !important;
+            color: #000 !important;
+        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; }
+        button:focus-visible, a:focus-visible { outline: 3px solid #4c9f70; outline-offset: 2px; }
+        
+        /* Feature #20: Success Stories */
+        .success-story-card {
+            transition: all 0.3s ease;
+        }
+        .success-story-card:hover { transform: scale(1.02); }
     </style>
 </head>
 <body class="antialiased">
     <!-- Background Slideshow -->
     <div class="background-slideshow">
-    <div class="slide" style="background-image: url('coffee1.jpg')"></div>
-    
-    <div class="slide" style="background-image: url('maize1.0.jpg')"></div>
-    <div class="slide" style="background-image: url('passion1.jpg')"></div>
-    <div class="slide" style="background-image: url('havest.jpg')"></div>
-</div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=800&h=600&fit=crop')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=800&h=600&fit=crop')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=800&h=600&fit=crop')"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=800&h=600&fit=crop')"></div>
+    </div>
+    <div class="background-overlay"></div>
     
     <!-- Navigation Bar with Blur Effect -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
@@ -438,7 +594,7 @@
                     </div>
                 </div>
                 
-                <!-- ===== NEW DESKTOP NAVIGATION LINKS (ADDED) ===== -->
+                <!-- Desktop Navigation Links -->
                 <div class="desktop-nav">
                     <a href="#" onclick="scrollToSection('home'); return false;" class="nav-link text-gray-700">Home</a>
                     <a href="#" onclick="scrollToSection('diagnosis'); return false;" class="nav-link text-gray-700">Diagnosis</a>
@@ -456,8 +612,11 @@
                     <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
                         <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
                     </button>
+                    <button onclick="toggleHighContrast()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300" title="High Contrast Mode">
+                        <i class="fas fa-adjust text-gray-600"></i>
+                    </button>
                     
-                    <!-- ===== NEW MOBILE MENU BUTTON (ADDED) ===== -->
+                    <!-- Mobile Menu Button -->
                     <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
                         <i class="fas fa-bars text-green-600 text-xl"></i>
                     </button>
@@ -465,11 +624,35 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Feature #13: Bottom Navigation Bar -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-item" onclick="scrollToSection('home')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" onclick="openCameraWithGuide()">
+            <i class="fas fa-camera"></i>
+            <span>Diagnose</span>
+        </div>
+        <div class="bottom-nav-item" onclick="scrollToSection('shambas')">
+            <i class="fas fa-tractor"></i>
+            <span>Shambas</span>
+        </div>
+        <div class="bottom-nav-item" onclick="showTasks()">
+            <i class="fas fa-tasks"></i>
+            <span>Tasks</span>
+        </div>
+        <div class="bottom-nav-item" onclick="scrollToSection('contact')">
+            <i class="fas fa-headset"></i>
+            <span>Help</span>
+        </div>
+    </div>
 
-    <!-- ===== NEW MOBILE MENU OVERLAY (ADDED) ===== -->
+    <!-- Mobile Menu Overlay -->
     <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
     
-    <!-- ===== NEW MOBILE MENU PANEL (ADDED) ===== -->
+    <!-- Mobile Menu Panel -->
     <div id="mobileMenuPanel" class="mobile-menu-panel">
         <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
             <span class="font-bold text-gray-800"><i class="fas fa-leaf text-green-600 mr-2"></i>Menu</span>
@@ -692,16 +875,33 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Feature #20: Success Stories Section -->
+        <div class="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">🌱 Farmer Success Stories</h2>
+                <p class="text-gray-600 mt-2">Real results from Kenyan farmers using ShambaCare</p>
+            </div>
+            <div id="successStoriesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Populated by JS -->
+            </div>
+        </div>
 
         <!-- Recent Diagnoses -->
         <div class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">
-                <i class="fas fa-history text-green-600 mr-2"></i> 
-                <span id="recentTitle">Recent Diagnoses</span>
-            </h2>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-history text-green-600 mr-2"></i> 
+                    <span id="recentTitle">Recent Diagnoses</span>
+                </h2>
+                <button onclick="toggleGalleryView()" class="text-sm text-green-600 hover:text-green-700 font-medium">
+                    <i class="fas fa-th-large mr-1"></i> Gallery View
+                </button>
+            </div>
             <div id="recentDiagnoses" class="space-y-3">
                 <!-- Recent diagnoses populated -->
             </div>
+            <div id="galleryView" class="diagnosis-gallery hidden"></div>
         </div>
 
         <!-- Disease Library - Enhanced Grid -->
@@ -715,12 +915,17 @@
             </div>
         </div>
 
-        <!-- Newsletter Section - Inspired by Farm Africa -->
-        <div class="bg-gradient-to-r from-green-700 to-green-800 rounded-2xl p-8 text-white">
+        <!-- Contact Section - REMOVED DUPLICATE, keeping only this one -->
+        <div id="contact" class="bg-gradient-to-r from-green-700 to-green-800 rounded-2xl p-8 text-white mb-8">
             <div class="grid md:grid-cols-2 gap-6 items-center">
                 <div>
-                    <h3 class="text-2xl font-bold mb-2">Get Farming Tips</h3>
-                    <p class="text-green-100">Subscribe for weekly crop advice, weather alerts, and farming tips tailored to your region.</p>
+                    <h3 class="text-2xl font-bold mb-2">Get in Touch</h3>
+                    <p class="text-green-100">Have questions? Need support? We're here to help Kenyan farmers succeed.</p>
+                    <div class="mt-4 space-y-2">
+                        <p><i class="fas fa-phone-alt mr-2"></i> <a href="tel:+254793062320" class="text-green-100 hover:text-white">+254 793 062 320</a></p>
+                        <p><i class="fas fa-envelope mr-2"></i> <a href="mailto:hello@shambacare.com" class="text-green-100 hover:text-white">hello@shambacare.com</a></p>
+                        <p><i class="fas fa-map-marker-alt mr-2"></i> Nairobi, Kenya</p>
+                    </div>
                 </div>
                 <div class="flex gap-3">
                     <input type="email" id="newsletterEmail" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400">
@@ -771,631 +976,40 @@
         </div>
     </div>
 
-    <!--conatct-section-->
-    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-     <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Get in touch with us. We'd love to hear from you. Contact our team for inquiries, support, or collaborations.">
-    <title>Contact Us | ShambaCare Kenya</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out',
-                        'slide-up': 'slideUp 0.5s ease-out',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                        'confetti': 'confetti 0.5s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(40px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        confetti: {
-                            '0%': { opacity: '0', transform: 'scale(0.5)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                    },
-                }
-            }
-        }
-    </script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome 6 (Free) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #4c9f70, #2d6a4f);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #3d7e58, #1e4a38);
-        }
-        
-        /* Smooth transitions */
-        * {
-            transition: all 0.3s ease;
-        }
-        
-        /* Glass morphism effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .dark .glass {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Card hover effects */
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-        }
-        
-        /* Form focus effects */
-        .input-focus:focus {
-            box-shadow: 0 0 0 3px rgba(76, 159, 112, 0.1);
-            border-color: #4c9f70;
-        }
-        
-        /* Button gradient */
-        .btn-gradient {
-            background: linear-gradient(135deg, #4c9f70 0%, #2d6a4f 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(76, 159, 112, 0.4);
-        }
-        
-        /* Floating animation */
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Confetti particles */
-        .confetti-particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-            animation: confettiFall 3s ease-out forwards;
-        }
-        
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Ripple effect */
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ripple:after {
-            content: "";
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-            background-repeat: no-repeat;
-            background-position: 50%;
-            transform: scale(10);
-            opacity: 0;
-            transition: transform .5s, opacity 1s;
-        }
-        
-        .ripple:active:after {
-            transform: scale(0);
-            opacity: .3;
-            transition: 0s;
-        }
-        
-        /* Loading spinner */
-        .loader {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fff;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-        
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Dark mode styles */
-        .dark {
-            background-color: #111827;
-            color: #f9fafb;
-        }
-        
-        .dark .bg-white {
-            background-color: #1f2937 !important;
-        }
-        
-        .dark .text-gray-600,
-        .dark .text-gray-500 {
-            color: #9ca3af !important;
-        }
-        
-        .dark .border-gray-200 {
-            border-color: #374151 !important;
-        }
-        
-        .dark .hover\:bg-gray-50:hover {
-            background-color: #374151 !important;
-        }
-        
-        .dark .bg-gray-50 {
-            background-color: #111827 !important;
-        }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
-    
-    <!-- Main Contact Section -->
-    <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            
-            <!-- Hero Header -->
-            <div class="text-center mb-16 animate-fade-in">
-                <div class="inline-flex items-center justify-center p-2 bg-green-100 dark:bg-green-900/30 rounded-full mb-4">
-                    <i class="fas fa-envelope text-green-600 dark:text-green-400 text-sm mr-2"></i>
-                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Get in Touch</span>
-                </div>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-                    Let's <span class="bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">Connect</span>
-                </h1>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                    We'd love to hear from you. Whether you have a question about our services, need support, or just want to say hello — we're here to help.
-                </p>
-            </div>
-            
-            <!-- Contact Information Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                <!-- Phone Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.1s">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-phone-alt text-green-600 dark:text-green-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Phone</h3>
-                    <a href="tel:+254712345678" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition block mb-1">
-                        +254 712 345 678
-                    </a>
-                    <a href="tel:+254723456789" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">
-                        +254 723 456 789
-                    </a>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Mon-Fri, 8am-5pm</p>
-                </div>
-                
-                <!-- Email Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.2s">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-envelope text-green-600 dark:text-green-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
-                    <a href="mailto:hello@shambacare.com" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition block mb-1">
-                        hello@shambacare.com
-                    </a>
-                    <a href="mailto:support@shambacare.com" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">
-                        support@shambacare.com
-                    </a>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Response within 24 hours</p>
-                </div>
-                
-                <!-- Address Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.3s">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-map-marker-alt text-green-600 dark:text-green-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Visit Us</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-2">
-                        Westlands Business Park<br>
-                        3rd Floor, Suite 12<br>
-                        Nairobi, Kenya
-                    </p>
-                    <a href="https://maps.google.com/?q=Westlands+Nairobi+Kenya" target="_blank" class="text-sm text-green-600 dark:text-green-400 hover:underline">
-                        Get Directions <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Hours Card -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover animate-slide-up" style="animation-delay: 0.4s">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center mb-4">
-                        <i class="fas fa-clock text-green-600 dark:text-green-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Working Hours</h3>
-                    <div class="space-y-1">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Monday - Friday</span>
-                            <span class="text-gray-900 dark:text-white font-medium">8:00 - 17:00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Saturday</span>
-                            <span class="text-gray-900 dark:text-white font-medium">9:00 - 13:00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Sunday</span>
-                            <span class="text-gray-900 dark:text-white font-medium">Closed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Contact Form and Map Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-                <!-- Contact Form -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-600 to-green-700 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Send Us a Message</h2>
-                        <p class="text-green-100">We'll get back to you as soon as possible</p>
-                    </div>
-                    
-                    <form id="contactForm" class="p-6 space-y-5">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Full Name <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" id="fullName" name="fullName" required
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
-                                    placeholder="John Mwangi">
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Email Address <span class="text-red-500">*</span>
-                                </label>
-                                <input type="email" id="email" name="email" required
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
-                                    placeholder="john@example.com">
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Phone Number
-                                </label>
-                                <input type="tel" id="phone" name="phone"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
-                                    placeholder="+254 712 345 678">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Subject <span class="text-red-500">*</span>
-                                </label>
-                                <select id="subject" name="subject" required
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white">
-                                    <option value="">Select a subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="support">Technical Support</option>
-                                    <option value="sales">Sales & Partnerships</option>
-                                    <option value="feedback">Feedback</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Message <span class="text-red-500">*</span>
-                            </label>
-                            <textarea id="message" name="message" rows="5" required
-                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:text-white input-focus"
-                                placeholder="Tell us how we can help..."></textarea>
-                            <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Attach File (Optional)
-                            </label>
-                            <input type="file" id="fileUpload" name="fileUpload"
-                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 dark:file:bg-green-900/50 dark:file:text-green-400">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Max file size: 5MB (PDF, DOC, JPG)</p>
-                        </div>
-                        
-                        <!-- Honeypot Anti-spam -->
-                        <input type="text" id="honeypot" name="honeypot" style="display:none" aria-hidden="true">
-                        
-                        <button type="submit" id="submitBtn"
-                            class="w-full btn-gradient text-white font-semibold py-3 rounded-lg transition ripple">
-                            <span class="flex items-center justify-center">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Send Message
-                            </span>
-                        </button>
-                    </form>
-                </div>
-                
-                <!-- Google Maps Embed -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-600 to-green-700 p-6">
-                        <h2 class="text-2xl font-bold text-white mb-2">Find Us Here</h2>
-                        <p class="text-green-100">Visit our office in Nairobi</p>
-                    </div>
-                    <div class="h-96 w-full">
-                        <iframe 
-                            class="w-full h-full"
-                            frameborder="0" 
-                            style="border:0"
-                            allowfullscreen
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Westlands+Nairobi+Kenya&zoom=15">
-                        </iframe>
-                    </div>
-                    <div class="p-4 bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700">
-                        <div class="flex items-center justify-between text-sm">
-                            <span class="text-gray-600 dark:text-gray-300">
-                                <i class="fas fa-location-dot text-green-600 mr-2"></i>
-                                Westlands Business Park, Nairobi
-                            </span>
-                            <a href="https://maps.google.com/?q=Westlands+Nairobi+Kenya" target="_blank" 
-                                class="text-green-600 dark:text-green-400 hover:underline">
-                                Open in Maps <i class="fas fa-external-link-alt ml-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- FAQ Accordion Section -->
-            <div class="mb-16">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                        Frequently Asked Questions
-                    </h2>
-                    <p class="text-gray-600 dark:text-gray-300">Find quick answers to common questions</p>
-                </div>
-                
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <!-- FAQ Item 1 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <span class="font-semibold text-gray-900 dark:text-white">What is your typical response time?</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </button>
-                        <div class="faq-answer px-6 pb-4 hidden">
-                            <p class="text-gray-600 dark:text-gray-300">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call our support line directly.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- FAQ Item 2 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <span class="font-semibold text-gray-900 dark:text-white">Do you offer support for international clients?</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </button>
-                        <div class="faq-answer px-6 pb-4 hidden">
-                            <p class="text-gray-600 dark:text-gray-300">Yes! We work with clients globally. Our team is available to support international clients via email and video calls.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- FAQ Item 3 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <span class="font-semibold text-gray-900 dark:text-white">Can I schedule a consultation call?</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </button>
-                        <div class="faq-answer px-6 pb-4 hidden">
-                            <p class="text-gray-600 dark:text-gray-300">Absolutely! Fill out the contact form with your preferred date and time, and we'll arrange a consultation call at your convenience.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- FAQ Item 4 -->
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-                        <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <span class="font-semibold text-gray-900 dark:text-white">What payment methods do you accept?</span>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </button>
-                        <div class="faq-answer px-6 pb-4 hidden">
-                            <p class="text-gray-600 dark:text-gray-300">We accept M-Pesa, bank transfers, and major credit cards. Payment details will be provided upon confirmation of services.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Newsletter Signup -->
-            <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-center mb-16">
-                <div class="max-w-2xl mx-auto">
-                    <i class="fas fa-envelope-open-text text-white text-4xl mb-4 float-animation"></i>
-                    <h3 class="text-2xl font-bold text-white mb-2">Stay Updated</h3>
-                    <p class="text-green-100 mb-6">Subscribe to our newsletter for the latest updates and farming tips</p>
-                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" id="newsletterEmail" required
-                            class="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white dark:bg-gray-800"
-                            placeholder="Enter your email address">
-                        <button type="submit" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-                            Subscribe
-                        </button>
-                    </form>
-                    <p class="text-green-100 text-sm mt-4">No spam, unsubscribe anytime.</p>
-                </div>
-            </div>
-            
-            <!-- Social Media Links -->
-            <div class="text-center">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect With Us</h3>
-                <div class="flex justify-center space-x-4">
-                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
-                        <i class="fab fa-facebook-f text-gray-600 dark:text-gray-300 text-xl"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
-                        <i class="fab fa-twitter text-gray-600 dark:text-gray-300 text-xl"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
-                        <i class="fab fa-instagram text-gray-600 dark:text-gray-300 text-xl"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
-                        <i class="fab fa-linkedin-in text-gray-600 dark:text-gray-300 text-xl"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-100 dark:hover:bg-green-900/50 hover:scale-110 transition">
-                        <i class="fab fa-youtube text-gray-600 dark:text-gray-300 text-xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-6 right-6 space-y-3 z-50">
-        <button onclick="openChatModal()" class="w-14 h-14 bg-green-600 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition transform hover:scale-110 ripple">
-            <i class="fas fa-comment-dots text-white text-xl"></i>
-        </button>
-        <a href="https://wa.me/254712345678?text=Hello%21%20I%20need%20assistance" target="_blank" 
-            class="w-14 h-14 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition transform hover:scale-110 ripple">
-            <i class="fab fa-whatsapp text-white text-xl"></i>
-        </a>
-        <a href="tel:+254712345678" class="w-14 h-14 bg-blue-500 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition transform hover:scale-110 ripple">
-            <i class="fas fa-phone-alt text-white text-xl"></i>
-        </a>
-    </div>
-    
-    <!-- Live Chat Modal -->
-    <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn">
-            <div class="bg-gradient-to-r from-green-600 to-green-700 p-4 rounded-t-2xl flex justify-between items-center">
-                <h3 class="text-white font-bold">Live Chat Support</h3>
-                <button onclick="closeChatModal()" class="text-white hover:text-gray-200">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="mb-4">
-                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-3 max-w-[80%]">
-                        <p class="text-sm text-gray-800 dark:text-gray-200">👋 Hi! How can we help you today?</p>
-                    </div>
-                    <div class="bg-green-100 dark:bg-green-900/50 rounded-lg p-3 mb-3 ml-auto max-w-[80%]">
-                        <p class="text-sm text-gray-800 dark:text-gray-200">I need help with...</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <input type="text" id="chatMessage" placeholder="Type your message..." 
-                        class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700">
-                    <button onclick="sendChatMessage()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-                        Send
-                    </button>
-                </div>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">
-                    Our support team is available 9am-5pm EAT
-                </p>
-            </div>
-        </div>
-    </div>   
-    </div>
-
     <script>
         // Background Slideshow with Smooth Transitions
-class BackgroundSlideshow {
-    constructor(slides, interval = 16000) {
-        this.slides = slides;
-        this.currentIndex = 0;
-        this.interval = interval; // 16 seconds between transitions
-        this.transitionSpeed = 5000; // 5 second fade
-    }
-    
-    init() {
-        // Set first slide as active
-        this.slides[0].classList.add('active');
-        
-        // Start slideshow
-        this.startSlideshow();
-    }
-    
-    nextSlide() {
-        // Remove active class from current slide
-        this.slides[this.currentIndex].classList.remove('active');
-        
-        // Move to next slide
-        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-        
-        // Add active class to new slide
-        this.slides[this.currentIndex].classList.add('active');
-    }
-    
-    startSlideshow() {
-        setInterval(() => {
-            this.nextSlide();
-        }, this.interval);
-    }
-}
+        class BackgroundSlideshow {
+            constructor(slides, interval = 16000) {
+                this.slides = slides;
+                this.currentIndex = 0;
+                this.interval = interval;
+                this.transitionSpeed = 5000;
+            }
+            
+            init() {
+                this.slides[0].classList.add('active');
+                this.startSlideshow();
+            }
+            
+            nextSlide() {
+                this.slides[this.currentIndex].classList.remove('active');
+                this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+                this.slides[this.currentIndex].classList.add('active');
+            }
+            
+            startSlideshow() {
+                setInterval(() => { this.nextSlide(); }, this.interval);
+            }
+        }
 
-// Initialize slideshow when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.slide');
-    if (slides.length > 0) {
-        const slideshow = new BackgroundSlideshow(slides, 8000);
-        slideshow.init();
-    }
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            if (slides.length > 0) {
+                const slideshow = new BackgroundSlideshow(slides, 8000);
+                slideshow.init();
+            }
+        });
+        
         // Language translations
         let currentLang = 'en';
         const translations = {
@@ -1589,7 +1203,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="text-sm text-green-600 mt-1">💡 ${d.solution}</p>
                         </div>
                     </div>
-                    <i class="fas fa-chevron-right text-gray-400"></i>
+                    <button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full w-10 h-10 transition">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
                 </div>
             `).join('');
         }
@@ -1669,8 +1285,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     previewImg.src = e.target.result;
                     uploadArea.classList.add('hidden');
                     preview.classList.remove('hidden');
-                    
-                    // Add animation
                     preview.classList.add('animate-scaleIn');
                 };
                 reader.readAsDataURL(file);
@@ -1698,9 +1312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const diseases = [
                     { name: "Fall Armyworm", confidence: 94, symptoms: "Leaf damage, holes in leaves, visible caterpillars", solution: "Apply neem oil or recommended pesticides (KES 500-1500)", organic: "Use neem oil and handpick larvae early morning", chemical: "Emamectin benzoate (1ml/L water)", cost: 1200, prevention: "Crop rotation, early planting" },
-                    { name: "Coffee Leaf Rust", confidence: 87, symptoms: "Orange-yellow powdery spots on leaves", solution: "Apply copper-based fungicide (KES 800-2000)", organic: "Sulfur spray, improve air circulation", chemical: "Copper oxychloride (2g/L water)", cost: 1500, prevention: "Prune for ventilation, resistant varieties" },
-                    { name: "Maize Lethal Necrosis", confidence: 92, symptoms: "Stunted growth, leaf yellowing, premature death", solution: "Remove infected plants immediately (KES 0-500)", organic: "Crop rotation, use certified seeds", chemical: "No chemical cure - focus on prevention", cost: 0, prevention: "Use resistant varieties, control vectors" },
-                    { name: "Aphid Infestation", confidence: 89, symptoms: "Curled leaves, sticky residue, visible insects", solution: "Apply neem oil or insecticidal soap (KES 300-800)", organic: "Neem oil spray, introduce ladybugs", chemical: "Imidacloprid (follow label instructions)", cost: 500, prevention: "Companion planting with marigolds" }
+                    { name: "Coffee Leaf Rust", confidence: 87, symptoms: "Orange-yellow powdery spots on leaves", solution: "Apply copper-based fungicide (KES 800-2000)", organic: "Sulfur spray, improve air circulation", chemical: "Copper oxychloride (2g/L water)", cost: 1500, prevention: "Prune for ventilation, resistant varieties" }
                 ];
                 
                 const randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
@@ -1725,14 +1337,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="bg-blue-50 p-3 rounded border border-blue-200">
                             <p class="font-semibold text-blue-700"><i class="fas fa-flask mr-2"></i> Chemical Solution:</p>
                             <p class="text-sm text-blue-600 mt-1">${randomDisease.chemical}</p>
-                        </div>
-                        <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
-                            <p class="font-semibold text-yellow-700"><i class="fas fa-coins mr-2"></i> Estimated Cost:</p>
-                            <p class="text-sm text-yellow-600 mt-1">KES ${randomDisease.cost} (materials + application)</p>
-                        </div>
-                        <div class="bg-purple-50 p-3 rounded border border-purple-200">
-                            <p class="font-semibold text-purple-700"><i class="fas fa-shield-alt mr-2"></i> Prevention Tips:</p>
-                            <p class="text-sm text-purple-600 mt-1">${randomDisease.prevention}</p>
                         </div>
                         <button onclick="saveDiagnosis('${randomDisease.name}', ${randomDisease.confidence})" class="w-full btn-primary text-white py-3 rounded-lg transition shadow-md">
                             <i class="fas fa-save mr-2"></i> Save This Diagnosis
@@ -1815,16 +1419,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-circle',
-                info: 'fa-info-circle'
-            };
-            const colors = {
-                success: 'bg-green-600',
-                error: 'bg-red-600',
-                info: 'bg-blue-600'
-            };
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+            const colors = { success: 'bg-green-600', error: 'bg-red-600', info: 'bg-blue-600' };
             toast.className = `fixed bottom-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg toast z-50`;
             toast.innerHTML = `<i class="fas ${icons[type]} mr-2"></i> ${message}`;
             document.body.appendChild(toast);
@@ -1843,41 +1439,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Drag and drop for image upload
         const uploadArea = document.getElementById('uploadArea');
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('drag-over');
-        });
-        
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('drag-over');
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('drag-over');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const input = document.getElementById('imageInput');
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                input.files = dataTransfer.files;
-                handleImageUpload(input);
-            }
-        });
-        
-        uploadArea.addEventListener('click', () => {
-            document.getElementById('imageInput').click();
-        });
-
-        // ===== NEW SCROLL TO SECTION FUNCTION (ADDED) =====
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+        if (uploadArea) {
+            uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+            uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('drag-over'); });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const input = document.getElementById('imageInput');
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    input.files = dataTransfer.files;
+                    handleImageUpload(input);
+                }
+            });
+            uploadArea.addEventListener('click', () => { document.getElementById('imageInput').click(); });
         }
 
-        // ===== NEW MOBILE MENU FUNCTIONS (ADDED) =====
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) { element.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }
+
         function openMobileMenu() {
             const overlay = document.getElementById('mobileMenuOverlay');
             const panel = document.getElementById('mobileMenuPanel');
@@ -1894,6 +1478,174 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
 
+        // Feature #1: Camera with Guide Overlay
+        function openCameraWithGuide() {
+            hapticFeedback();
+            const overlay = document.createElement('div');
+            overlay.className = 'camera-guide-overlay';
+            overlay.innerHTML = `<div class="leaf-guide"></div><button onclick="this.parentElement.remove()" class="mt-8 bg-red-500 text-white px-6 py-2 rounded-full">Close</button>`;
+            document.body.appendChild(overlay);
+            
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.capture = 'environment';
+            input.onchange = (e) => {
+                if (e.target.files[0]) {
+                    const file = e.target.files[0];
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    document.getElementById('imageInput').files = dataTransfer.files;
+                    handleImageUpload(document.getElementById('imageInput'));
+                    scrollToSection('diagnosis');
+                }
+                overlay.remove();
+            };
+            input.click();
+        }
+        
+        // Feature #5: PWA Installation Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => {
+                showToast('📱 Install ShambaCare app for offline use!', 'info');
+                const installBtn = document.createElement('button');
+                installBtn.innerHTML = '<i class="fas fa-download mr-2"></i> Install App';
+                installBtn.className = 'fixed bottom-24 left-4 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg z-50 animate-pulse';
+                installBtn.onclick = () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+                    }
+                    installBtn.remove();
+                };
+                document.body.appendChild(installBtn);
+                setTimeout(() => installBtn.remove(), 10000);
+            }, 2000);
+        });
+        
+        // Feature #6: Onboarding Tour
+        function startOnboarding() {
+            const seen = localStorage.getItem('shambacare_onboarded');
+            if (seen) return;
+            localStorage.setItem('shambacare_onboarded', 'true');
+            
+            const steps = [
+                { target: '#diagnosis', text: '📸 Step 1: Tap here to diagnose your crop by taking a photo of any diseased leaf' },
+                { target: '#shambas', text: '🌾 Step 2: Add your shambas to track health per farm' },
+                { target: '#crops', text: '🌱 Step 3: Monitor crop health scores and get recommendations' }
+            ];
+            let step = 0;
+            
+            function showStep() {
+                const overlay = document.createElement('div');
+                overlay.className = 'onboarding-overlay';
+                overlay.innerHTML = `
+                    <div class="onboarding-card">
+                        <i class="fas fa-seedling text-green-600 text-4xl mb-3"></i>
+                        <p class="text-gray-700 mb-4">${steps[step].text}</p>
+                        <div class="flex gap-3">
+                            <button class="bg-gray-300 px-4 py-2 rounded" onclick="this.closest('.onboarding-overlay').remove()">Skip</button>
+                            <button id="nextOnboardBtn" class="btn-primary text-white px-4 py-2 rounded">${step === steps.length - 1 ? 'Finish' : 'Next'}</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                document.getElementById('nextOnboardBtn').onclick = () => {
+                    overlay.remove();
+                    step++;
+                    if (step < steps.length) showStep();
+                };
+            }
+            showStep();
+        }
+        setTimeout(startOnboarding, 1500);
+        
+        // Feature #9: Gallery view state and toggle
+        let galleryMode = false;
+        function toggleGalleryView() {
+            galleryMode = !galleryMode;
+            const container = document.getElementById('recentDiagnoses');
+            const galleryContainer = document.getElementById('galleryView');
+            
+            if (galleryMode) {
+                container.classList.add('hidden');
+                galleryContainer.classList.remove('hidden');
+                galleryContainer.innerHTML = diagnoses.map(d => `
+                    <div class="diagnosis-gallery-item p-3 text-center">
+                        <div class="text-4xl mb-2">🌿</div>
+                        <p class="font-bold text-gray-800">${d.crop}</p>
+                        <p class="text-sm text-red-600">${d.disease}</p>
+                        <p class="text-xs text-gray-500">${d.date} • ${d.confidence}%</p>
+                        <button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs">
+                            <i class="fab fa-whatsapp mr-1"></i>Share
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                container.classList.remove('hidden');
+                galleryContainer.classList.add('hidden');
+                renderDiagnoses();
+            }
+            hapticFeedback();
+        }
+        
+        // Feature #10: Share to WhatsApp
+        function shareToWhatsApp(crop, disease, solution) {
+            const message = `🌾 *ShambaCare Diagnosis Report* 🌾\n\n📌 Crop: ${crop}\n🦠 Disease: ${disease}\n💊 Recommended Solution: ${solution}\n\n📱 Sent from ShambaCare Kenya App - Smart Farming Assistant`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            showToast('Opening WhatsApp...', 'success');
+            hapticFeedback();
+        }
+        
+        // Feature #12: Haptic Feedback
+        function hapticFeedback() {
+            if (navigator.vibrate) { navigator.vibrate(50); }
+        }
+        
+        // Feature #16: High Contrast Mode
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('high_contrast', document.body.classList.contains('high-contrast'));
+            showToast(document.body.classList.contains('high-contrast') ? 'High contrast mode ON' : 'Normal mode', 'info');
+            hapticFeedback();
+        }
+        
+        // Load high contrast preference
+        if (localStorage.getItem('high_contrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Feature #20: Success Stories Data and Render
+        const successStories = [
+            { name: "Grace Wanjiku", crop: "Maize", before: "Lost 40% to armyworm", after: "Saved 90% using diagnosis", image: "🌽", location: "Nakuru", story: "ShambaCare helped me identify Fall Armyworm early. I applied the recommended organic solution and saved my harvest!" },
+            { name: "Peter Kimani", crop: "Coffee", before: "Rust infection spreading", after: "Recovered within 2 weeks", image: "☕", location: "Kiambu", story: "The AI diagnosis was accurate. Followed the copper fungicide advice and my coffee trees are healthy again." },
+            { name: "Mary Akinyi", crop: "Vegetables", before: "Aphid infestation", after: "Organic solution worked perfectly", image: "🥬", location: "Kisumu", story: "I used neem oil as recommended. No more aphids and my kales are thriving!" }
+        ];
+
+        function renderSuccessStories() {
+            const container = document.getElementById('successStoriesContainer');
+            if (container) {
+                container.innerHTML = successStories.map(story => `
+                    <div class="bg-white rounded-xl p-5 shadow-lg success-story-card border border-green-100">
+                        <div class="text-5xl mb-3">${story.image}</div>
+                        <h3 class="font-bold text-xl text-gray-800">${story.name}</h3>
+                        <p class="text-sm text-green-600">${story.location} • ${story.crop}</p>
+                        <div class="mt-3 p-2 bg-red-50 rounded-lg">
+                            <p class="text-sm"><span class="font-semibold">⚠️ Before:</span> ${story.before}</p>
+                        </div>
+                        <div class="mt-2 p-2 bg-green-50 rounded-lg">
+                            <p class="text-sm"><span class="font-semibold">✅ After:</span> ${story.after}</p>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 italic">"${story.story.substring(0, 80)}..."</p>
+                        <i class="fas fa-quote-right text-green-300 mt-2 block text-right"></i>
+                    </div>
+                `).join('');
+            }
+        }
+        
         // Initialize
         function init() {
             renderFarms();
@@ -1901,6 +1653,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderDiagnoses();
             renderWeather();
             renderDiseaseLibrary();
+            renderSuccessStories();
             
             const avgHealth = Math.round(crops.reduce((sum, crop) => sum + crop.healthScore, 0) / crops.length);
             document.getElementById('healthScore').textContent = avgHealth;
@@ -1909,262 +1662,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // Animate stats on scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fadeInUp');
-                    }
+                    if (entry.isIntersecting) { entry.target.classList.add('animate-fadeInUp'); }
                 });
             });
             document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
 
-            // ===== NEW MOBILE MENU EVENT LISTENERS (ADDED) =====
+            // Mobile menu event listeners
             const mobileToggle = document.getElementById('mobileMenuToggle');
             const closeBtn = document.getElementById('closeMobileMenu');
             const overlay = document.getElementById('mobileMenuOverlay');
             
-            if (mobileToggle) {
-                mobileToggle.addEventListener('click', openMobileMenu);
-            }
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeMobileMenu);
-            }
-            if (overlay) {
-                overlay.addEventListener('click', closeMobileMenu);
-            }
+            if (mobileToggle) { mobileToggle.addEventListener('click', openMobileMenu); }
+            if (closeBtn) { closeBtn.addEventListener('click', closeMobileMenu); }
+            if (overlay) { overlay.addEventListener('click', closeMobileMenu); }
         }
-        //contact section js
-        // Dark mode detection and toggle
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-        
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                answer.classList.toggle('hidden');
-                icon.style.transform = answer.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-            });
-        });
-        
-        // Form validation and submission
-        const contactForm = document.getElementById('contactForm');
-        const newsletterForm = document.getElementById('newsletterForm');
-        
-        function validateEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-        
-        function validatePhone(phone) {
-            return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone) || phone === '';
-        }
-        
-        function showError(input, message) {
-            const errorDiv = input.parentElement.querySelector('.error-message');
-            if (errorDiv) {
-                errorDiv.textContent = message;
-                errorDiv.classList.remove('hidden');
-                input.classList.add('border-red-500');
-            }
-        }
-        
-        function hideError(input) {
-            const errorDiv = input.parentElement.querySelector('.error-message');
-            if (errorDiv) {
-                errorDiv.classList.add('hidden');
-                input.classList.remove('border-red-500');
-            }
-        }
-        
-        function createConfetti() {
-            const colors = ['#4c9f70', '#f47e28', '#f6ce40', '#4cb9d1', '#2d6a4f'];
-            for (let i = 0; i < 100; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-particle';
-                confetti.style.left = Math.random() * window.innerWidth + 'px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = confetti.style.width;
-                confetti.style.position = 'fixed';
-                confetti.style.borderRadius = '50%';
-                confetti.style.pointerEvents = 'none';
-                confetti.style.zIndex = '1000';
-                confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s ease-out forwards`;
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
-            }
-        }
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Check honeypot
-            const honeypot = document.getElementById('honeypot').value;
-            if (honeypot) return;
-            
-            // Validate form
-            let isValid = true;
-            const fullName = document.getElementById('fullName');
-            const email = document.getElementById('email');
-            const subject = document.getElementById('subject');
-            const message = document.getElementById('message');
-            const phone = document.getElementById('phone');
-            
-            if (!fullName.value.trim()) {
-                showError(fullName, 'Full name is required');
-                isValid = false;
-            } else {
-                hideError(fullName);
-            }
-            
-            if (!email.value.trim()) {
-                showError(email, 'Email is required');
-                isValid = false;
-            } else if (!validateEmail(email.value)) {
-                showError(email, 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                hideError(email);
-            }
-            
-            if (!subject.value) {
-                showError(subject, 'Please select a subject');
-                isValid = false;
-            } else {
-                hideError(subject);
-            }
-            
-            if (!message.value.trim()) {
-                showError(message, 'Message is required');
-                isValid = false;
-            } else {
-                hideError(message);
-            }
-            
-            if (phone.value && !validatePhone(phone.value)) {
-                showError(phone, 'Please enter a valid phone number');
-                isValid = false;
-            } else {
-                hideError(phone);
-            }
-            
-            if (isValid) {
-                const submitBtn = document.getElementById('submitBtn');
-                const originalContent = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<span class="loader mr-2"></span> Sending...';
-                submitBtn.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    // Log form data to console
-                    console.log('Form Submitted:', {
-                        fullName: fullName.value,
-                        email: email.value,
-                        phone: phone.value,
-                        subject: subject.value,
-                        message: message.value,
-                        file: document.getElementById('fileUpload').files[0]?.name || 'No file',
-                        timestamp: new Date().toISOString()
-                    });
-                    
-                    submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Sent Successfully!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    
-                    createConfetti();
-                    
-                    setTimeout(() => {
-                        contactForm.reset();
-                        submitBtn.innerHTML = originalContent;
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                        
-                        // Show success message
-                        const successDiv = document.createElement('div');
-                        successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
-                        successDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Message sent successfully! We\'ll get back to you soon.';
-                        document.body.appendChild(successDiv);
-                        setTimeout(() => successDiv.remove(), 5000);
-                    }, 2000);
-                }, 1500);
-            }
-        });
-        
-        newsletterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('newsletterEmail');
-            if (validateEmail(email.value)) {
-                console.log('Newsletter Subscription:', email.value);
-                email.value = '';
-                const successMsg = document.createElement('div');
-                successMsg.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-                successMsg.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Subscribed successfully!';
-                document.body.appendChild(successMsg);
-                setTimeout(() => successMsg.remove(), 3000);
-            }
-        });
-        
-        function openChatModal() {
-            document.getElementById('chatModal').classList.remove('hidden');
-            document.getElementById('chatModal').classList.add('flex');
-        }
-        
-        function closeChatModal() {
-            document.getElementById('chatModal').classList.add('hidden');
-            document.getElementById('chatModal').classList.remove('flex');
-        }
-        
-        function sendChatMessage() {
-            const input = document.getElementById('chatMessage');
-            if (input.value.trim()) {
-                console.log('Chat Message:', input.value);
-                input.value = '';
-                const chatDiv = document.querySelector('#chatModal .p-6');
-                const responseDiv = document.createElement('div');
-                responseDiv.className = 'bg-green-100 dark:bg-green-900/50 rounded-lg p-3 mb-3 ml-auto max-w-[80%]';
-                responseDiv.innerHTML = `<p class="text-sm text-gray-800 dark:text-gray-200">Message sent! We'll respond shortly.</p>`;
-                chatDiv.insertBefore(responseDiv, chatDiv.lastElementChild);
-                setTimeout(() => responseDiv.remove(), 3000);
-            }
-        }
-        
-        // Add ripple effect to buttons
-        document.querySelectorAll('.ripple').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.width = '0px';
-                ripple.style.height = '0px';
-                ripple.style.borderRadius = '50%';
-                ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5';
-                ripple.style.transform = 'translate(-50%, -50%)';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.transition = 'all 0.5s';
-                ripple.style.pointerEvents = 'none';
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 500);
-            });
-        });
-        
-        // Input focus animations
-        document.querySelectorAll('input, textarea, select').forEach(input => {
-            input.addEventListener('focus', () => {
-                input.parentElement.classList.add('scale-105');
-            });
-            input.addEventListener('blur', () => {
-                input.parentElement.classList.remove('scale-105');
-            });
-        });
         
         init();
-
     </script>
 </body>
 </html>
