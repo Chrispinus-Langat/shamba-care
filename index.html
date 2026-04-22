@@ -565,26 +565,215 @@
             transition: 0s;
         }
         
-        /* Dark mode styles */
+        /* ===== IMPROVED DARK MODE STYLES - Everything visible and appealing ===== */
         .dark {
-            background-color: #111827;
-            color: #f9fafb;
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
         }
-        .dark .bg-white {
-            background-color: #1f2937 !important;
+        
+        /* Dark mode card backgrounds */
+        .dark .bg-white,
+        .dark .bg-gray-50,
+        .dark .bg-green-50,
+        .dark .bg-blue-50,
+        .dark .bg-red-50,
+        .dark .bg-yellow-50,
+        .dark .bg-purple-50,
+        .dark .bg-gradient-to-r,
+        .dark .bg-green-100,
+        .dark .bg-blue-100,
+        .dark .bg-gray-100,
+        .dark .bg-white\/95,
+        .dark .bg-white\/20,
+        .dark .bg-white\/10 {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
         }
+        
+        /* Dark mode text colors */
         .dark .text-gray-600,
-        .dark .text-gray-500 {
-            color: #9ca3af !important;
+        .dark .text-gray-500,
+        .dark .text-gray-700,
+        .dark .text-gray-800,
+        .dark .text-gray-400,
+        .dark .text-gray-900 {
+            color: #cbd5e1 !important;
         }
-        .dark .border-gray-200 {
-            border-color: #374151 !important;
+        
+        /* Dark mode headings - IMPROVED visibility */
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+        .dark .font-bold, .dark .font-semibold {
+            color: #facc15 !important;
         }
-        .dark .hover\:bg-gray-50:hover {
-            background-color: #374151 !important;
+        
+        /* Dark mode section titles - FIXED visibility issues */
+        .dark #shambasTitle,
+        .dark #cropsTitle,
+        .dark #recentTitle,
+        .dark #libraryTitle,
+        .dark .text-xl.font-bold,
+        .dark h2.text-xl,
+        .dark .mb-4 h2,
+        .dark .flex.items-center.justify-between h2 {
+            color: #facc15 !important;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
-        .dark .bg-gray-50 {
-            background-color: #111827 !important;
+        
+        /* Dark mode card text */
+        .dark .bg-white p,
+        .dark .bg-white span,
+        .dark .bg-white div:not(.diagnosis-loader) {
+            color: #e2e8f0 !important;
+        }
+        
+        /* Dark mode card headings inside */
+        .dark .bg-white h3,
+        .dark .bg-white h4,
+        .dark .bg-white .font-bold,
+        .dark .bg-white .font-semibold {
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode border colors */
+        .dark .border,
+        .dark .border-gray-200,
+        .dark .border-green-100,
+        .dark .border-green-200,
+        .dark .border-gray-100 {
+            border-color: #334155 !important;
+        }
+        
+        /* Dark mode stat numbers */
+        .dark .stat-number {
+            -webkit-text-fill-color: #facc15 !important;
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode gradient text */
+        .dark .gradient-text {
+            -webkit-text-fill-color: #facc15 !important;
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode buttons */
+        .dark .btn-primary {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%) !important;
+            color: #0f172a !important;
+        }
+        
+        /* Dark mode upload zone */
+        .dark .upload-zone {
+            background-color: #1e293b !important;
+            border-color: #facc15 !important;
+        }
+        
+        .dark .upload-zone p,
+        .dark .upload-zone i {
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode nav */
+        .dark nav {
+            background-color: #1e293b !important;
+            border-bottom-color: #facc15 !important;
+        }
+        
+        .dark nav .text-gray-700,
+        .dark nav .text-gray-800,
+        .dark nav .text-gray-500 {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .nav-link {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .nav-link:hover {
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode bottom nav */
+        .dark .bottom-nav {
+            background-color: #1e293b !important;
+            border-top-color: #facc15 !important;
+        }
+        
+        .dark .bottom-nav-item {
+            color: #94a3b8 !important;
+        }
+        
+        .dark .bottom-nav-item.active {
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode modals */
+        .dark .modal-content,
+        .dark .bg-white.rounded-2xl,
+        .dark .bg-white.rounded-xl {
+            background-color: #1e293b !important;
+        }
+        
+        /* Dark mode input fields */
+        .dark input,
+        .dark select,
+        .dark textarea {
+            background-color: #0f172a !important;
+            border-color: #facc15 !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark input::placeholder,
+        .dark textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+        
+        /* Dark mode FAQ */
+        .dark .faq-question {
+            background-color: #1e293b !important;
+        }
+        
+        .dark .faq-question:hover {
+            background-color: #334155 !important;
+        }
+        
+        /* Dark mode weather card */
+        .dark .weather-temp,
+        .dark .text-blue-600 {
+            color: #facc15 !important;
+        }
+        
+        /* Dark mode success stories */
+        .dark .bg-red-50,
+        .dark .bg-green-50 {
+            background-color: #1e293b !important;
+        }
+        
+        /* Dark mode floating buttons */
+        .dark .bg-green-600,
+        .dark .bg-green-500 {
+            background-color: #facc15 !important;
+            color: #0f172a !important;
+        }
+        
+        .dark .bg-green-600 i,
+        .dark .bg-green-500 i {
+            color: #0f172a !important;
+        }
+        
+        /* Dark mode toast */
+        .dark .toast {
+            background-color: #facc15 !important;
+            color: #0f172a !important;
+        }
+        
+        /* Dark mode onboarding card */
+        .dark .onboarding-card {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .onboarding-card p {
+            color: #f1f5f9 !important;
         }
         
         /* Weather widget styles */
@@ -594,6 +783,17 @@
         }
         .weather-location {
             font-size: 0.875rem;
+        }
+        
+        /* Section title enhancements - always visible */
+        .section-title {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* Ensure titles are always readable */
+        h2.text-xl, .text-xl.font-bold, .mb-4 h2 {
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
     </style>
 </head>
@@ -771,19 +971,19 @@
             </div>
         </div>
 
-        <!-- My Shambas Section -->
+        <!-- My Shambas Section - IMPROVED TITLE VISIBILITY -->
         <div id="shambas" class="mb-8 animate-fadeInUp">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
                 <button onclick="showAddFarmModal()" class="btn-primary text-white px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-md"><i class="fas fa-plus"></i> Add Shamba</button>
             </div>
             <div id="farmsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
 
-        <!-- Crop Health Monitoring -->
+        <!-- Crop Health Monitoring - IMPROVED TITLE VISIBILITY -->
         <div id="crops" class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
                 <span class="text-sm text-gray-500">Last updated today</span>
             </div>
             <div id="cropsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -806,19 +1006,19 @@
             <div id="successStoriesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
-        <!-- Recent Diagnoses with Gallery View -->
+        <!-- Recent Diagnoses with Gallery View - IMPROVED TITLE VISIBILITY -->
         <div class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
                 <button onclick="toggleGalleryView()" class="text-sm text-green-600 hover:text-green-700 font-medium"><i class="fas fa-th-large mr-1"></i> Gallery View</button>
             </div>
             <div id="recentDiagnoses" class="space-y-3"></div>
             <div id="galleryView" class="diagnosis-gallery hidden"></div>
         </div>
 
-        <!-- Disease Library -->
+        <!-- Disease Library - IMPROVED TITLE VISIBILITY -->
         <div id="library" class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-book text-green-600 mr-2"></i> <span id="libraryTitle">Common Crop Issues in Kenya</span></h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-4 section-title"><i class="fas fa-book text-green-600 mr-2"></i> <span id="libraryTitle">Common Crop Issues in Kenya</span></h2>
             <div id="diseaseLibrary" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
