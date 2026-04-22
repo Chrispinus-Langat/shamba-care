@@ -545,7 +545,7 @@
         }
         .diagnosis-gallery-item:hover { transform: scale(1.03); }
         
-        /* Bottom Navigation Bar - UPDATED with Profile */
+        /* Bottom Navigation Bar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -993,20 +993,6 @@
             transform: translateY(-6px);
             box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
         }
-        
-        /* Profile avatar in bottom nav */
-        .profile-avatar-small {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4c9f70, #2d6a4f);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -1059,7 +1045,7 @@
         </div>
     </nav>
     
-    <!-- Bottom Navigation Bar - UPDATED with Profile -->
+    <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
         <div class="bottom-nav-item" onclick="scrollToSection('home')"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="bottom-nav-item" onclick="openCameraWithGuide()"><i class="fas fa-camera"></i><span>Diagnose</span></div>
@@ -1082,8 +1068,10 @@
             <a href="#" onclick="scrollToSection('crops'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-seedling w-6 text-green-600"></i> Crops</a>
             <a href="#" onclick="scrollToSection('library'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-book w-6 text-green-600"></i> Disease Library</a>
             <a href="#" onclick="scrollToSection('contact'); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-envelope w-6 text-green-600"></i> Contact</a>
+            <!-- NEW: Profile link in sidebar menu -->
+            <a href="#" onclick="openProfileModal(); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-user-circle w-6 text-green-600"></i> My Profile</a>
             <div class="border-t border-gray-200 my-2 pt-3"></div>
-            <!-- Sign Out button in sidebar menu - NEW -->
+            <!-- Sign Out button in sidebar menu -->
             <a href="#" onclick="handleLogout(); closeMobileMenu();" class="nav-link text-red-600 hover:text-red-700 font-medium py-2 px-3 rounded-lg hover:bg-red-50 transition flex items-center">
                 <i class="fas fa-sign-out-alt w-6 text-red-600"></i> Sign Out
             </a>
@@ -1091,11 +1079,14 @@
         </div>
     </div>
 
-    <!-- Profile Modal - NEW -->
+    <!-- Profile Modal - UPDATED with Sign Out button and Red X close -->
     <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('profileModal')">
         <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn" onclick="event.stopPropagation()">
-            <div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl">
+            <div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl flex justify-between items-center">
                 <h3 class="font-bold text-lg text-gray-800 dark:text-white"><i class="fas fa-user-circle text-green-600 mr-2"></i> My Profile</h3>
+                <button onclick="closeModal('profileModal')" class="text-red-500 hover:text-red-700 text-xl font-bold">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="p-5 space-y-4">
                 <div class="flex items-center gap-4">
@@ -1121,13 +1112,16 @@
                         <span class="text-gray-800 dark:text-white" id="profileSince">2024</span>
                     </div>
                 </div>
-                <button onclick="closeModal('profileModal')" class="w-full btn-primary text-white py-2 rounded-lg mt-2">Close</button>
+                <!-- Sign Out button in profile modal -->
+                <button onclick="handleLogout(); closeModal('profileModal');" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition font-semibold">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+                </button>
             </div>
         </div>
     </div>
 
     <div class="container mx-auto px-4 py-6 max-w-7xl">
-        <!-- Hero Section with Stats - UPDATED to show logged-in user -->
+        <!-- Hero Section with Stats -->
         <div id="home" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <div class="lg:col-span-2 bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-6 text-white shadow-xl animate-fadeInUp relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mt-16 -mr-16"></div>
@@ -1354,7 +1348,7 @@
     <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4"><div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn"><div class="bg-gradient-to-r from-green-600 to-green-700 p-4 rounded-t-2xl flex justify-between items-center"><h3 class="text-white font-bold">Live Chat Support</h3><button onclick="closeChatModal()" class="text-white hover:text-gray-200"><i class="fas fa-times text-xl"></i></button></div><div class="p-6"><div class="mb-4"><div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-3 max-w-[80%]"><p class="text-sm text-gray-800 dark:text-gray-200">👋 Hi! How can we help you today?</p></div></div><div class="flex gap-2"><input type="text" id="chatMessage" placeholder="Type your message..." class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700"><button onclick="sendChatMessage()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Send</button></div><p class="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">Our support team is available 9am-5pm EAT</p></div></div></div>
 
     <script>
-        // ==================== USER SESSION MANAGEMENT - NEW ====================
+        // ==================== USER SESSION MANAGEMENT ====================
         let currentUser = null;
         
         function loadUserSession() {
@@ -1381,7 +1375,6 @@
                     }
                 } catch(e) {}
             }
-            // Redirect to login if not logged in
             window.location.href = 'login.html';
             return false;
         }
@@ -1432,7 +1425,6 @@
                 slideshow.init();
             }
             loadUserSession();
-            // Load saved theme
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
                 document.getElementById('themeIcon')?.classList.remove('fa-moon');
