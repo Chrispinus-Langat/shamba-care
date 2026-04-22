@@ -633,14 +633,13 @@
     </style>
 </head>
 <body class="antialiased">
-    <!-- Background Slideshow -->
-    <div class="background-slideshow">
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=1200&h=800&fit=crop')"></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=1200&h=800&fit=crop')"></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=1200&h=800&fit=crop')"></div>
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1596472663465-9f8ee9c33b5c?w=1200&h=800&fit=crop')"></div>
-    </div>
-    <div class="background-overlay"></div>
+   <!-- Background Slideshow with YOUR Kenyan Farm Images -->
+<div class="background-slideshow">
+    <div class="slide" style="background-image: url('coffee1.jpg')"></div>
+    <div class="slide" style="background-image: url('maize1.0.jpg')"></div>
+    <div class="slide" style="background-image: url('passion1.jpg')"></div>
+    <div class="slide" style="background-image: url('havest.jpg')"></div>
+</div>
     
     <!-- Navigation Bar with Blur Effect -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
@@ -1210,30 +1209,43 @@
 
     <script>
         // ==================== BACKGROUND SLIDESHOW ====================
-        class BackgroundSlideshow {
-            constructor(slides, interval = 8000) {
-                this.slides = slides;
-                this.currentIndex = 0;
-                this.interval = interval;
-            }
-            init() {
-                this.slides[0].classList.add('active');
-                setInterval(() => {
-                    this.slides[this.currentIndex].classList.remove('active');
-                    this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-                    this.slides[this.currentIndex].classList.add('active');
-                }, this.interval);
-            }
+       
+class BackgroundSlideshow {
+    constructor(slides, interval = 8000) {
+        this.slides = slides;
+        this.currentIndex = 0;
+        this.interval = interval;
+    }
+    
+    init() {
+        if (this.slides.length > 0) {
+            this.slides[0].classList.add('active');
+            this.startSlideshow();
         }
+    }
+    
+    nextSlide() {
+        if (this.slides.length === 0) return;
+        this.slides[this.currentIndex].classList.remove('active');
+        this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+        this.slides[this.currentIndex].classList.add('active');
+    }
+    
+    startSlideshow() {
+        setInterval(() => {
+            this.nextSlide();
+        }, this.interval);
+    }
+}
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
-            if (slides.length > 0) {
-                const slideshow = new BackgroundSlideshow(slides, 8000);
-                slideshow.init();
-            }
-        });
-
+// Initialize slideshow when page loads with YOUR IMAGES
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    if (slides.length > 0) {
+        const slideshow = new BackgroundSlideshow(slides, 8000);
+        slideshow.init();
+    }
+});
         // ==================== LANGUAGE TRANSLATIONS ====================
         let currentLang = 'en';
         const translations = {
