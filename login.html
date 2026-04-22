@@ -15,7 +15,7 @@
             font-family: 'Inter', sans-serif;
         }
         
-        /* Background Slideshow - matching main project */
+        /* Background Slideshow Container */
         .background-slideshow {
             position: fixed;
             top: 0;
@@ -26,6 +26,7 @@
             overflow: hidden;
         }
         
+        /* Individual Slide */
         .slide {
             position: absolute;
             top: 0;
@@ -40,10 +41,12 @@
             animation: kenBurns 20s ease-in-out infinite alternate;
         }
         
+        /* Active Slide */
         .slide.active {
             opacity: 1;
         }
         
+        /* Ken Burns Effect - Smooth Zoom & Pan */
         @keyframes kenBurns {
             0% {
                 transform: scale(1) translateX(0);
@@ -53,6 +56,7 @@
             }
         }
         
+        /* Dark Overlay for Better Text Readability */
         .background-overlay {
             position: fixed;
             top: 0;
@@ -81,6 +85,10 @@
             border-radius: 10px;
         }
         
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d7e58;
+        }
+        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -93,10 +101,41 @@
             }
         }
         
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: scale(0.9);
             }
             to {
                 opacity: 1;
@@ -104,12 +143,12 @@
             }
         }
         
-        @keyframes float {
+        @keyframes pulse {
             0%, 100% {
-                transform: translateY(0);
+                transform: scale(1);
             }
             50% {
-                transform: translateY(-8px);
+                transform: scale(1.05);
             }
         }
         
@@ -117,15 +156,53 @@
             animation: fadeInUp 0.6s ease-out;
         }
         
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .animate-slideInLeft {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .animate-slideInRight {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
         .animate-scaleIn {
             animation: scaleIn 0.4s ease-out;
         }
         
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Gradient text matching main project */
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Loading animation */
+        .diagnosis-loader {
+            width: 48px;
+            height: 48px;
+            border: 3px solid #e5e7eb;
+            border-bottom-color: #4c9f70;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Gradient text */
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             -webkit-background-clip: text;
@@ -133,58 +210,39 @@
             background-clip: text;
         }
         
-        /* Button styles matching main project */
-        .btn-primary {
+        /* Stats counter */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Progress ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+        }
+        
+        /* Image upload area */
+        .upload-zone {
             transition: all 0.3s ease;
+            border: 2px dashed #cbd5e1;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn-outline {
-            border: 2px solid #3b82f6;
-            background: transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        /* Form input styles */
-        .input-field {
-            transition: all 0.3s ease;
-            border: 1.5px solid #e2e8f0;
-        }
-        
-        .input-field:focus {
+        .upload-zone:hover, .upload-zone.drag-over {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            outline: none;
+            background-color: #eff6ff;
+            transform: scale(1.02);
         }
         
         /* Toast notification */
         .toast {
             animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
         
         @keyframes fadeOut {
@@ -199,24 +257,667 @@
             .container {
                 padding-left: 1rem;
                 padding-right: 1rem;
+                overflow-x: hidden;
             }
             
             button, .clickable {
                 min-height: 44px;
             }
+            
+            body, .mx-auto, .px-4, .px-6, .container-fluid {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            img, .rounded-xl, .shadow-xl, .rounded-2xl {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            .grid {
+                gap: 0.75rem;
+            }
+            
+            .lg\:col-span-2, .bg-white.rounded-2xl {
+                margin-left: 0;
+                margin-right: 0;
+            }
         }
         
-        /* Card hover effect */
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Shimmer effect */
+        .shimmer {
+            background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
         
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.25);
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
         }
         
-        /* Password toggle button */
+        /* Custom button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f47e28 0%, #e65c1e 100%);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ===== MOBILE MENU & NAV LINK STYLES ===== */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+        }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .mobile-menu-panel.active {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        /* Camera Guide Overlay */
+        .camera-guide-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .leaf-guide {
+            border: 3px dashed #3b82f6;
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            position: relative;
+            background: rgba(59,130,246,0.1);
+        }
+        .leaf-guide::before {
+            content: "🍃 Position leaf here";
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        /* Onboarding Tour */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .onboarding-card {
+            background: white;
+            border-radius: 24px;
+            max-width: 320px;
+            width: 90%;
+            padding: 24px;
+            text-align: center;
+            animation: scaleIn 0.4s ease;
+        }
+        
+        /* Gallery View */
+        .diagnosis-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .diagnosis-gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .diagnosis-gallery-item:hover { transform: scale(1.03); }
+        
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #e5e7eb;
+            display: none;
+            justify-content: space-around;
+            padding: 10px 16px 20px;
+            z-index: 40;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #9ca3af;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .bottom-nav-item.active { color: #3b82f6; }
+        .bottom-nav-item i { font-size: 24px; }
+        .bottom-nav-item span { font-size: 11px; font-weight: 500; }
+        @media (max-width: 768px) {
+            .bottom-nav { display: flex; }
+            body { padding-bottom: 70px; }
+        }
+        
+        /* Feature #16: High Contrast Mode & Accessibility */
+        body.high-contrast {
+            background: #000 !important;
+            color: #fff !important;
+        }
+        body.high-contrast .bg-white,
+        body.high-contrast .bg-gray-50,
+        body.high-contrast .bg-green-50 {
+            background: #1a1a1a !important;
+            color: #fff !important;
+            border-color: #ffff00 !important;
+        }
+        body.high-contrast .text-gray-600,
+        body.high-contrast .text-gray-500 {
+            color: #ddd !important;
+        }
+        body.high-contrast button,
+        body.high-contrast .btn-primary {
+            background: #ffff00 !important;
+            color: #000 !important;
+        }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; }
+        button:focus-visible, a:focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+        
+        /* Feature #20: Success Stories */
+        .success-story-card {
+            transition: all 0.3s ease;
+        }
+        .success-story-card:hover { transform: scale(1.02); }
+        
+        /* FAQ Accordion Styles */
+        .faq-question {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .faq-question:hover {
+            background: #f9fafb;
+        }
+        .faq-answer {
+            transition: all 0.3s;
+        }
+        
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .ripple:active:after {
+            transform: scale(0);
+            opacity: .3;
+            transition: 0s;
+        }
+        
+        /* Dark mode styles - ONLY WHEN TOGGLED, NOT DEFAULT */
+        .dark {
+            background-color: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .bg-white,
+        .dark .bg-gray-50,
+        .dark .bg-green-50,
+        .dark .bg-blue-50,
+        .dark .bg-red-50,
+        .dark .bg-yellow-50,
+        .dark .bg-purple-50,
+        .dark .bg-white\/95,
+        .dark .bg-white\/20,
+        .dark .bg-white\/10 {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .bg-gradient-to-r.from-green-50.to-emerald-50 {
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e4a6f 100%) !important;
+            border-color: #3b82f6 !important;
+        }
+        
+        .dark .text-gray-600,
+        .dark .text-gray-500,
+        .dark .text-gray-700,
+        .dark .text-gray-800,
+        .dark .text-gray-400,
+        .dark .text-gray-900 {
+            color: #cbd5e1 !important;
+        }
+        
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+        .dark .font-bold, .dark .font-semibold {
+            color: #facc15 !important;
+        }
+        
+        .dark .gradient-text {
+            -webkit-text-fill-color: #facc15 !important;
+            color: #facc15 !important;
+        }
+        
+        .dark .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+        }
+        
+        .dark .upload-zone {
+            background-color: #1e293b !important;
+            border-color: #facc15 !important;
+        }
+        
+        .dark .upload-zone p,
+        .dark .upload-zone i {
+            color: #facc15 !important;
+        }
+        
+        .dark nav {
+            background-color: #1e293b !important;
+            border-bottom-color: #facc15 !important;
+        }
+        
+        .dark nav .text-gray-700,
+        .dark nav .text-gray-800,
+        .dark nav .text-gray-500 {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .nav-link {
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .nav-link:hover {
+            color: #facc15 !important;
+        }
+        
+        .dark .bottom-nav {
+            background-color: #1e293b !important;
+            border-top-color: #facc15 !important;
+        }
+        
+        .dark .bottom-nav-item {
+            color: #94a3b8 !important;
+        }
+        
+        .dark .bottom-nav-item.active {
+            color: #facc15 !important;
+        }
+        
+        .dark .modal-content,
+        .dark .bg-white.rounded-2xl,
+        .dark .bg-white.rounded-xl {
+            background-color: #1e293b !important;
+        }
+        
+        .dark input,
+        .dark select,
+        .dark textarea {
+            background-color: #0f172a !important;
+            border-color: #facc15 !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark input::placeholder,
+        .dark textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+        
+        .dark .faq-question {
+            background-color: #1e293b !important;
+        }
+        
+        .dark .faq-question:hover {
+            background-color: #334155 !important;
+        }
+        
+        .dark .weather-temp,
+        .dark .text-blue-600 {
+            color: #facc15 !important;
+        }
+        
+        .dark .bg-red-50,
+        .dark .bg-green-50 {
+            background-color: #1e293b !important;
+        }
+        
+        .dark .bg-green-600,
+        .dark .bg-green-500 {
+            background-color: #22c55e !important;
+            color: white !important;
+        }
+        
+        .dark .bg-green-600 i,
+        .dark .bg-green-500 i {
+            color: white !important;
+        }
+        
+        .dark .toast {
+            background-color: #22c55e !important;
+            color: white !important;
+        }
+        
+        .dark .onboarding-card {
+            background-color: #1e293b !important;
+            color: #f1f5f9 !important;
+        }
+        
+        .dark .onboarding-card p {
+            color: #f1f5f9 !important;
+        }
+        
+        /* Disease Library severity tags */
+        .severity-high {
+            background-color: #fee2e2 !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        .severity-critical {
+            background-color: #f3e8ff !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        .severity-medium {
+            background-color: #fef3c7 !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        .dark .severity-high,
+        .dark .severity-critical,
+        .dark .severity-medium {
+            color: #000000 !important;
+            font-weight: 700 !important;
+        }
+        
+        /* Section header containers */
+        .section-header-container {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        @media (min-width: 768px) {
+            .section-header-container {
+                padding: 1.25rem 2rem;
+                border-radius: 1.25rem;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        .dark .section-header-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border: 1px solid #facc15;
+            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.1);
+        }
+        
+        .blue-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        
+        .blue-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            .blue-button {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        .dark .blue-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .contact-header-container {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 1.25rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        @media (min-width: 768px) {
+            .contact-header-container {
+                padding: 1.75rem;
+                border-radius: 1.25rem;
+                margin-bottom: 2.5rem;
+            }
+        }
+        
+        .dark .contact-header-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border: 1px solid #facc15;
+            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.1);
+        }
+        
+        .weather-temp {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .weather-location {
+            font-size: 0.875rem;
+        }
+        
+        .section-title {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        h2.text-xl, .text-xl.font-bold, .mb-4 h2 {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        
+        .send-message-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .send-message-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+        }
+        
+        .dark .send-message-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+        }
+        
+        .whatsapp-icon {
+            color: #25D366 !important;
+        }
+        
+        .message-icon {
+            color: white !important;
+        }
+        
+        .dark .whatsapp-icon {
+            color: #25D366 !important;
+        }
+        
+        .dark .message-icon {
+            color: white !important;
+        }
+        
+        /* Desktop card enhancements */
+        @media (min-width: 1024px) {
+            .bg-white.rounded-xl, .bg-white.rounded-2xl {
+                transition: all 0.3s ease;
+            }
+            
+            .bg-white.rounded-xl:hover, .bg-white.rounded-2xl:hover {
+                transform: translateY(-4px);
+            }
+        }
+        
+        /* Form input styles */
+        .input-field {
+            transition: all 0.3s ease;
+            border: 1.5px solid #e2e8f0;
+        }
+        
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+        
+        /* Password toggle */
         .password-toggle {
             cursor: pointer;
             transition: color 0.2s;
@@ -226,53 +927,19 @@
             color: #3b82f6;
         }
         
-        /* Dark mode support - matching main project */
-        .dark {
-            background-color: #0f172a !important;
-            color: #f1f5f9 !important;
+        /* Login specific card hover */
+        .login-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .dark .bg-white {
-            background-color: #1e293b !important;
-        }
-        
-        .dark .text-gray-600,
-        .dark .text-gray-500,
-        .dark .text-gray-400 {
-            color: #cbd5e1 !important;
-        }
-        
-        .dark .border-gray-200,
-        .dark .border-gray-300 {
-            border-color: #334155 !important;
-        }
-        
-        .dark .input-field {
-            background-color: #0f172a;
-            border-color: #475569;
-            color: #f1f5f9;
-        }
-        
-        .dark .input-field:focus {
-            border-color: #3b82f6;
-        }
-        
-        .dark .btn-outline {
-            border-color: #3b82f6;
-            color: #3b82f6;
-        }
-        
-        .dark .text-gray-700 {
-            color: #e2e8f0 !important;
-        }
-        
-        .dark .bg-gray-50 {
-            background-color: #0f172a !important;
+        .login-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.25);
         }
     </style>
 </head>
 <body class="antialiased">
-    <!-- Background Slideshow - matching main project -->
+    <!-- Background Slideshow with Kenyan Farm Images -->
     <div class="background-slideshow">
         <div class="slide" style="background-image: url('coffee1.jpg')"></div>
         <div class="slide" style="background-image: url('maize1.0.jpg')"></div>
@@ -281,7 +948,7 @@
     </div>
     <div class="background-overlay"></div>
     
-    <!-- Navigation Bar - matching main project -->
+    <!-- Navigation Bar with Blur Effect -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
@@ -293,6 +960,15 @@
                         <h1 class="text-xl font-bold text-gray-800">ShambaCare<span class="gradient-text"> Kenya</span></h1>
                         <p class="text-xs text-gray-500">Smart Farming Assistant • Tuma Picha, Pata Matokeo</p>
                     </div>
+                </div>
+                
+                <div class="desktop-nav">
+                    <a href="index.html" class="nav-link text-gray-700">Home</a>
+                    <a href="index.html#diagnosis" class="nav-link text-gray-700">Diagnosis</a>
+                    <a href="index.html#shambas" class="nav-link text-gray-700">My Shambas</a>
+                    <a href="index.html#crops" class="nav-link text-gray-700">Crops</a>
+                    <a href="index.html#library" class="nav-link text-gray-700">Disease Library</a>
+                    <a href="index.html#contact" class="nav-link text-gray-700">Contact</a>
                 </div>
                 
                 <div class="flex items-center space-x-3">
@@ -317,41 +993,41 @@
                         <i class="fas fa-seedling text-white text-4xl"></i>
                     </div>
                 </div>
-                <h2 class="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
                     Welcome to <span class="gradient-text">ShambaCare</span>
                 </h2>
-                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-2 text-sm text-gray-600">
                     Your smart farming companion for Kenyan agriculture
                 </p>
             </div>
 
             <!-- Toggle Buttons -->
-            <div class="flex gap-3 rounded-xl bg-gray-100 dark:bg-gray-800 p-1 animate-fadeInUp" style="animation-delay: 0.1s">
-                <button id="loginTabBtn" onclick="switchToLogin()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-gray-700 text-green-600 shadow-sm">
+            <div class="flex gap-3 rounded-xl bg-gray-100 p-1 animate-fadeInUp" style="animation-delay: 0.1s">
+                <button id="loginTabBtn" onclick="switchToLogin()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 bg-white text-green-600 shadow-sm">
                     <i class="fas fa-sign-in-alt mr-2"></i> Login
                 </button>
-                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-gray-500 hover:text-green-600">
+                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-gray-500">
                     <i class="fas fa-user-plus mr-2"></i> Sign Up
                 </button>
             </div>
 
             <!-- Login Form -->
-            <div id="loginForm" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 animate-scaleIn card-hover">
+            <div id="loginForm" class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 animate-scaleIn login-card-hover">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-envelope mr-2 text-green-600"></i> Email Address
                         </label>
                         <input type="email" id="loginEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-lock mr-2 text-green-600"></i> Password
                         </label>
                         <div class="relative">
                             <input type="password" id="loginPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                             <button type="button" onclick="togglePassword('loginPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-600">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -362,7 +1038,7 @@
                 <div class="flex items-center justify-between">
                     <label class="flex items-center">
                         <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
                     </label>
                     <a href="#" onclick="showToast('Password reset link sent to your email!', 'info')" class="text-sm text-green-600 hover:text-green-500 font-medium">
                         Forgot password?
@@ -375,54 +1051,54 @@
 
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
+                        <div class="w-full border-t border-gray-200"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
                         <i class="fab fa-google text-red-500"></i>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Google</span>
+                        <span class="text-sm font-medium text-gray-700">Google</span>
                     </button>
-                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
                         <i class="fas fa-phone-alt text-green-600"></i>
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</span>
+                        <span class="text-sm font-medium text-gray-700">Phone</span>
                     </button>
                 </div>
             </div>
 
             <!-- Sign Up Form (Hidden by default) -->
-            <div id="signupForm" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 animate-scaleIn card-hover hidden">
+            <div id="signupForm" class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 animate-scaleIn login-card-hover hidden">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-user mr-2 text-green-600"></i> Full Name
                         </label>
                         <input type="text" id="signupName" placeholder="James Mwangi" 
-                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-envelope mr-2 text-green-600"></i> Email Address
                         </label>
                         <input type="email" id="signupEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-phone-alt mr-2 text-green-600"></i> Phone Number
                         </label>
                         <input type="tel" id="signupPhone" placeholder="+254 7XX XXX XXX" 
-                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                               class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-map-marker-alt mr-2 text-green-600"></i> County
                         </label>
-                        <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                        <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                             <option value="">Select your county</option>
                             <option>Kiambu</option>
                             <option>Nakuru</option>
@@ -435,12 +1111,12 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-lock mr-2 text-green-600"></i> Password
                         </label>
                         <div class="relative">
                             <input type="password" id="signupPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                             <button type="button" onclick="togglePassword('signupPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-600">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -448,12 +1124,12 @@
                         <p class="text-xs text-gray-500 mt-1">Password must be at least 6 characters</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-check-circle mr-2 text-green-600"></i> Confirm Password
                         </label>
                         <div class="relative">
                             <input type="password" id="signupConfirmPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 transition">
+                                   class="input-field w-full px-4 py-3 rounded-xl bg-gray-50 focus:bg-white transition">
                             <button type="button" onclick="togglePassword('signupConfirmPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-600">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -466,7 +1142,7 @@
                         <input type="checkbox" id="termsCheckbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
                     </div>
                     <div class="ml-3 text-sm">
-                        <label class="text-gray-600 dark:text-gray-400">
+                        <label class="text-gray-600">
                             I agree to the <a href="#" onclick="showToast('Terms and conditions would open here', 'info')" class="text-green-600 hover:text-green-500">Terms of Service</a> and 
                             <a href="#" onclick="showToast('Privacy policy would open here', 'info')" class="text-green-600 hover:text-green-500">Privacy Policy</a>
                         </label>
@@ -477,7 +1153,7 @@
                     <i class="fas fa-user-plus mr-2"></i> Create Account
                 </button>
 
-                <div class="text-center text-sm text-gray-600 dark:text-gray-400">
+                <div class="text-center text-sm text-gray-600">
                     By signing up, you'll get access to:
                     <div class="flex justify-center gap-4 mt-2 text-xs">
                         <span><i class="fas fa-microscope text-green-600"></i> AI Diagnosis</span>
@@ -488,8 +1164,8 @@
             </div>
 
             <!-- Demo Credentials Info -->
-            <div class="text-center text-xs text-gray-500 dark:text-gray-400 animate-fadeInUp" style="animation-delay: 0.2s">
-                <p class="bg-white/50 dark:bg-gray-800/50 inline-block px-4 py-2 rounded-full backdrop-blur-sm">
+            <div class="text-center text-xs text-gray-500 animate-fadeInUp" style="animation-delay: 0.2s">
+                <p class="bg-white/50 inline-block px-4 py-2 rounded-full backdrop-blur-sm">
                     <i class="fas fa-flask mr-1 text-green-600"></i> Demo: farmer@shambacare.com / any password
                 </p>
             </div>
@@ -497,7 +1173,7 @@
     </div>
 
     <script>
-        // Background Slideshow - matching main project
+        // ==================== BACKGROUND SLIDESHOW ====================
         class BackgroundSlideshow {
             constructor(slides, interval = 8000) {
                 this.slides = slides;
@@ -517,7 +1193,9 @@
                 this.slides[this.currentIndex].classList.add('active');
             }
             startSlideshow() {
-                setInterval(() => { this.nextSlide(); }, this.interval);
+                setInterval(() => {
+                    this.nextSlide();
+                }, this.interval);
             }
         }
 
@@ -527,28 +1205,34 @@
                 const slideshow = new BackgroundSlideshow(slides, 8000);
                 slideshow.init();
             }
+            // Load saved theme - default to light mode (no dark class)
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.getElementById('themeIcon')?.classList.remove('fa-moon');
+                document.getElementById('themeIcon')?.classList.add('fa-sun');
+            }
         });
 
-        // Toggle between Login and Signup forms
+        // ==================== TOGGLE FUNCTIONS ====================
         function switchToLogin() {
             document.getElementById('loginForm').classList.remove('hidden');
             document.getElementById('signupForm').classList.add('hidden');
-            document.getElementById('loginTabBtn').classList.add('bg-white', 'dark:bg-gray-700', 'text-green-600', 'shadow-sm');
+            document.getElementById('loginTabBtn').classList.add('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('loginTabBtn').classList.remove('text-gray-500');
-            document.getElementById('signupTabBtn').classList.remove('bg-white', 'dark:bg-gray-700', 'text-green-600', 'shadow-sm');
+            document.getElementById('signupTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('signupTabBtn').classList.add('text-gray-500');
         }
 
         function switchToSignup() {
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('signupForm').classList.remove('hidden');
-            document.getElementById('signupTabBtn').classList.add('bg-white', 'dark:bg-gray-700', 'text-green-600', 'shadow-sm');
+            document.getElementById('signupTabBtn').classList.add('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('signupTabBtn').classList.remove('text-gray-500');
-            document.getElementById('loginTabBtn').classList.remove('bg-white', 'dark:bg-gray-700', 'text-green-600', 'shadow-sm');
+            document.getElementById('loginTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('loginTabBtn').classList.add('text-gray-500');
         }
 
-        // Toggle password visibility
+        // ==================== PASSWORD TOGGLE ====================
         function togglePassword(inputId, button) {
             const input = document.getElementById(inputId);
             const icon = button.querySelector('i');
@@ -563,7 +1247,7 @@
             }
         }
 
-        // Show toast notification
+        // ==================== TOAST NOTIFICATION ====================
         function showToast(message, type = 'success') {
             const toast = document.createElement('div');
             const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
@@ -574,7 +1258,7 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // Handle Login
+        // ==================== HANDLE LOGIN ====================
         function handleLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
@@ -588,14 +1272,15 @@
                 return;
             }
             
-            // Demo login - accept any credentials for demo purposes
             showToast('Login successful! Redirecting to dashboard...', 'success');
             
             // Store user info in localStorage to simulate session
             localStorage.setItem('shambacare_user', JSON.stringify({
                 name: email.split('@')[0],
                 email: email,
-                loggedIn: true
+                loggedIn: true,
+                county: 'Kiambu',
+                phone: '+254 7XX XXX XXX'
             }));
             
             // Redirect to main app after 1.5 seconds
@@ -604,7 +1289,7 @@
             }, 1500);
         }
 
-        // Handle Signup
+        // ==================== HANDLE SIGNUP ====================
         function handleSignup() {
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
@@ -668,42 +1353,22 @@
             }, 1500);
         }
 
-        // Theme toggle - matching main project
+        // ==================== THEME TOGGLE ====================
         function toggleTheme() {
             const isDark = document.body.classList.toggle('dark');
             const icon = document.getElementById('themeIcon');
             if (isDark) {
-                document.body.classList.add('bg-gray-900');
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             } else {
-                document.body.classList.remove('bg-gray-900');
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             }
         }
         
-        // Load saved theme
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark', 'bg-gray-900');
-            document.getElementById('themeIcon')?.classList.remove('fa-moon');
-            document.getElementById('themeIcon')?.classList.add('fa-sun');
-        }
-
-        // Check if user is already logged in and redirect
-        const savedUser = localStorage.getItem('shambacare_user');
-        if (savedUser) {
-            try {
-                const user = JSON.parse(savedUser);
-                if (user.loggedIn && window.location.pathname.includes('login.html')) {
-                    // Don't auto-redirect from login page - let user choose
-                }
-            } catch(e) {}
-        }
-        
-        // Enter key submission
+        // ==================== ENTER KEY SUBMISSION ====================
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 if (!document.getElementById('loginForm').classList.contains('hidden')) {
