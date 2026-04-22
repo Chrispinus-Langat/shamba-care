@@ -58,7 +58,7 @@
             }
         }
         
-        /* Dark Overlay for Better Text Readability - IMPROVED for better contrast */
+        /* Dark Overlay for Better Text Readability */
         .background-overlay {
             position: fixed;
             top: 0;
@@ -204,7 +204,7 @@
             }
         }
         
-        /* Gradient text - CHANGED to blue for better visibility */
+        /* Gradient text */
         .gradient-text {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             -webkit-background-clip: text;
@@ -302,7 +302,7 @@
             }
         }
         
-        /* Custom button styles - UPDATED with blue */
+        /* Custom button styles */
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: all 0.3s ease;
@@ -517,68 +517,6 @@
             body { padding-bottom: 70px; }
         }
         
-        /* HIGH CONTRAST MODE - IMPROVED for better visibility */
-        body.high-contrast {
-            background: #000 !important;
-            color: #fff !important;
-        }
-        body.high-contrast .bg-white,
-        body.high-contrast .bg-gray-50,
-        body.high-contrast .bg-green-50,
-        body.high-contrast .bg-gradient-to-r,
-        body.high-contrast .bg-green-100,
-        body.high-contrast .bg-blue-100,
-        body.high-contrast .bg-red-50,
-        body.high-contrast .bg-yellow-50,
-        body.high-contrast .bg-purple-50 {
-            background: #1a1a1a !important;
-            color: #ffff00 !important;
-            border-color: #ffff00 !important;
-        }
-        body.high-contrast .text-gray-600,
-        body.high-contrast .text-gray-500,
-        body.high-contrast .text-gray-700,
-        body.high-contrast .text-gray-800 {
-            color: #ffff00 !important;
-        }
-        body.high-contrast .text-green-600,
-        body.high-contrast .text-green-700,
-        body.high-contrast .text-blue-600,
-        body.high-contrast .text-red-600,
-        body.high-contrast .text-yellow-600,
-        body.high-contrast .text-purple-600 {
-            color: #ffff00 !important;
-        }
-        body.high-contrast button,
-        body.high-contrast .btn-primary,
-        body.high-contrast .bg-green-500,
-        body.high-contrast .bg-blue-500,
-        body.high-contrast .bg-red-500 {
-            background: #ffff00 !important;
-            color: #000 !important;
-            font-weight: bold !important;
-        }
-        body.high-contrast a,
-        body.high-contrast .nav-link {
-            color: #ffff00 !important;
-        }
-        body.high-contrast .stat-number,
-        body.high-contrast .gradient-text {
-            -webkit-text-fill-color: #ffff00 !important;
-            color: #ffff00 !important;
-        }
-        /* Increase font size in high contrast mode */
-        body.high-contrast p,
-        body.high-contrast h1,
-        body.high-contrast h2,
-        body.high-contrast h3,
-        body.high-contrast h4,
-        body.high-contrast span,
-        body.high-contrast div:not(.diagnosis-loader),
-        body.high-contrast button {
-            font-size: 1.05em !important;
-        }
-        
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; }
         button:focus-visible, a:focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
         
@@ -700,9 +638,6 @@
                     <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
                         <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
                     </button>
-                    <button onclick="toggleHighContrast()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300" title="High Contrast Mode">
-                        <i class="fas fa-adjust text-gray-600"></i>
-                    </button>
                     
                     <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
                         <i class="fas fa-bars text-green-600 text-xl"></i>
@@ -782,7 +717,7 @@
             </div>
         </div>
 
-        <!-- Diagnosis Section - IMPROVED: Camera + Gallery Upload -->
+        <!-- Diagnosis Section - Camera + Gallery Upload -->
         <div id="diagnosis" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden card-hover">
                 <div class="bg-gradient-to-r from-green-500 to-green-600 p-5">
@@ -795,7 +730,7 @@
                     </div>
                 </div>
                 <div class="p-6">
-                    <!-- Camera and Upload Buttons - IMPROVED: direct camera access + gallery -->
+                    <!-- Camera and Upload Buttons -->
                     <div class="flex flex-wrap gap-3 mb-4">
                         <button onclick="openCameraDirect()" class="flex-1 bg-green-100 text-green-700 py-3 rounded-xl font-semibold hover:bg-green-200 transition"><i class="fas fa-camera mr-2"></i> Take Photo (Camera)</button>
                         <button onclick="openFilePicker()" class="flex-1 bg-blue-100 text-blue-700 py-3 rounded-xl font-semibold hover:bg-blue-200 transition"><i class="fas fa-images mr-2"></i> Choose from Gallery</button>
@@ -829,9 +764,7 @@
                     <div class="weather-condition text-gray-500 mt-2"><i class="fas fa-cloud-sun"></i> Loading...</div>
                     <div class="weather-details text-xs text-gray-400 mt-3">Humidity: --% | Wind: -- km/h</div>
                 </div>
-                <div id="weatherForecast" class="space-y-2 mt-4">
-                    <!-- 7-day forecast populated via JS -->
-                </div>
+                <div id="weatherForecast" class="space-y-2 mt-4"></div>
                 <div id="weatherAlert" class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
                     <div class="flex items-start gap-2"><i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5"></i><p class="text-sm text-yellow-800" id="alertText">Check weather before spraying</p></div>
                 </div>
@@ -985,7 +918,7 @@
             } catch (error) { console.error('Weather fetch error:', error); document.getElementById('realTimeWeather').innerHTML = '<div class="text-center py-4"><i class="fas fa-cloud-sun text-2xl text-green-600"></i><p class="text-sm mt-2">Weather data unavailable</p></div>'; }
         }
         
-        // ==================== IMPROVED CAMERA & GALLERY FUNCTIONS ====================
+        // ==================== CAMERA & GALLERY FUNCTIONS ====================
         function openCameraDirect() {
             hapticFeedback();
             const input = document.createElement('input');
@@ -1011,6 +944,16 @@
             input.removeAttribute('capture');
             input.click();
             input.setAttribute('capture', 'environment');
+        }
+        
+        function openCameraWithGuide() {
+            hapticFeedback();
+            const overlay = document.createElement('div');
+            overlay.className = 'camera-guide-overlay';
+            overlay.innerHTML = `<div class="leaf-guide"></div><button onclick="this.parentElement.remove()" class="mt-8 bg-red-500 text-white px-6 py-2 rounded-full">Close</button>`;
+            document.body.appendChild(overlay);
+            openCameraDirect();
+            setTimeout(() => overlay.remove(), 3000);
         }
         
         // ==================== LANGUAGE TRANSLATIONS ====================
@@ -1052,7 +995,6 @@
         let galleryMode = false;
         function toggleGalleryView() { galleryMode = !galleryMode; const listDiv = document.getElementById('recentDiagnoses'), galleryDiv = document.getElementById('galleryView'); if (galleryMode) { listDiv.classList.add('hidden'); galleryDiv.classList.remove('hidden'); galleryDiv.innerHTML = diagnoses.map(d => `<div class="diagnosis-gallery-item p-3 text-center"><div>🌿</div><p class="font-bold">${d.disease}</p><button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 text-white px-2 py-1 rounded text-xs mt-1">Share</button></div>`).join(''); } else { listDiv.classList.remove('hidden'); galleryDiv.classList.add('hidden'); renderDiagnoses(); } hapticFeedback(); }
         function hapticFeedback() { if (navigator.vibrate) navigator.vibrate(50); }
-        function toggleHighContrast() { document.body.classList.toggle('high-contrast'); localStorage.setItem('high_contrast', document.body.classList.contains('high-contrast')); showToast(document.body.classList.contains('high-contrast') ? 'High contrast mode ON' : 'Normal mode', 'info'); hapticFeedback(); }
         function toggleLanguage() { currentLang = currentLang === 'en' ? 'sw' : 'en'; const t = translations[currentLang]; document.getElementById('greetingText').innerHTML = `<i class="fas fa-hand-peace mr-1"></i> ${t.greeting}`; document.getElementById('healthLabel').textContent = t.healthLabel; document.getElementById('tasksLabel').textContent = t.tasksLabel; document.getElementById('diagnosisTitle').textContent = t.diagnosisTitle; document.getElementById('diagnosisDesc').textContent = t.diagnosisDesc; document.getElementById('uploadText').textContent = t.uploadText; document.getElementById('uploadHint').textContent = t.uploadHint; document.getElementById('weatherTitle').innerHTML = `<i class="fas fa-cloud-sun-rain text-green-600 mr-2"></i> ${t.weatherTitle}`; document.getElementById('shambasTitle').innerHTML = `<i class="fas fa-tractor text-green-600 mr-2"></i> ${t.shambasTitle}`; document.getElementById('cropsTitle').innerHTML = `<i class="fas fa-seedling text-green-600 mr-2"></i> ${t.cropsTitle}`; document.getElementById('recentTitle').innerHTML = `<i class="fas fa-history text-green-600 mr-2"></i> ${t.recentTitle}`; document.getElementById('libraryTitle').innerHTML = `<i class="fas fa-book text-green-600 mr-2"></i> ${t.libraryTitle}`; document.getElementById('langBtnText').textContent = currentLang === 'en' ? 'English' : 'Kiswahili'; }
         function toggleTheme() { const isDark = document.body.classList.toggle('dark'); const icon = document.getElementById('themeIcon'); if (isDark) { document.body.classList.add('bg-gray-900'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); } else { document.body.classList.remove('bg-gray-900'); icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); } }
         function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
@@ -1088,7 +1030,6 @@
             const avgHealth = Math.round(crops.reduce((s, c) => s + c.healthScore, 0) / crops.length);
             document.getElementById('healthScore').textContent = avgHealth;
             document.getElementById('pendingTasks').textContent = tasks.length;
-            if (localStorage.getItem('high_contrast') === 'true') document.body.classList.add('high-contrast');
             document.getElementById('mobileMenuToggle')?.addEventListener('click', openMobileMenu);
             document.getElementById('closeMobileMenu')?.addEventListener('click', closeMobileMenu);
             document.getElementById('mobileMenuOverlay')?.addEventListener('click', closeMobileMenu);
