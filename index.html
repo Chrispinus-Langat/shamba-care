@@ -302,7 +302,7 @@
             }
         }
         
-        /* Custom button styles */
+        /* Custom button styles - RETAINED ORIGINAL COLORS */
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: all 0.3s ease;
@@ -565,13 +565,13 @@
             transition: 0s;
         }
         
-        /* ===== IMPROVED DARK MODE STYLES - Everything visible and appealing ===== */
+        /* ===== IMPROVED DARK MODE STYLES ===== */
         .dark {
             background-color: #0f172a !important;
             color: #f1f5f9 !important;
         }
         
-        /* Dark mode card backgrounds */
+        /* Dark mode card backgrounds - Impact and Success Stories use light blue */
         .dark .bg-white,
         .dark .bg-gray-50,
         .dark .bg-green-50,
@@ -579,15 +579,17 @@
         .dark .bg-red-50,
         .dark .bg-yellow-50,
         .dark .bg-purple-50,
-        .dark .bg-gradient-to-r,
-        .dark .bg-green-100,
-        .dark .bg-blue-100,
-        .dark .bg-gray-100,
         .dark .bg-white\/95,
         .dark .bg-white\/20,
         .dark .bg-white\/10 {
             background-color: #1e293b !important;
             color: #f1f5f9 !important;
+        }
+        
+        /* Impact Stats and Success Stories containers - LIGHT BLUE in dark mode */
+        .dark .bg-gradient-to-r.from-green-50.to-emerald-50 {
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e4a6f 100%) !important;
+            border-color: #3b82f6 !important;
         }
         
         /* Dark mode text colors */
@@ -600,13 +602,13 @@
             color: #cbd5e1 !important;
         }
         
-        /* Dark mode headings - IMPROVED visibility */
+        /* Dark mode headings */
         .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
         .dark .font-bold, .dark .font-semibold {
             color: #facc15 !important;
         }
         
-        /* Dark mode section titles - FIXED visibility issues */
+        /* Dark mode section titles */
         .dark #shambasTitle,
         .dark #cropsTitle,
         .dark #recentTitle,
@@ -655,10 +657,10 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode buttons */
+        /* Dark mode buttons - RETAIN ORIGINAL BLUE COLOR */
         .dark .btn-primary {
-            background: linear-gradient(135deg, #facc15 0%, #eab308 100%) !important;
-            color: #0f172a !important;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
         }
         
         /* Dark mode upload zone */
@@ -742,28 +744,28 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode success stories */
+        /* Dark mode success stories - retain card colors */
         .dark .bg-red-50,
         .dark .bg-green-50 {
             background-color: #1e293b !important;
         }
         
-        /* Dark mode floating buttons */
+        /* Dark mode floating buttons - RETAIN ORIGINAL COLORS */
         .dark .bg-green-600,
         .dark .bg-green-500 {
-            background-color: #facc15 !important;
-            color: #0f172a !important;
+            background-color: #22c55e !important;
+            color: white !important;
         }
         
         .dark .bg-green-600 i,
         .dark .bg-green-500 i {
-            color: #0f172a !important;
+            color: white !important;
         }
         
         /* Dark mode toast */
         .dark .toast {
-            background-color: #facc15 !important;
-            color: #0f172a !important;
+            background-color: #22c55e !important;
+            color: white !important;
         }
         
         /* Dark mode onboarding card */
@@ -774,6 +776,46 @@
         
         .dark .onboarding-card p {
             color: #f1f5f9 !important;
+        }
+        
+        /* Disease Library severity tags - BLACK TEXT for visibility in both modes */
+        .severity-high {
+            background-color: #fee2e2 !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        .severity-critical {
+            background-color: #f3e8ff !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        .severity-medium {
+            background-color: #fef3c7 !important;
+            color: #000000 !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Dark mode severity tags - override with black text */
+        .dark .severity-high,
+        .dark .severity-critical,
+        .dark .severity-medium {
+            color: #000000 !important;
+            font-weight: 700 !important;
+        }
+        
+        /* Light mode section headers - ADDED BACKGROUND for visibility */
+        .section-header {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .light-mode-section-title {
+            background: rgba(34, 197, 94, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            display: inline-block;
         }
         
         /* Weather widget styles */
@@ -794,6 +836,48 @@
         h2.text-xl, .text-xl.font-bold, .mb-4 h2 {
             font-weight: 700;
             letter-spacing: -0.01em;
+        }
+        
+        /* Light mode header containers - VISIBLE BACKGROUND */
+        .light-mode-bg {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            width: auto;
+        }
+        
+        .dark .light-mode-bg {
+            background: transparent !important;
+        }
+        
+        /* Send message button - RETAIN ORIGINAL */
+        .send-message-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+        
+        .dark .send-message-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+        }
+        
+        /* WhatsApp and message icons - RETAIN ORIGINAL COLORS */
+        .whatsapp-icon {
+            color: #25D366 !important;
+        }
+        
+        .message-icon {
+            color: #3b82f6 !important;
+        }
+        
+        .dark .whatsapp-icon {
+            color: #25D366 !important;
+        }
+        
+        .dark .message-icon {
+            color: #3b82f6 !important;
         }
     </style>
 </head>
@@ -971,19 +1055,23 @@
             </div>
         </div>
 
-        <!-- My Shambas Section - IMPROVED TITLE VISIBILITY -->
+        <!-- My Shambas Section - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
         <div id="shambas" class="mb-8 animate-fadeInUp">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
+                <div class="light-mode-bg">
+                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
+                </div>
                 <button onclick="showAddFarmModal()" class="btn-primary text-white px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-md"><i class="fas fa-plus"></i> Add Shamba</button>
             </div>
             <div id="farmsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
 
-        <!-- Crop Health Monitoring - IMPROVED TITLE VISIBILITY -->
+        <!-- Crop Health Monitoring - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
         <div id="crops" class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
+                <div class="light-mode-bg">
+                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
+                </div>
                 <span class="text-sm text-gray-500">Last updated today</span>
             </div>
             <div id="cropsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -1006,19 +1094,23 @@
             <div id="successStoriesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
-        <!-- Recent Diagnoses with Gallery View - IMPROVED TITLE VISIBILITY -->
+        <!-- Recent Diagnoses with Gallery View - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
         <div class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
+                <div class="light-mode-bg">
+                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
+                </div>
                 <button onclick="toggleGalleryView()" class="text-sm text-green-600 hover:text-green-700 font-medium"><i class="fas fa-th-large mr-1"></i> Gallery View</button>
             </div>
             <div id="recentDiagnoses" class="space-y-3"></div>
             <div id="galleryView" class="diagnosis-gallery hidden"></div>
         </div>
 
-        <!-- Disease Library - IMPROVED TITLE VISIBILITY -->
+        <!-- Disease Library - WITH VISIBLE BACKGROUND IN LIGHT MODE AND BLACK TEXT FOR SEVERITY -->
         <div id="library" class="mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 section-title"><i class="fas fa-book text-green-600 mr-2"></i> <span id="libraryTitle">Common Crop Issues in Kenya</span></h2>
+            <div class="light-mode-bg mb-4">
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-book text-green-600 mr-2"></i> <span id="libraryTitle">Common Crop Issues in Kenya</span></h2>
+            </div>
             <div id="diseaseLibrary" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
@@ -1040,7 +1132,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="fullNameContact" placeholder="Full Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500" required><input type="email" id="emailContact" placeholder="Email Address" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500" required></div>
                         <select id="subjectContact" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500"><option value="general">General Inquiry</option><option value="support">Technical Support</option><option value="partnership">Sales & Partnerships</option><option value="feedback">Feedback</option></select>
                         <textarea id="messageContact" rows="4" placeholder="Your Message" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500" required></textarea>
-                        <button type="submit" class="w-full btn-primary text-white py-3 rounded-lg font-semibold ripple"><i class="fas fa-paper-plane mr-2"></i> Send Message</button>
+                        <button type="submit" class="w-full send-message-btn text-white py-3 rounded-lg font-semibold ripple"><i class="fas fa-paper-plane mr-2 message-icon"></i> Send Message</button>
                     </form>
                 </div>
                 
@@ -1078,8 +1170,8 @@
     <!-- Add Farm Modal -->
     <div id="addFarmModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('addFarmModal')"><div class="bg-white rounded-2xl max-w-md w-full animate-scaleIn" onclick="event.stopPropagation()"><div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl"><h3 class="font-bold text-lg text-gray-800"><i class="fas fa-plus-circle text-green-600 mr-2"></i> Add New Shamba</h3></div><div class="p-4 space-y-3"><input type="text" id="farmName" placeholder="Farm Name" class="w-full p-3 border rounded-lg"><input type="text" id="farmLocation" placeholder="Location/County" class="w-full p-3 border rounded-lg"><input type="number" id="farmSize" placeholder="Size (acres)" class="w-full p-3 border rounded-lg"><select id="farmCrop" class="w-full p-3 border rounded-lg"><option value="">Select Main Crop</option><option value="Maize">🌽 Maize</option><option value="Coffee">☕ Coffee</option><option value="Tea">🍃 Tea</option><option value="Beans">🫘 Beans</option><option value="Potatoes">🥔 Potatoes</option><option value="Vegetables">🥬 Vegetables</option></select><button onclick="addFarm()" class="w-full btn-primary text-white py-3 rounded-lg"><i class="fas fa-check-circle mr-2"></i> Add Shamba</button></div></div></div>
 
-    <!-- Floating Action Buttons -->
-    <div class="fixed bottom-24 right-4 space-y-3 z-50"><button onclick="openChatModal()" class="w-12 h-12 bg-green-600 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition"><i class="fas fa-comment-dots text-white"></i></button><a href="https://wa.me/254712345678?text=Hello%21%20I%20need%20assistance" target="_blank" class="w-12 h-12 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp text-white"></i></a></div>
+    <!-- Floating Action Buttons - RETAIN ORIGINAL COLORS -->
+    <div class="fixed bottom-24 right-4 space-y-3 z-50"><button onclick="openChatModal()" class="w-12 h-12 bg-green-600 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition"><i class="fas fa-comment-dots text-white"></i></button><a href="https://wa.me/254712345678?text=Hello%21%20I%20need%20assistance" target="_blank" class="w-12 h-12 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp text-white whatsapp-icon"></i></a></div>
 
     <!-- Live Chat Modal -->
     <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4"><div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn"><div class="bg-gradient-to-r from-green-600 to-green-700 p-4 rounded-t-2xl flex justify-between items-center"><h3 class="text-white font-bold">Live Chat Support</h3><button onclick="closeChatModal()" class="text-white hover:text-gray-200"><i class="fas fa-times text-xl"></i></button></div><div class="p-6"><div class="mb-4"><div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 mb-3 max-w-[80%]"><p class="text-sm text-gray-800 dark:text-gray-200">👋 Hi! How can we help you today?</p></div></div><div class="flex gap-2"><input type="text" id="chatMessage" placeholder="Type your message..." class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700"><button onclick="sendChatMessage()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Send</button></div><p class="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">Our support team is available 9am-5pm EAT</p></div></div></div>
@@ -1167,7 +1259,14 @@
         let farms = [{ id: 1, name: "Upper Shamba", location: "Kiambu", size: 2.5, mainCrop: "Maize", healthScore: 85 }, { id: 2, name: "Coffee Estate", location: "Murang'a", size: 3.0, mainCrop: "Coffee", healthScore: 92 }, { id: 3, name: "Vegetable Garden", location: "Nakuru", size: 1.2, mainCrop: "Vegetables", healthScore: 78 }];
         let crops = [{ id: 1, name: "Maize", variety: "H614", plantingDate: "2024-02-15", healthScore: 85, status: "Good", farm: "Upper Shamba", stage: "Vegetative" }, { id: 2, name: "Beans", variety: "Mwitemania", plantingDate: "2024-02-20", healthScore: 90, status: "Excellent", farm: "Upper Shamba", stage: "Flowering" }, { id: 3, name: "Coffee", variety: "SL28", plantingDate: "2024-01-10", healthScore: 92, status: "Excellent", farm: "Coffee Estate", stage: "Berry Development" }, { id: 4, name: "Kales", variety: "Marion", plantingDate: "2024-03-01", healthScore: 78, status: "Fair", farm: "Vegetable Garden", stage: "Vegetative" }];
         let diagnoses = [{ id: 1, crop: "Maize", disease: "Fall Armyworm", date: "2024-03-20", confidence: 94, solution: "Apply Eco-friendly pesticides" }, { id: 2, crop: "Coffee", disease: "Coffee Leaf Rust", date: "2024-03-18", confidence: 87, solution: "Apply copper-based fungicide" }];
-        const diseaseLibrary = [{ name: "Fall Armyworm", crop: "Maize", severity: "High", solution: "Use neem oil", icon: "🐛" }, { name: "Coffee Leaf Rust", crop: "Coffee", severity: "High", solution: "Copper fungicide", icon: "🍂" }, { name: "Maize Lethal Necrosis", crop: "Maize", severity: "Critical", solution: "Remove infected plants", icon: "⚠️" }, { name: "Late Blight", crop: "Potatoes", severity: "High", solution: "Apply fungicides", icon: "🥔" }, { name: "Aphids", crop: "Vegetables", severity: "Medium", solution: "Neem oil spray", icon: "🦟" }, { name: "Nutrient Deficiency", crop: "All", severity: "Medium", solution: "Balanced NPK fertilizer", icon: "🧪" }];
+        const diseaseLibrary = [
+            { name: "Fall Armyworm", crop: "Maize", severity: "High", solution: "Use neem oil", icon: "🐛", severityClass: "severity-high" },
+            { name: "Coffee Leaf Rust", crop: "Coffee", severity: "High", solution: "Copper fungicide", icon: "🍂", severityClass: "severity-high" },
+            { name: "Maize Lethal Necrosis", crop: "Maize", severity: "Critical", solution: "Remove infected plants", icon: "⚠️", severityClass: "severity-critical" },
+            { name: "Late Blight", crop: "Potatoes", severity: "High", solution: "Apply fungicides", icon: "🥔", severityClass: "severity-high" },
+            { name: "Aphids", crop: "Vegetables", severity: "Medium", solution: "Neem oil spray", icon: "🦟", severityClass: "severity-medium" },
+            { name: "Nutrient Deficiency", crop: "All", severity: "Medium", solution: "Balanced NPK fertilizer", icon: "🧪", severityClass: "severity-medium" }
+        ];
         const weatherData = [{ day: "Mon", temp: 24, icon: "fa-sun" }, { day: "Tue", temp: 23, icon: "fa-cloud-rain" }, { day: "Wed", temp: 25, icon: "fa-cloud" }, { day: "Thu", temp: 26, icon: "fa-sun" }, { day: "Fri", temp: 24, icon: "fa-cloud" }, { day: "Sat", temp: 22, icon: "fa-cloud-rain" }, { day: "Sun", temp: 23, icon: "fa-cloud-sun" }];
         let tasks = [{ id: 1, title: "Water maize field", crop: "Maize", dueDate: "2024-03-22", priority: "high" }, { id: 2, title: "Apply fertilizer", crop: "Coffee", dueDate: "2024-03-23", priority: "medium" }, { id: 3, title: "Spray for pests", crop: "Beans", dueDate: "2024-03-21", priority: "high" }, { id: 4, title: "Weeding", crop: "Kales", dueDate: "2024-03-25", priority: "low" }];
         const successStories = [{ name: "Grace Wanjiku", crop: "Maize", before: "Lost 40% to armyworm", after: "Saved 90%", image: "🌽", location: "Nakuru", story: "ShambaCare helped me identify Fall Armyworm early." }, { name: "Peter Kimani", crop: "Coffee", before: "Rust infection", after: "Recovered in 2 weeks", image: "☕", location: "Kiambu", story: "AI diagnosis was accurate." }, { name: "Mary Akinyi", crop: "Vegetables", before: "Aphid infestation", after: "Organic solution worked", image: "🥬", location: "Kisumu", story: "Neem oil saved my kales!" }];
@@ -1175,9 +1274,17 @@
         // ==================== RENDER FUNCTIONS ====================
         function renderFarms() { document.getElementById('farmsContainer').innerHTML = farms.map(farm => `<div class="bg-white rounded-xl shadow-lg p-5 card-hover border border-green-100"><div class="flex justify-between"><div><h3 class="font-bold">${farm.name}</h3><p class="text-sm text-gray-500">${farm.location}</p></div><div class="bg-green-100 rounded-full p-2"><i class="fas fa-tractor text-green-600"></i></div></div><div class="grid grid-cols-2 gap-2 text-sm mt-3"><div>Size: ${farm.size} acres</div><div>Main: ${farm.mainCrop}</div></div><div class="mt-3"><div class="flex justify-between text-sm"><span>Health Score</span><span class="font-semibold text-green-600">${farm.healthScore}%</span></div><div class="h-2 bg-gray-200 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:${farm.healthScore}%"></div></div></div></div>`).join(''); }
         function renderCrops() { document.getElementById('cropsContainer').innerHTML = crops.map(crop => `<div class="bg-white rounded-xl shadow-lg p-5 card-hover border border-green-100"><div class="flex justify-between"><div><h3 class="font-bold">${crop.name}</h3><p class="text-sm text-gray-500">${crop.variety}</p></div><span class="px-2 py-1 rounded-full text-xs ${crop.healthScore>=80?'bg-green-100 text-green-700':'bg-yellow-100 text-yellow-700'}">${crop.status}</span></div><div class="mt-3 space-y-1 text-sm"><p><i class="fas fa-map-marker-alt w-5"></i> ${crop.farm}</p><p><i class="fas fa-calendar w-5"></i> Planted: ${crop.plantingDate}</p><p><i class="fas fa-chart-line w-5"></i> Stage: ${crop.stage}</p></div><div class="mt-3"><div class="flex justify-between text-sm"><span>Health Score</span><span class="font-semibold text-green-600">${crop.healthScore}%</span></div><div class="h-2 bg-gray-200 rounded-full"><div class="h-full bg-green-500 rounded-full" style="width:${crop.healthScore}%"></div></div></div><button onclick="diagnoseCrop('${crop.name}')" class="mt-4 w-full bg-green-50 hover:bg-green-100 text-green-700 py-2 rounded-lg text-sm">Diagnose Now</button></div>`).join(''); }
-        function renderDiagnoses() { document.getElementById('recentDiagnoses').innerHTML = diagnoses.map(d => `<div class="bg-white rounded-xl shadow-md p-4 flex justify-between items-center"><div class="flex gap-3"><div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"><i class="fas fa-leaf text-green-600 text-xl"></i></div><div><h4 class="font-semibold">${d.crop} - ${d.disease}</h4><p class="text-xs text-gray-500">${d.date} • ${d.confidence}% confidence</p><p class="text-sm text-green-600">💡 ${d.solution}</p></div></div><button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 text-white p-2 rounded-full"><i class="fab fa-whatsapp"></i></button></div>`).join(''); }
+        function renderDiagnoses() { document.getElementById('recentDiagnoses').innerHTML = diagnoses.map(d => `<div class="bg-white rounded-xl shadow-md p-4 flex justify-between items-center"><div class="flex gap-3"><div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center"><i class="fas fa-leaf text-green-600 text-xl"></i></div><div><h4 class="font-semibold">${d.crop} - ${d.disease}</h4><p class="text-xs text-gray-500">${d.date} • ${d.confidence}% confidence</p><p class="text-sm text-green-600">💡 ${d.solution}</p></div></div><button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 text-white p-2 rounded-full"><i class="fab fa-whatsapp whatsapp-icon"></i></button></div>`).join(''); }
         function renderWeather() { document.getElementById('weatherForecast').innerHTML = weatherData.map(day => `<div class="flex justify-between p-2 hover:bg-green-50 rounded-lg"><span class="font-medium w-12">${day.day}</span><i class="fas ${day.icon} text-yellow-500"></i><span>${day.temp}°C</span></div>`).join(''); }
-        function renderDiseaseLibrary() { document.getElementById('diseaseLibrary').innerHTML = diseaseLibrary.map(d => `<div class="bg-white rounded-xl shadow-md p-4 card-hover"><div class="flex items-center gap-2"><span class="text-2xl">${d.icon}</span><h4 class="font-bold">${d.name}</h4></div><p class="text-sm text-gray-500">Affects: ${d.crop}</p><span class="inline-block px-2 py-1 rounded-full text-xs ${d.severity==='High'?'bg-red-100 text-red-700':d.severity==='Critical'?'bg-purple-100 text-purple-700':'bg-yellow-100 text-yellow-700'} mt-2">${d.severity}</span><p class="text-xs text-gray-600 mt-2">💡 ${d.solution}</p></div>`).join(''); }
+        function renderDiseaseLibrary() { 
+            document.getElementById('diseaseLibrary').innerHTML = diseaseLibrary.map(d => `
+                <div class="bg-white rounded-xl shadow-md p-4 card-hover">
+                    <div class="flex items-center gap-2"><span class="text-2xl">${d.icon}</span><h4 class="font-bold">${d.name}</h4></div>
+                    <p class="text-sm text-gray-500">Affects: ${d.crop}</p>
+                    <span class="inline-block px-2 py-1 rounded-full text-xs font-bold ${d.severityClass} mt-2">${d.severity} Severity</span>
+                    <p class="text-xs text-gray-600 mt-2">💡 ${d.solution}</p>
+                </div>`).join(''); 
+        }
         function renderSuccessStories() { document.getElementById('successStoriesContainer').innerHTML = successStories.map(s => `<div class="bg-white rounded-xl p-5 shadow-lg"><div class="text-5xl mb-3">${s.image}</div><h3 class="font-bold text-xl">${s.name}</h3><p class="text-sm text-green-600">${s.location} • ${s.crop}</p><div class="mt-3 p-2 bg-red-50 rounded-lg"><p class="text-sm"><span class="font-semibold">⚠️ Before:</span> ${s.before}</p></div><div class="mt-2 p-2 bg-green-50 rounded-lg"><p class="text-sm"><span class="font-semibold">✅ After:</span> ${s.after}</p></div><p class="text-xs text-gray-500 mt-2 italic">"${s.story}"</p></div>`).join(''); }
         
         // ==================== DIAGNOSIS FUNCTIONS ====================
@@ -1193,7 +1300,7 @@
         function showToast(msg, type = 'info') { const t = document.createElement('div'); t.className = `fixed bottom-24 right-4 ${type === 'success' ? 'bg-green-600' : 'bg-blue-600'} text-white px-4 py-2 rounded-lg shadow-lg z-50 toast`; t.innerHTML = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
         function shareToWhatsApp(crop, disease, solution) { window.open(`https://wa.me/?text=ShambaCare:%20${crop}%20-${disease}%20Solution:${solution}`, '_blank'); }
         let galleryMode = false;
-        function toggleGalleryView() { galleryMode = !galleryMode; const listDiv = document.getElementById('recentDiagnoses'), galleryDiv = document.getElementById('galleryView'); if (galleryMode) { listDiv.classList.add('hidden'); galleryDiv.classList.remove('hidden'); galleryDiv.innerHTML = diagnoses.map(d => `<div class="diagnosis-gallery-item p-3 text-center"><div>🌿</div><p class="font-bold">${d.disease}</p><button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 text-white px-2 py-1 rounded text-xs mt-1">Share</button></div>`).join(''); } else { listDiv.classList.remove('hidden'); galleryDiv.classList.add('hidden'); renderDiagnoses(); } hapticFeedback(); }
+        function toggleGalleryView() { galleryMode = !galleryMode; const listDiv = document.getElementById('recentDiagnoses'), galleryDiv = document.getElementById('galleryView'); if (galleryMode) { listDiv.classList.add('hidden'); galleryDiv.classList.remove('hidden'); galleryDiv.innerHTML = diagnoses.map(d => `<div class="diagnosis-gallery-item p-3 text-center"><div>🌿</div><p class="font-bold">${d.disease}</p><button onclick="shareToWhatsApp('${d.crop}','${d.disease}','${d.solution}')" class="bg-green-500 text-white px-2 py-1 rounded text-xs mt-1"><i class="fab fa-whatsapp whatsapp-icon"></i> Share</button></div>`).join(''); } else { listDiv.classList.remove('hidden'); galleryDiv.classList.add('hidden'); renderDiagnoses(); } hapticFeedback(); }
         function hapticFeedback() { if (navigator.vibrate) navigator.vibrate(50); }
         function toggleLanguage() { currentLang = currentLang === 'en' ? 'sw' : 'en'; const t = translations[currentLang]; document.getElementById('greetingText').innerHTML = `<i class="fas fa-hand-peace mr-1"></i> ${t.greeting}`; document.getElementById('healthLabel').textContent = t.healthLabel; document.getElementById('tasksLabel').textContent = t.tasksLabel; document.getElementById('diagnosisTitle').textContent = t.diagnosisTitle; document.getElementById('diagnosisDesc').textContent = t.diagnosisDesc; document.getElementById('uploadText').textContent = t.uploadText; document.getElementById('uploadHint').textContent = t.uploadHint; document.getElementById('weatherTitle').innerHTML = `<i class="fas fa-cloud-sun-rain text-green-600 mr-2"></i> ${t.weatherTitle}`; document.getElementById('shambasTitle').innerHTML = `<i class="fas fa-tractor text-green-600 mr-2"></i> ${t.shambasTitle}`; document.getElementById('cropsTitle').innerHTML = `<i class="fas fa-seedling text-green-600 mr-2"></i> ${t.cropsTitle}`; document.getElementById('recentTitle').innerHTML = `<i class="fas fa-history text-green-600 mr-2"></i> ${t.recentTitle}`; document.getElementById('libraryTitle').innerHTML = `<i class="fas fa-book text-green-600 mr-2"></i> ${t.libraryTitle}`; document.getElementById('langBtnText').textContent = currentLang === 'en' ? 'English' : 'Kiswahili'; }
         function toggleTheme() { const isDark = document.body.classList.toggle('dark'); const icon = document.getElementById('themeIcon'); if (isDark) { document.body.classList.add('bg-gray-900'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); } else { document.body.classList.remove('bg-gray-900'); icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); } }
