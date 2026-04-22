@@ -993,31 +993,6 @@
             transform: translateY(-6px);
             box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
         }
-        
-        /* Desktop profile button */
-        .desktop-profile-btn {
-            background: linear-gradient(135deg, #4c9f70, #2d6a4f);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .desktop-profile-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 159, 112, 0.3);
-        }
-        
-        .dark .desktop-profile-btn {
-            background: linear-gradient(135deg, #facc15, #eab308);
-            color: #0f172a;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -1044,6 +1019,7 @@
                     </div>
                 </div>
                 
+                <!-- Desktop Navigation - ADDED Profile link -->
                 <div class="desktop-nav">
                     <a href="#" onclick="scrollToSection('home'); return false;" class="nav-link text-gray-700">Home</a>
                     <a href="#" onclick="scrollToSection('diagnosis'); return false;" class="nav-link text-gray-700">Diagnosis</a>
@@ -1051,6 +1027,7 @@
                     <a href="#" onclick="scrollToSection('crops'); return false;" class="nav-link text-gray-700">Crops</a>
                     <a href="#" onclick="scrollToSection('library'); return false;" class="nav-link text-gray-700">Disease Library</a>
                     <a href="#" onclick="scrollToSection('contact'); return false;" class="nav-link text-gray-700">Contact</a>
+                    <a href="#" onclick="openProfileModal(); return false;" class="nav-link text-gray-700"><i class="fas fa-user-circle mr-1"></i> Profile</a>
                 </div>
                 
                 <div class="flex items-center space-x-3">
@@ -1061,11 +1038,6 @@
                     <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
                         <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
                     </button>
-                    <!-- DESKTOP PROFILE BUTTON - NEW -->
-                    <button onclick="openProfileModal()" class="desktop-profile-btn">
-                        <i class="fas fa-user-circle"></i>
-                        <span id="desktopProfileName">Profile</span>
-                    </button>
                     <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
                         <i class="fas fa-bars text-green-600 text-xl"></i>
                     </button>
@@ -1074,7 +1046,7 @@
         </div>
     </nav>
     
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar (unchanged for mobile) -->
     <div class="bottom-nav">
         <div class="bottom-nav-item" onclick="scrollToSection('home')"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="bottom-nav-item" onclick="openCameraWithGuide()"><i class="fas fa-camera"></i><span>Diagnose</span></div>
@@ -1083,7 +1055,7 @@
         <div class="bottom-nav-item" onclick="openProfileModal()"><i class="fas fa-user-circle"></i><span>Profile</span></div>
     </div>
 
-    <!-- Mobile Menu Overlay and Panel -->
+    <!-- Mobile Menu Overlay and Panel (unchanged) -->
     <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
     <div id="mobileMenuPanel" class="mobile-menu-panel">
         <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
@@ -1106,7 +1078,7 @@
         </div>
     </div>
 
-    <!-- Profile Modal -->
+    <!-- Profile Modal (unchanged) -->
     <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('profileModal')">
         <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full animate-scaleIn" onclick="event.stopPropagation()">
             <div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl flex justify-between items-center">
@@ -1383,17 +1355,10 @@
                 try {
                     currentUser = JSON.parse(savedUser);
                     if (currentUser.loggedIn) {
-                        // Get the actual username (full name from signup or email prefix as fallback)
                         let displayName = currentUser.name;
                         if (!displayName || displayName === 'undefined') {
                             displayName = currentUser.email?.split('@')[0] || 'Farmer';
                         }
-                        // Update desktop profile button text
-                        const desktopProfileBtn = document.getElementById('desktopProfileName');
-                        if (desktopProfileBtn) {
-                            desktopProfileBtn.textContent = displayName.split(' ')[0];
-                        }
-                        // Update farmer name on home screen
                         document.getElementById('farmerName').textContent = displayName;
                         document.getElementById('greetingText').innerHTML = `<i class="fas fa-hand-peace mr-1"></i> Karibu, ${displayName.split(' ')[0]}!`;
                         if (currentUser.county) {
