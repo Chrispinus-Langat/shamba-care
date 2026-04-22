@@ -302,7 +302,7 @@
             }
         }
         
-        /* Custom button styles - RETAINED ORIGINAL COLORS */
+        /* Custom button styles */
         .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: all 0.3s ease;
@@ -411,6 +411,45 @@
             .mobile-menu-btn {
                 display: block;
             }
+        }
+        
+        /* IMPROVED DARK MODE MOBILE SIDEBAR MENU */
+        .dark .mobile-menu-panel {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border-left: 2px solid #facc15 !important;
+        }
+        
+        .dark .mobile-menu-panel .border-b,
+        .dark .mobile-menu-panel .border-t {
+            border-color: #facc15 !important;
+        }
+        
+        .dark .mobile-menu-panel .text-gray-800,
+        .dark .mobile-menu-panel .font-bold,
+        .dark .mobile-menu-panel .nav-link {
+            color: #facc15 !important;
+        }
+        
+        .dark .mobile-menu-panel .text-gray-400,
+        .dark .mobile-menu-panel .text-xs {
+            color: #94a3b8 !important;
+        }
+        
+        .dark .mobile-menu-panel .bg-gradient-to-r {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+        }
+        
+        .dark .mobile-menu-panel .hover\:bg-green-50:hover {
+            background-color: #334155 !important;
+        }
+        
+        .dark .mobile-menu-panel .nav-link:hover {
+            color: #facc15 !important;
+            background-color: #334155 !important;
+        }
+        
+        .dark .mobile-menu-panel i {
+            color: #facc15 !important;
         }
         
         /* Camera Guide Overlay */
@@ -571,7 +610,6 @@
             color: #f1f5f9 !important;
         }
         
-        /* Dark mode card backgrounds - Impact and Success Stories use light blue */
         .dark .bg-white,
         .dark .bg-gray-50,
         .dark .bg-green-50,
@@ -586,13 +624,11 @@
             color: #f1f5f9 !important;
         }
         
-        /* Impact Stats and Success Stories containers - LIGHT BLUE in dark mode */
         .dark .bg-gradient-to-r.from-green-50.to-emerald-50 {
             background: linear-gradient(135deg, #1e3a5f 0%, #1e4a6f 100%) !important;
             border-color: #3b82f6 !important;
         }
         
-        /* Dark mode text colors */
         .dark .text-gray-600,
         .dark .text-gray-500,
         .dark .text-gray-700,
@@ -602,13 +638,11 @@
             color: #cbd5e1 !important;
         }
         
-        /* Dark mode headings */
         .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
         .dark .font-bold, .dark .font-semibold {
             color: #facc15 !important;
         }
         
-        /* Dark mode section titles */
         .dark #shambasTitle,
         .dark #cropsTitle,
         .dark #recentTitle,
@@ -621,14 +655,12 @@
             text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
         
-        /* Dark mode card text */
         .dark .bg-white p,
         .dark .bg-white span,
         .dark .bg-white div:not(.diagnosis-loader) {
             color: #e2e8f0 !important;
         }
         
-        /* Dark mode card headings inside */
         .dark .bg-white h3,
         .dark .bg-white h4,
         .dark .bg-white .font-bold,
@@ -636,7 +668,6 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode border colors */
         .dark .border,
         .dark .border-gray-200,
         .dark .border-green-100,
@@ -645,25 +676,21 @@
             border-color: #334155 !important;
         }
         
-        /* Dark mode stat numbers */
         .dark .stat-number {
             -webkit-text-fill-color: #facc15 !important;
             color: #facc15 !important;
         }
         
-        /* Dark mode gradient text */
         .dark .gradient-text {
             -webkit-text-fill-color: #facc15 !important;
             color: #facc15 !important;
         }
         
-        /* Dark mode buttons - RETAIN ORIGINAL BLUE COLOR */
         .dark .btn-primary {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
             color: white !important;
         }
         
-        /* Dark mode upload zone */
         .dark .upload-zone {
             background-color: #1e293b !important;
             border-color: #facc15 !important;
@@ -674,7 +701,6 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode nav */
         .dark nav {
             background-color: #1e293b !important;
             border-bottom-color: #facc15 !important;
@@ -694,7 +720,6 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode bottom nav */
         .dark .bottom-nav {
             background-color: #1e293b !important;
             border-top-color: #facc15 !important;
@@ -708,14 +733,12 @@
             color: #facc15 !important;
         }
         
-        /* Dark mode modals */
         .dark .modal-content,
         .dark .bg-white.rounded-2xl,
         .dark .bg-white.rounded-xl {
             background-color: #1e293b !important;
         }
         
-        /* Dark mode input fields */
         .dark input,
         .dark select,
         .dark textarea {
@@ -729,7 +752,6 @@
             color: #94a3b8 !important;
         }
         
-        /* Dark mode FAQ */
         .dark .faq-question {
             background-color: #1e293b !important;
         }
@@ -738,19 +760,16 @@
             background-color: #334155 !important;
         }
         
-        /* Dark mode weather card */
         .dark .weather-temp,
         .dark .text-blue-600 {
             color: #facc15 !important;
         }
         
-        /* Dark mode success stories - retain card colors */
         .dark .bg-red-50,
         .dark .bg-green-50 {
             background-color: #1e293b !important;
         }
         
-        /* Dark mode floating buttons - RETAIN ORIGINAL COLORS */
         .dark .bg-green-600,
         .dark .bg-green-500 {
             background-color: #22c55e !important;
@@ -762,13 +781,11 @@
             color: white !important;
         }
         
-        /* Dark mode toast */
         .dark .toast {
             background-color: #22c55e !important;
             color: white !important;
         }
         
-        /* Dark mode onboarding card */
         .dark .onboarding-card {
             background-color: #1e293b !important;
             color: #f1f5f9 !important;
@@ -778,7 +795,7 @@
             color: #f1f5f9 !important;
         }
         
-        /* Disease Library severity tags - BLACK TEXT for visibility in both modes */
+        /* Disease Library severity tags */
         .severity-high {
             background-color: #fee2e2 !important;
             color: #000000 !important;
@@ -795,7 +812,6 @@
             font-weight: 600 !important;
         }
         
-        /* Dark mode severity tags - override with black text */
         .dark .severity-high,
         .dark .severity-critical,
         .dark .severity-medium {
@@ -803,22 +819,61 @@
             font-weight: 700 !important;
         }
         
-        /* Light mode section headers - ADDED BACKGROUND for visibility */
-        .section-header {
+        /* Section header containers */
+        .section-header-container {
             background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
             padding: 0.75rem 1rem;
             border-radius: 1rem;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
         
-        .light-mode-section-title {
-            background: rgba(34, 197, 94, 0.1);
+        .dark .section-header-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border: 1px solid #facc15;
+        }
+        
+        .blue-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
             padding: 0.5rem 1rem;
-            border-radius: 0.75rem;
-            display: inline-block;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        /* Weather widget styles */
+        .blue-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+        }
+        
+        .dark .blue-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+            color: white !important;
+        }
+        
+        .contact-header-container {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .dark .contact-header-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border: 1px solid #facc15;
+        }
+        
         .weather-temp {
             font-size: 1.5rem;
             font-weight: bold;
@@ -827,32 +882,15 @@
             font-size: 0.875rem;
         }
         
-        /* Section title enhancements - always visible */
         .section-title {
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
-        /* Ensure titles are always readable */
         h2.text-xl, .text-xl.font-bold, .mb-4 h2 {
             font-weight: 700;
             letter-spacing: -0.01em;
         }
         
-        /* Light mode header containers - VISIBLE BACKGROUND */
-        .light-mode-bg {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: 0.75rem 1rem;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            width: auto;
-        }
-        
-        .dark .light-mode-bg {
-            background: transparent !important;
-        }
-        
-        /* Send message button - RETAIN ORIGINAL */
         .send-message-btn {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
@@ -863,7 +901,6 @@
             color: white !important;
         }
         
-        /* WhatsApp and message icons - RETAIN ORIGINAL COLORS */
         .whatsapp-icon {
             color: #25D366 !important;
         }
@@ -940,7 +977,7 @@
         <div class="bottom-nav-item" onclick="scrollToSection('contact')"><i class="fas fa-headset"></i><span>Help</span></div>
     </div>
 
-    <!-- Mobile Menu Overlay and Panel -->
+    <!-- Mobile Menu Overlay and Panel - IMPROVED DARK MODE -->
     <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
     <div id="mobileMenuPanel" class="mobile-menu-panel">
         <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
@@ -1014,7 +1051,6 @@
                     </div>
                 </div>
                 <div class="p-6">
-                    <!-- Camera and Upload Buttons -->
                     <div class="flex flex-wrap gap-3 mb-4">
                         <button onclick="openCameraDirect()" class="flex-1 bg-green-100 text-green-700 py-3 rounded-xl font-semibold hover:bg-green-200 transition"><i class="fas fa-camera mr-2"></i> Take Photo (Camera)</button>
                         <button onclick="openFilePicker()" class="flex-1 bg-blue-100 text-blue-700 py-3 rounded-xl font-semibold hover:bg-blue-200 transition"><i class="fas fa-images mr-2"></i> Choose from Gallery</button>
@@ -1036,7 +1072,6 @@
                 </div>
             </div>
             
-            <!-- Weather Card - REAL-TIME WEATHER -->
             <div class="bg-white rounded-2xl shadow-xl p-5 card-hover border border-green-100">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-bold text-gray-800"><i class="fas fa-cloud-sun-rain text-green-600 mr-2"></i> <span id="weatherTitle">Real-Time Weather</span></h3>
@@ -1055,24 +1090,20 @@
             </div>
         </div>
 
-        <!-- My Shambas Section - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
+        <!-- My Shambas Section - PARENT CONTAINER with left-center button -->
         <div id="shambas" class="mb-8 animate-fadeInUp">
-            <div class="flex items-center justify-between mb-4">
-                <div class="light-mode-bg">
-                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
-                </div>
-                <button onclick="showAddFarmModal()" class="btn-primary text-white px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-md"><i class="fas fa-plus"></i> Add Shamba</button>
+            <div class="section-header-container">
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-tractor text-green-600 mr-2"></i> <span id="shambasTitle">My Shambas</span></h2>
+                <button onclick="showAddFarmModal()" class="blue-button"><i class="fas fa-plus"></i> Add Shamba</button>
             </div>
             <div id="farmsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
 
-        <!-- Crop Health Monitoring - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
+        <!-- Crop Health Monitoring - PARENT CONTAINER with left-center button -->
         <div id="crops" class="mb-8">
-            <div class="flex items-center justify-between mb-4">
-                <div class="light-mode-bg">
-                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
-                </div>
-                <span class="text-sm text-gray-500">Last updated today</span>
+            <div class="section-header-container">
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-seedling text-green-600 mr-2"></i> <span id="cropsTitle">Active Crops Health Status</span></h2>
+                <span class="blue-button" style="cursor: default;"><i class="fas fa-calendar"></i> Last updated today</span>
             </div>
             <div id="cropsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
@@ -1094,29 +1125,30 @@
             <div id="successStoriesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
-        <!-- Recent Diagnoses with Gallery View - WITH VISIBLE BACKGROUND IN LIGHT MODE -->
+        <!-- Recent Diagnoses - PARENT CONTAINER with left-center button -->
         <div class="mb-8">
-            <div class="flex items-center justify-between mb-4">
-                <div class="light-mode-bg">
-                    <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
-                </div>
-                <button onclick="toggleGalleryView()" class="text-sm text-green-600 hover:text-green-700 font-medium"><i class="fas fa-th-large mr-1"></i> Gallery View</button>
+            <div class="section-header-container">
+                <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-history text-green-600 mr-2"></i> <span id="recentTitle">Recent Diagnoses</span></h2>
+                <button onclick="toggleGalleryView()" class="blue-button"><i class="fas fa-th-large mr-1"></i> Gallery View</button>
             </div>
             <div id="recentDiagnoses" class="space-y-3"></div>
             <div id="galleryView" class="diagnosis-gallery hidden"></div>
         </div>
 
-        <!-- Disease Library - WITH VISIBLE BACKGROUND IN LIGHT MODE AND BLACK TEXT FOR SEVERITY -->
+        <!-- Disease Library -->
         <div id="library" class="mb-8">
-            <div class="light-mode-bg mb-4">
+            <div class="section-header-container">
                 <h2 class="text-xl font-bold text-gray-800 section-title"><i class="fas fa-book text-green-600 mr-2"></i> <span id="libraryTitle">Common Crop Issues in Kenya</span></h2>
             </div>
             <div id="diseaseLibrary" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
 
-        <!-- Full Contact Section with MAP, FAQ, SOCIALS -->
+        <!-- Full Contact Section with MAP, FAQ, SOCIALS - HEADERS IN CONTAINERS -->
         <div id="contact" class="mb-8">
-            <div class="text-center mb-10"><h1 class="text-3xl md:text-4xl font-bold text-gray-800">Let's <span class="gradient-text">Connect</span></h1><p class="text-gray-600 mt-2">Get in touch with our team for support, partnerships, or inquiries</p></div>
+            <div class="contact-header-container">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Let's <span class="gradient-text">Connect</span></h1>
+                <p class="text-gray-600 mt-2">Get in touch with our team for support, partnerships, or inquiries</p>
+            </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 <div class="bg-white rounded-2xl shadow-lg p-6 text-center card-hover"><div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-phone-alt text-green-600 text-xl"></i></div><h3 class="font-semibold text-gray-800">Phone</h3><a href="tel:+254793062320" class="text-gray-600 text-sm">+254 793 062 320</a></div>
@@ -1143,10 +1175,12 @@
                 </div>
             </div>
             
-            <!-- FAQ Accordion Section -->
+            <!-- FAQ Accordion Section - HEADER IN CONTAINER -->
             <div class="mb-12">
-                <h2 class="text-2xl font-bold text-center mb-6">Frequently Asked Questions</h2>
-                <div class="max-w-3xl mx-auto space-y-4">
+                <div class="contact-header-container">
+                    <h2 class="text-2xl font-bold text-gray-800">Frequently Asked Questions</h2>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4 mt-6">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden"><button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"><span class="font-semibold text-gray-800">What is your typical response time?</span><i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i></button><div class="faq-answer px-6 pb-4 hidden"><p class="text-gray-600">We typically respond to all inquiries within 24 hours during business days.</p></div></div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden"><button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"><span class="font-semibold text-gray-800">Do you offer support for international clients?</span><i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i></button><div class="faq-answer px-6 pb-4 hidden"><p class="text-gray-600">Yes! We work with clients globally via email and video calls.</p></div></div>
                     <div class="bg-white rounded-xl shadow-md overflow-hidden"><button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition"><span class="font-semibold text-gray-800">Can I schedule a consultation call?</span><i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i></button><div class="faq-answer px-6 pb-4 hidden"><p class="text-gray-600">Fill out the contact form with your preferred date and time.</p></div></div>
@@ -1170,7 +1204,7 @@
     <!-- Add Farm Modal -->
     <div id="addFarmModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4" onclick="closeModal('addFarmModal')"><div class="bg-white rounded-2xl max-w-md w-full animate-scaleIn" onclick="event.stopPropagation()"><div class="p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl"><h3 class="font-bold text-lg text-gray-800"><i class="fas fa-plus-circle text-green-600 mr-2"></i> Add New Shamba</h3></div><div class="p-4 space-y-3"><input type="text" id="farmName" placeholder="Farm Name" class="w-full p-3 border rounded-lg"><input type="text" id="farmLocation" placeholder="Location/County" class="w-full p-3 border rounded-lg"><input type="number" id="farmSize" placeholder="Size (acres)" class="w-full p-3 border rounded-lg"><select id="farmCrop" class="w-full p-3 border rounded-lg"><option value="">Select Main Crop</option><option value="Maize">🌽 Maize</option><option value="Coffee">☕ Coffee</option><option value="Tea">🍃 Tea</option><option value="Beans">🫘 Beans</option><option value="Potatoes">🥔 Potatoes</option><option value="Vegetables">🥬 Vegetables</option></select><button onclick="addFarm()" class="w-full btn-primary text-white py-3 rounded-lg"><i class="fas fa-check-circle mr-2"></i> Add Shamba</button></div></div></div>
 
-    <!-- Floating Action Buttons - RETAIN ORIGINAL COLORS -->
+    <!-- Floating Action Buttons -->
     <div class="fixed bottom-24 right-4 space-y-3 z-50"><button onclick="openChatModal()" class="w-12 h-12 bg-green-600 rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition"><i class="fas fa-comment-dots text-white"></i></button><a href="https://wa.me/254712345678?text=Hello%21%20I%20need%20assistance" target="_blank" class="w-12 h-12 bg-green-500 rounded-full shadow-lg flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp text-white whatsapp-icon"></i></a></div>
 
     <!-- Live Chat Modal -->
