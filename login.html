@@ -330,6 +330,7 @@
         }
 
         /* ===== MOBILE MENU & NAV LINK STYLES ===== */
+        /* Desktop navigation - only Sign Up and Login */
         .desktop-nav {
             display: flex;
             align-items: center;
@@ -361,10 +362,12 @@
             width: 100%;
         }
         
+        /* Mobile menu button - hidden on desktop */
         .mobile-menu-btn {
             display: none;
         }
         
+        /* Mobile menu overlay */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -383,6 +386,7 @@
             visibility: visible;
         }
         
+        /* Mobile menu panel */
         .mobile-menu-panel {
             position: fixed;
             top: 0;
@@ -402,6 +406,7 @@
             transform: translateX(0);
         }
         
+        /* Hide desktop nav on mobile, show mobile menu button */
         @media (max-width: 768px) {
             .desktop-nav {
                 display: none;
@@ -483,7 +488,7 @@
         }
         .diagnosis-gallery-item:hover { transform: scale(1.03); }
         
-        /* Bottom Navigation Bar */
+        /* Bottom Navigation Bar - for mobile */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -905,24 +910,47 @@
             }
         }
         
-        /* Form input styles */
+        /* Form input styles - IMPROVED VISIBILITY with white text */
         .input-field {
             transition: all 0.3s ease;
-            border: 1.5px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.9);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.15);
+            color: white !important;
+            font-weight: 500;
+        }
+        
+        .input-field::placeholder {
+            color: rgba(255,255,255,0.7);
         }
         
         .input-field:focus {
             border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
             outline: none;
-            background: white;
+            background: rgba(255,255,255,0.25);
+            color: white;
+        }
+        
+        /* Select dropdown text color */
+        select.input-field {
+            color: white !important;
+        }
+        
+        select.input-field option {
+            background: #1e293b;
+            color: white;
+        }
+        
+        .dark select.input-field option {
+            background: #0f172a;
+            color: #facc15;
         }
         
         /* Password toggle */
         .password-toggle {
             cursor: pointer;
             transition: color 0.2s;
+            color: rgba(255,255,255,0.8);
         }
         
         .password-toggle:hover {
@@ -931,28 +959,78 @@
         
         /* GLASSY MODAL STYLES - UPGRADED */
         .glassy-modal {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
         }
         
         .dark .glassy-modal {
-            background: rgba(30, 41, 59, 0.7);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(250, 204, 21, 0.3);
         }
         
-        /* Improved text visibility for light mode */
-        .text-visible-light {
-            color: #1e293b;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+        /* Modal text styles - ALL WHITE for visibility */
+        .glassy-modal label,
+        .glassy-modal .text-gray-700,
+        .glassy-modal .text-gray-800,
+        .glassy-modal span:not(.text-green-600),
+        .glassy-modal .text-sm {
+            color: white !important;
         }
         
-        .dark .text-visible-light {
-            color: #facc15;
-            text-shadow: none;
+        .dark .glassy-modal label,
+        .dark .glassy-modal .text-gray-700,
+        .dark .glassy-modal span:not(.text-green-600) {
+            color: #facc15 !important;
+        }
+        
+        /* Checkbox label */
+        .glassy-modal .flex.items-center span {
+            color: white !important;
+        }
+        
+        .dark .glassy-modal .flex.items-center span {
+            color: #facc15 !important;
+        }
+        
+        /* Forgot password link */
+        .glassy-modal a.text-green-600 {
+            color: #4ade80 !important;
+        }
+        
+        .dark .glassy-modal a.text-green-600 {
+            color: #facc15 !important;
+        }
+        
+        /* Or continue with text */
+        .glassy-modal .relative .text-sm span {
+            color: rgba(255,255,255,0.8) !important;
+            background: transparent;
+        }
+        
+        /* Google and Phone buttons text */
+        .glassy-modal .grid button span {
+            color: white !important;
+        }
+        
+        .dark .glassy-modal .grid button span {
+            color: #facc15 !important;
+        }
+        
+        /* Sign up benefits text */
+        .glassy-modal .text-center.text-sm {
+            color: rgba(255,255,255,0.9) !important;
+        }
+        
+        .dark .glassy-modal .text-center.text-sm {
+            color: #cbd5e1 !important;
+        }
+        
+        .glassy-modal .text-center.text-sm span {
+            color: rgba(255,255,255,0.9) !important;
         }
         
         /* Welcome text improved visibility */
@@ -974,6 +1052,15 @@
         .dark .subtitle-text {
             color: #cbd5e1;
         }
+        
+        /* Toggle buttons text */
+        .toggle-btn-text {
+            color: #1e293b;
+        }
+        
+        .dark .toggle-btn-text {
+            color: #facc15;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -986,7 +1073,7 @@
     </div>
     <div class="background-overlay"></div>
     
-    <!-- Navigation Bar with Blur Effect - REMOVED Back to App link -->
+    <!-- Navigation Bar with Blur Effect - Desktop only shows Sign Up and Login -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
@@ -1000,28 +1087,43 @@
                     </div>
                 </div>
                 
+                <!-- Desktop Navigation - ONLY Sign Up and Login links -->
                 <div class="desktop-nav">
-                    <a href="index.html" class="nav-link text-gray-700">Home</a>
-                    <a href="index.html#diagnosis" class="nav-link text-gray-700">Diagnosis</a>
-                    <a href="index.html#shambas" class="nav-link text-gray-700">My Shambas</a>
-                    <a href="index.html#crops" class="nav-link text-gray-700">Crops</a>
-                    <a href="index.html#library" class="nav-link text-gray-700">Disease Library</a>
-                    <a href="index.html#contact" class="nav-link text-gray-700">Contact</a>
+                    <a href="#" onclick="switchToSignup(); return false;" class="nav-link text-gray-700">Sign Up</a>
+                    <a href="#" onclick="switchToLogin(); return false;" class="nav-link text-gray-700">Login</a>
                 </div>
                 
                 <div class="flex items-center space-x-3">
                     <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
                         <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
                     </button>
+                    <!-- Mobile menu button -->
+                    <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
+                        <i class="fas fa-bars text-green-600 text-xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Mobile Menu Panel -->
+    <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
+    <div id="mobileMenuPanel" class="mobile-menu-panel">
+        <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+            <span class="font-bold text-gray-800"><i class="fas fa-leaf text-green-600 mr-2"></i>Menu</span>
+            <button id="closeMobileMenu" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <div class="flex flex-col p-4 space-y-3">
+            <a href="#" onclick="switchToLogin(); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-sign-in-alt w-6 text-green-600"></i> Login</a>
+            <a href="#" onclick="switchToSignup(); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-user-plus w-6 text-green-600"></i> Sign Up</a>
+            <div class="border-t border-gray-200 my-2 pt-3"><p class="text-xs text-gray-400 px-3">ShambaCare Kenya © 2024</p></div>
+        </div>
+    </div>
+
     <!-- Main Login/Signup Section -->
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <!-- Logo and Title - IMPROVED VISIBILITY -->
+            <!-- Logo and Title -->
             <div class="text-center animate-fadeInUp">
                 <div class="flex justify-center">
                     <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-full p-4 shadow-lg">
@@ -1041,29 +1143,29 @@
                 <button id="loginTabBtn" onclick="switchToLogin()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 bg-white text-green-600 shadow-sm">
                     <i class="fas fa-sign-in-alt mr-2"></i> Login
                 </button>
-                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-gray-700">
+                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-gray-700 toggle-btn-text">
                     <i class="fas fa-user-plus mr-2"></i> Sign Up
                 </button>
             </div>
 
-            <!-- Login Form - GLASSY MODAL -->
+            <!-- Login Form - GLASSY MODAL with white text -->
             <div id="loginForm" class="glassy-modal p-6 sm:p-8 space-y-6 animate-scaleIn">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-envelope mr-2 text-green-600"></i> Email Address
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-envelope mr-2 text-green-400"></i> Email Address
                         </label>
                         <input type="email" id="loginEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
+                               class="input-field w-full px-4 py-3 rounded-xl transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-lock mr-2 text-green-600"></i> Password
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-lock mr-2 text-green-400"></i> Password
                         </label>
                         <div class="relative">
                             <input type="password" id="loginPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
-                            <button type="button" onclick="togglePassword('loginPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-green-600">
+                                   class="input-field w-full px-4 py-3 rounded-xl transition">
+                            <button type="button" onclick="togglePassword('loginPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -1073,9 +1175,9 @@
                 <div class="flex items-center justify-between">
                     <label class="flex items-center">
                         <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Remember me</span>
+                        <span class="ml-2 text-sm text-white">Remember me</span>
                     </label>
-                    <a href="#" onclick="showToast('Password reset link sent to your email!', 'info')" class="text-sm text-green-600 hover:text-green-500 font-medium">
+                    <a href="#" onclick="showToast('Password reset link sent to your email!', 'info')" class="text-sm text-green-400 hover:text-green-300 font-medium">
                         Forgot password?
                     </a>
                 </div>
@@ -1089,83 +1191,122 @@
                         <div class="w-full border-t border-white/30"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-transparent text-gray-700 dark:text-gray-300">Or continue with</span>
+                        <span class="px-2 bg-transparent text-white/80">Or continue with</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/70 transition">
-                        <i class="fab fa-google text-red-500"></i>
-                        <span class="text-sm font-medium text-gray-700">Google</span>
+                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition">
+                        <i class="fab fa-google text-red-400"></i>
+                        <span class="text-sm font-medium text-white">Google</span>
                     </button>
-                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/70 transition">
-                        <i class="fas fa-phone-alt text-green-600"></i>
-                        <span class="text-sm font-medium text-gray-700">Phone</span>
+                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition">
+                        <i class="fas fa-phone-alt text-green-400"></i>
+                        <span class="text-sm font-medium text-white">Phone</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Sign Up Form - GLASSY MODAL (Hidden by default) -->
+            <!-- Sign Up Form - GLASSY MODAL with white text (Hidden by default) with ALL 47 COUNTIES -->
             <div id="signupForm" class="glassy-modal p-6 sm:p-8 space-y-6 animate-scaleIn hidden">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-user mr-2 text-green-600"></i> Full Name
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-user mr-2 text-green-400"></i> Full Name
                         </label>
                         <input type="text" id="signupName" placeholder="James Mwangi" 
-                               class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
+                               class="input-field w-full px-4 py-3 rounded-xl transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-envelope mr-2 text-green-600"></i> Email Address
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-envelope mr-2 text-green-400"></i> Email Address
                         </label>
                         <input type="email" id="signupEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
+                               class="input-field w-full px-4 py-3 rounded-xl transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-phone-alt mr-2 text-green-600"></i> Phone Number
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-phone-alt mr-2 text-green-400"></i> Phone Number
                         </label>
                         <input type="tel" id="signupPhone" placeholder="+254 7XX XXX XXX" 
-                               class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
+                               class="input-field w-full px-4 py-3 rounded-xl transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-map-marker-alt mr-2 text-green-600"></i> County
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-map-marker-alt mr-2 text-green-400"></i> County
                         </label>
-                        <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
+                        <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl transition">
                             <option value="">Select your county</option>
+                            <option>Baringo</option>
+                            <option>Bomet</option>
+                            <option>Bungoma</option>
+                            <option>Busia</option>
+                            <option>Elgeyo-Marakwet</option>
+                            <option>Embu</option>
+                            <option>Garissa</option>
+                            <option>Homa Bay</option>
+                            <option>Isiolo</option>
+                            <option>Kajiado</option>
+                            <option>Kakamega</option>
+                            <option>Kericho</option>
                             <option>Kiambu</option>
-                            <option>Nakuru</option>
+                            <option>Kilifi</option>
+                            <option>Kirinyaga</option>
+                            <option>Kisii</option>
+                            <option>Kisumu</option>
+                            <option>Kitui</option>
+                            <option>Kwale</option>
+                            <option>Laikipia</option>
+                            <option>Lamu</option>
+                            <option>Machakos</option>
+                            <option>Makueni</option>
+                            <option>Mandera</option>
+                            <option>Marsabit</option>
+                            <option>Meru</option>
+                            <option>Migori</option>
+                            <option>Mombasa</option>
                             <option>Murang'a</option>
                             <option>Nairobi</option>
-                            <option>Kisumu</option>
+                            <option>Nakuru</option>
+                            <option>Nandi</option>
+                            <option>Narok</option>
+                            <option>Nyamira</option>
+                            <option>Nyandarua</option>
+                            <option>Nyeri</option>
+                            <option>Samburu</option>
+                            <option>Siaya</option>
+                            <option>Taita-Taveta</option>
+                            <option>Tana River</option>
+                            <option>Tharaka-Nithi</option>
+                            <option>Trans Nzoia</option>
+                            <option>Turkana</option>
                             <option>Uasin Gishu</option>
-                            <option>Machakos</option>
-                            <option>Kajiado</option>
+                            <option>Vihiga</option>
+                            <option>Wajir</option>
+                            <option>West Pokot</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-lock mr-2 text-green-600"></i> Password
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-lock mr-2 text-green-400"></i> Password
                         </label>
                         <div class="relative">
                             <input type="password" id="signupPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
-                            <button type="button" onclick="togglePassword('signupPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-green-600">
+                                   class="input-field w-full px-4 py-3 rounded-xl transition">
+                            <button type="button" onclick="togglePassword('signupPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
-                        <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Password must be at least 6 characters</p>
+                        <p class="text-xs text-white/70 mt-1">Password must be at least 6 characters</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                            <i class="fas fa-check-circle mr-2 text-green-600"></i> Confirm Password
+                        <label class="block text-sm font-semibold text-white mb-2">
+                            <i class="fas fa-check-circle mr-2 text-green-400"></i> Confirm Password
                         </label>
                         <div class="relative">
                             <input type="password" id="signupConfirmPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl focus:bg-white transition">
-                            <button type="button" onclick="togglePassword('signupConfirmPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-green-600">
+                                   class="input-field w-full px-4 py-3 rounded-xl transition">
+                            <button type="button" onclick="togglePassword('signupConfirmPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -1177,9 +1318,9 @@
                         <input type="checkbox" id="termsCheckbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
                     </div>
                     <div class="ml-3 text-sm">
-                        <label class="text-gray-700 dark:text-gray-300">
-                            I agree to the <a href="#" onclick="showToast('Terms and conditions would open here', 'info')" class="text-green-600 hover:text-green-500">Terms of Service</a> and 
-                            <a href="#" onclick="showToast('Privacy policy would open here', 'info')" class="text-green-600 hover:text-green-500">Privacy Policy</a>
+                        <label class="text-white">
+                            I agree to the <a href="#" onclick="showToast('Terms and conditions would open here', 'info')" class="text-green-400 hover:text-green-300">Terms of Service</a> and 
+                            <a href="#" onclick="showToast('Privacy policy would open here', 'info')" class="text-green-400 hover:text-green-300">Privacy Policy</a>
                         </label>
                     </div>
                 </div>
@@ -1188,12 +1329,12 @@
                     <i class="fas fa-user-plus mr-2"></i> Create Account
                 </button>
 
-                <div class="text-center text-sm text-gray-700 dark:text-gray-300">
+                <div class="text-center text-sm text-white/80">
                     By signing up, you'll get access to:
                     <div class="flex justify-center gap-4 mt-2 text-xs">
-                        <span><i class="fas fa-microscope text-green-600"></i> AI Diagnosis</span>
-                        <span><i class="fas fa-chart-line text-green-600"></i> Crop Tracking</span>
-                        <span><i class="fas fa-cloud-sun text-green-600"></i> Weather Alerts</span>
+                        <span><i class="fas fa-microscope text-green-400"></i> AI Diagnosis</span>
+                        <span><i class="fas fa-chart-line text-green-400"></i> Crop Tracking</span>
+                        <span><i class="fas fa-cloud-sun text-green-400"></i> Weather Alerts</span>
                     </div>
                 </div>
             </div>
@@ -1246,7 +1387,33 @@
                 document.getElementById('themeIcon')?.classList.remove('fa-moon');
                 document.getElementById('themeIcon')?.classList.add('fa-sun');
             }
+            
+            // Mobile menu event listeners
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const closeBtn = document.getElementById('closeMobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
+            if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
+            if (overlay) overlay.addEventListener('click', closeMobileMenu);
         });
+
+        // ==================== MOBILE MENU FUNCTIONS ====================
+        function openMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
+            overlay.classList.add('active');
+            panel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const panel = document.getElementById('mobileMenuPanel');
+            overlay.classList.remove('active');
+            panel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
         // ==================== TOGGLE FUNCTIONS ====================
         function switchToLogin() {
@@ -1256,6 +1423,7 @@
             document.getElementById('loginTabBtn').classList.remove('text-gray-700');
             document.getElementById('signupTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('signupTabBtn').classList.add('text-gray-700');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function switchToSignup() {
@@ -1265,6 +1433,7 @@
             document.getElementById('signupTabBtn').classList.remove('text-gray-700');
             document.getElementById('loginTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
             document.getElementById('loginTabBtn').classList.add('text-gray-700');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ==================== PASSWORD TOGGLE ====================
@@ -1309,7 +1478,6 @@
             
             showToast('Login successful! Redirecting to dashboard...', 'success');
             
-            // Store user info in localStorage to simulate session
             localStorage.setItem('shambacare_user', JSON.stringify({
                 name: email.split('@')[0],
                 email: email,
@@ -1318,7 +1486,6 @@
                 phone: '+254 7XX XXX XXX'
             }));
             
-            // Redirect to main app after 1.5 seconds
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 1500);
@@ -1371,9 +1538,8 @@
                 return;
             }
             
-            showToast('Account created successfully! Redirecting to login...', 'success');
+            showToast('Account created successfully! Redirecting to dashboard...', 'success');
             
-            // Store user info
             localStorage.setItem('shambacare_user', JSON.stringify({
                 name: name,
                 email: email,
@@ -1382,7 +1548,6 @@
                 loggedIn: true
             }));
             
-            // Redirect to main app after 1.5 seconds
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 1500);
