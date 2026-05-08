@@ -11,1060 +11,69 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Background Slideshow Container */
-        .background-slideshow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-        
-        /* Individual Slide */
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            animation: kenBurns 20s ease-in-out infinite alternate;
-        }
-        
-        /* Active Slide */
-        .slide.active {
-            opacity: 1;
-        }
-        
-        /* Ken Burns Effect - Smooth Zoom & Pan */
-        @keyframes kenBurns {
-            0% {
-                transform: scale(1) translateX(0);
-            }
-            100% {
-                transform: scale(1.1) translateX(-2%);
-            }
-        }
-        
-        /* Dark Overlay for Better Text Readability */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.6) 0%, 
-                rgba(0, 0, 0, 0.75) 100%);
-            z-index: -1;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #e5e7eb;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #4c9f70;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3d7e58;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-        
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .animate-slideInLeft {
-            animation: slideInLeft 0.5s ease-out;
-        }
-        
-        .animate-slideInRight {
-            animation: slideInRight 0.5s ease-out;
-        }
-        
-        .animate-scaleIn {
-            animation: scaleIn 0.4s ease-out;
-        }
-        
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-        }
-        
-        /* Loading animation */
-        .diagnosis-loader {
-            width: 48px;
-            height: 48px;
-            border: 3px solid #e5e7eb;
-            border-bottom-color: #4c9f70;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-        
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Stats counter */
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Progress ring */
-        .progress-ring {
-            transform: rotate(-90deg);
-        }
-        
-        .progress-ring__circle {
-            transition: stroke-dashoffset 0.5s;
-        }
-        
-        /* Image upload area */
-        .upload-zone {
-            transition: all 0.3s ease;
-            border: 2px dashed #cbd5e1;
-        }
-        
-        .upload-zone:hover, .upload-zone.drag-over {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-            transform: scale(1.02);
-        }
-        
-        /* Toast notification */
-        .toast {
-            animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
-        }
-        
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-        }
-        
-        /* Mobile optimizations */
-        @media (max-width: 640px) {
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-                overflow-x: hidden;
-            }
-            
-            button, .clickable {
-                min-height: 44px;
-            }
-            
-            body, .mx-auto, .px-4, .px-6, .container-fluid {
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-            
-            img, .rounded-xl, .shadow-xl, .rounded-2xl {
-                max-width: 100%;
-                height: auto;
-            }
-            
-            .grid {
-                gap: 0.75rem;
-            }
-            
-            .lg\:col-span-2, .bg-white.rounded-2xl {
-                margin-left: 0;
-                margin-right: 0;
-            }
-        }
-        
-        /* Shimmer effect */
-        .shimmer {
-            background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-        
-        /* Custom button styles */
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f47e28 0%, #e65c1e 100%);
-        }
-        
-        /* Floating animation */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* ===== MOBILE MENU & NAV LINK STYLES ===== */
-        /* Desktop navigation - only Sign Up and Login */
-        .desktop-nav {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .nav-link {
-            position: relative;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: #3b82f6;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        /* Mobile menu button - hidden on desktop */
-        .mobile-menu-btn {
-            display: none;
-        }
-        
-        /* Mobile menu overlay */
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        
-        .mobile-menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Mobile menu panel */
-        .mobile-menu-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 280px;
-            height: 100%;
-            background-color: white;
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-            z-index: 50;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .mobile-menu-panel.active {
-            transform: translateX(0);
-        }
-        
-        /* Hide desktop nav on mobile, show mobile menu button */
-        @media (max-width: 768px) {
-            .desktop-nav {
-                display: none;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
-        
-        /* Camera Guide Overlay */
-        .camera-guide-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .leaf-guide {
-            border: 3px dashed #3b82f6;
-            border-radius: 50%;
-            width: 250px;
-            height: 250px;
-            position: relative;
-            background: rgba(59,130,246,0.1);
-        }
-        .leaf-guide::before {
-            content: "🍃 Position leaf here";
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-        
-        /* Onboarding Tour */
-        .onboarding-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .onboarding-card {
-            background: white;
-            border-radius: 24px;
-            max-width: 320px;
-            width: 90%;
-            padding: 24px;
-            text-align: center;
-            animation: scaleIn 0.4s ease;
-        }
-        
-        /* Gallery View */
-        .diagnosis-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
-        }
-        .diagnosis-gallery-item {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .diagnosis-gallery-item:hover { transform: scale(1.03); }
-        
-        /* Bottom Navigation Bar - for mobile */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid #e5e7eb;
-            display: none;
-            justify-content: space-around;
-            padding: 10px 16px 20px;
-            z-index: 40;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
-        }
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: #9ca3af;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .bottom-nav-item.active { color: #3b82f6; }
-        .bottom-nav-item i { font-size: 24px; }
-        .bottom-nav-item span { font-size: 11px; font-weight: 500; }
-        @media (max-width: 768px) {
-            .bottom-nav { display: flex; }
-            body { padding-bottom: 70px; }
-        }
-        
-        /* Feature #16: High Contrast Mode & Accessibility */
-        body.high-contrast {
-            background: #000 !important;
-            color: #fff !important;
-        }
-        body.high-contrast .bg-white,
-        body.high-contrast .bg-gray-50,
-        body.high-contrast .bg-green-50 {
-            background: #1a1a1a !important;
-            color: #fff !important;
-            border-color: #ffff00 !important;
-        }
-        body.high-contrast .text-gray-600,
-        body.high-contrast .text-gray-500 {
-            color: #ddd !important;
-        }
-        body.high-contrast button,
-        body.high-contrast .btn-primary {
-            background: #ffff00 !important;
-            color: #000 !important;
-        }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; }
-        button:focus-visible, a:focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
-        
-        /* Feature #20: Success Stories */
-        .success-story-card {
-            transition: all 0.3s ease;
-        }
-        .success-story-card:hover { transform: scale(1.02); }
-        
-        /* FAQ Accordion Styles */
-        .faq-question {
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .faq-question:hover {
-            background: #f9fafb;
-        }
-        .faq-answer {
-            transition: all 0.3s;
-        }
-        
-        /* Ripple effect */
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        .ripple:after {
-            content: "";
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-            background-repeat: no-repeat;
-            background-position: 50%;
-            transform: scale(10);
-            opacity: 0;
-            transition: transform .5s, opacity 1s;
-        }
-        .ripple:active:after {
-            transform: scale(0);
-            opacity: .3;
-            transition: 0s;
-        }
-        
-        /* Dark mode styles - ONLY WHEN TOGGLED, NOT DEFAULT */
-        .dark {
-            background-color: #0f172a !important;
-            color: #f1f5f9 !important;
-        }
-        
-        .dark .bg-white,
-        .dark .bg-gray-50,
-        .dark .bg-green-50,
-        .dark .bg-blue-50,
-        .dark .bg-red-50,
-        .dark .bg-yellow-50,
-        .dark .bg-purple-50,
-        .dark .bg-white\/95,
-        .dark .bg-white\/20,
-        .dark .bg-white\/10 {
-            background-color: #1e293b !important;
-            color: #f1f5f9 !important;
-        }
-        
-        .dark .bg-gradient-to-r.from-green-50.to-emerald-50 {
-            background: linear-gradient(135deg, #1e3a5f 0%, #1e4a6f 100%) !important;
-            border-color: #3b82f6 !important;
-        }
-        
-        .dark .text-gray-600,
-        .dark .text-gray-500,
-        .dark .text-gray-700,
-        .dark .text-gray-800,
-        .dark .text-gray-400,
-        .dark .text-gray-900 {
-            color: #cbd5e1 !important;
-        }
-        
-        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
-        .dark .font-bold, .dark .font-semibold {
-            color: #facc15 !important;
-        }
-        
-        .dark .gradient-text {
-            -webkit-text-fill-color: #facc15 !important;
-            color: #facc15 !important;
-        }
-        
-        .dark .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-            color: white !important;
-        }
-        
-        .dark .upload-zone {
-            background-color: #1e293b !important;
-            border-color: #facc15 !important;
-        }
-        
-        .dark .upload-zone p,
-        .dark .upload-zone i {
-            color: #facc15 !important;
-        }
-        
-        .dark nav {
-            background-color: #1e293b !important;
-            border-bottom-color: #facc15 !important;
-        }
-        
-        .dark nav .text-gray-700,
-        .dark nav .text-gray-800,
-        .dark nav .text-gray-500 {
-            color: #f1f5f9 !important;
-        }
-        
-        .dark .nav-link {
-            color: #f1f5f9 !important;
-        }
-        
-        .dark .nav-link:hover {
-            color: #facc15 !important;
-        }
-        
-        .dark .bottom-nav {
-            background-color: #1e293b !important;
-            border-top-color: #facc15 !important;
-        }
-        
-        .dark .bottom-nav-item {
-            color: #94a3b8 !important;
-        }
-        
-        .dark .bottom-nav-item.active {
-            color: #facc15 !important;
-        }
-        
-        .dark .modal-content,
-        .dark .bg-white.rounded-2xl,
-        .dark .bg-white.rounded-xl {
-            background-color: #1e293b !important;
-        }
-        
-        .dark input,
-        .dark select,
-        .dark textarea {
-            background-color: #0f172a !important;
-            border-color: #facc15 !important;
-            color: #f1f5f9 !important;
-        }
-        
-        .dark input::placeholder,
-        .dark textarea::placeholder {
-            color: #94a3b8 !important;
-        }
-        
-        .dark .faq-question {
-            background-color: #1e293b !important;
-        }
-        
-        .dark .faq-question:hover {
-            background-color: #334155 !important;
-        }
-        
-        .dark .weather-temp,
-        .dark .text-blue-600 {
-            color: #facc15 !important;
-        }
-        
-        .dark .bg-red-50,
-        .dark .bg-green-50 {
-            background-color: #1e293b !important;
-        }
-        
-        .dark .bg-green-600,
-        .dark .bg-green-500 {
-            background-color: #22c55e !important;
-            color: white !important;
-        }
-        
-        .dark .bg-green-600 i,
-        .dark .bg-green-500 i {
-            color: white !important;
-        }
-        
-        .dark .toast {
-            background-color: #22c55e !important;
-            color: white !important;
-        }
-        
-        .dark .onboarding-card {
-            background-color: #1e293b !important;
-            color: #f1f5f9 !important;
-        }
-        
-        .dark .onboarding-card p {
-            color: #f1f5f9 !important;
-        }
-        
-        /* Disease Library severity tags */
-        .severity-high {
-            background-color: #fee2e2 !important;
-            color: #000000 !important;
-            font-weight: 600 !important;
-        }
-        .severity-critical {
-            background-color: #f3e8ff !important;
-            color: #000000 !important;
-            font-weight: 600 !important;
-        }
-        .severity-medium {
-            background-color: #fef3c7 !important;
-            color: #000000 !important;
-            font-weight: 600 !important;
-        }
-        
-        .dark .severity-high,
-        .dark .severity-critical,
-        .dark .severity-medium {
-            color: #000000 !important;
-            font-weight: 700 !important;
-        }
-        
-        /* Section header containers */
-        .section-header-container {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: 1rem 1.5rem;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        
-        @media (min-width: 768px) {
-            .section-header-container {
-                padding: 1.25rem 2rem;
-                border-radius: 1.25rem;
-                margin-bottom: 2rem;
-            }
-        }
-        
-        .dark .section-header-container {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
-            border: 1px solid #facc15;
-            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.1);
-        }
-        
-        .blue-button {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        
-        .blue-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
-        }
-        
-        @media (min-width: 768px) {
-            .blue-button {
-                padding: 0.625rem 1.25rem;
-                font-size: 0.9rem;
-            }
-        }
-        
-        .dark .blue-button {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-            color: white !important;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-        }
-        
-        .contact-header-container {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            padding: 1.25rem;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        
-        @media (min-width: 768px) {
-            .contact-header-container {
-                padding: 1.75rem;
-                border-radius: 1.25rem;
-                margin-bottom: 2.5rem;
-            }
-        }
-        
-        .dark .contact-header-container {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
-            border: 1px solid #facc15;
-            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.1);
-        }
-        
-        .weather-temp {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .weather-location {
-            font-size: 0.875rem;
-        }
-        
-        .section-title {
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        h2.text-xl, .text-xl.font-bold, .mb-4 h2 {
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-        
-        .send-message-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .send-message-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
-        }
-        
-        .dark .send-message-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-            color: white !important;
-        }
-        
-        .whatsapp-icon {
-            color: #25D366 !important;
-        }
-        
-        .message-icon {
-            color: white !important;
-        }
-        
-        .dark .whatsapp-icon {
-            color: #25D366 !important;
-        }
-        
-        .dark .message-icon {
-            color: white !important;
-        }
-        
-        /* Desktop card enhancements */
-        @media (min-width: 1024px) {
-            .bg-white.rounded-xl, .bg-white.rounded-2xl {
-                transition: all 0.3s ease;
-            }
-            
-            .bg-white.rounded-xl:hover, .bg-white.rounded-2xl:hover {
-                transform: translateY(-4px);
-            }
-        }
-        
-        /* Form input styles - IMPROVED VISIBILITY with white text */
-        .input-field {
-            transition: all 0.3s ease;
-            border: 1.5px solid rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.15);
-            color: white !important;
-            font-weight: 500;
-        }
-        
-        .input-field::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .input-field:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-            outline: none;
-            background: rgba(255,255,255,0.25);
-            color: white;
-        }
-        
-        /* Select dropdown text color */
-        select.input-field {
-            color: white !important;
-        }
-        
-        select.input-field option {
-            background: #1e293b;
-            color: white;
-        }
-        
-        .dark select.input-field option {
-            background: #0f172a;
-            color: #facc15;
-        }
-        
-        /* Password toggle */
-        .password-toggle {
-            cursor: pointer;
-            transition: color 0.2s;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .password-toggle:hover {
-            color: #3b82f6;
-        }
-        
-        /* GLASSY MODAL STYLES - ORIGINAL LIGHTER VERSION */
-        .glassy-modal {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            border-radius: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
-        }
-        
-        .dark .glassy-modal {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(250, 204, 21, 0.3);
-        }
-        
-        /* Modal text styles - ALL WHITE for visibility */
-        .glassy-modal label,
-        .glassy-modal .text-gray-700,
-        .glassy-modal .text-gray-800,
-        .glassy-modal span:not(.text-green-600),
-        .glassy-modal .text-sm {
-            color: white !important;
-        }
-        
-        .dark .glassy-modal label,
-        .dark .glassy-modal .text-gray-700,
-        .dark .glassy-modal span:not(.text-green-600) {
-            color: #facc15 !important;
-        }
-        
-        /* Checkbox label */
-        .glassy-modal .flex.items-center span {
-            color: white !important;
-        }
-        
-        .dark .glassy-modal .flex.items-center span {
-            color: #facc15 !important;
-        }
-        
-        /* Forgot password link */
-        .glassy-modal a.text-green-600 {
-            color: #4ade80 !important;
-        }
-        
-        .dark .glassy-modal a.text-green-600 {
-            color: #facc15 !important;
-        }
-        
-        /* Or continue with text */
-        .glassy-modal .relative .text-sm span {
-            color: rgba(255,255,255,0.8) !important;
-            background: transparent;
-        }
-        
-        /* Google and Phone buttons text */
-        .glassy-modal .grid button span {
-            color: white !important;
-        }
-        
-        .dark .glassy-modal .grid button span {
-            color: #facc15 !important;
-        }
-        
-        /* Sign up benefits text */
-        .glassy-modal .text-center.text-sm {
-            color: rgba(255,255,255,0.9) !important;
-        }
-        
-        .dark .glassy-modal .text-center.text-sm {
-            color: #cbd5e1 !important;
-        }
-        
-        .glassy-modal .text-center.text-sm span {
-            color: rgba(255,255,255,0.9) !important;
-        }
-        
-        /* Welcome text improved visibility */
-        .welcome-text {
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .dark .welcome-text {
-            color: #facc15;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .subtitle-text {
-            color: rgba(255,255,255,0.9);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        }
-        
-        .dark .subtitle-text {
-            color: #cbd5e1;
-        }
-        
-        /* Toggle buttons text */
-        .toggle-btn-text {
-            color: #1e293b;
-        }
-        
-        .dark .toggle-btn-text {
-            color: #facc15;
-        }
+        * { font-family: 'Inter', sans-serif; }
+        .background-slideshow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity 1.5s ease-in-out; animation: kenBurns 20s ease-in-out infinite alternate; }
+        .slide.active { opacity: 1; }
+        @keyframes kenBurns { 0% { transform: scale(1) translateX(0); } 100% { transform: scale(1.1) translateX(-2%); } }
+        .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.75) 100%); z-index: -1; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #4c9f70; border-radius: 10px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+        .animate-slideInRight { animation: slideInRight 0.5s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.4s ease-out; }
+        .float-animation { animation: float 3s ease-in-out infinite; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .gradient-text { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(59,130,246,0.3); }
+        .desktop-nav { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { position: relative; font-weight: 500; transition: color 0.3s ease; color: white; }
+        .nav-link:hover { color: #3b82f6; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(135deg, #3b82f6, #2563eb); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; }
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 40; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-panel { position: fixed; top: 0; right: 0; width: 280px; height: 100%; background-color: white; z-index: 50; transform: translateX(100%); transition: transform 0.3s ease-in-out; display: flex; flex-direction: column; }
+        .mobile-menu-panel.active { transform: translateX(0); }
+        @media (max-width: 768px) { .desktop-nav { display: none; } .mobile-menu-btn { display: block; } }
+        .role-selector { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+        .role-btn { flex: 1; padding: 0.625rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.875rem; transition: all 0.3s ease; cursor: pointer; text-align: center; border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); color: white; }
+        .role-btn.active { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-color: transparent; box-shadow: 0 2px 8px rgba(59,130,246,0.4); }
+        .role-btn i { margin-right: 0.5rem; }
+        .role-hint { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-top: 0.25rem; text-align: center; }
+        .input-field { transition: all 0.3s ease; border: 1.5px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.15); color: white !important; font-weight: 500; }
+        .input-field::placeholder { color: rgba(255,255,255,0.7); }
+        .input-field:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.3); outline: none; background: rgba(255,255,255,0.25); color: white; }
+        .glassy-modal { background: rgba(255,255,255,0.25); backdrop-filter: blur(12px); border-radius: 2rem; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 25px 45px rgba(0,0,0,0.2); }
+        .dark .glassy-modal { background: rgba(30,41,59,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(250,204,21,0.3); }
+        .glassy-modal label, .glassy-modal .text-gray-700, .glassy-modal span, .glassy-modal .text-sm { color: white !important; }
+        .toast { animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards; z-index: 1000; position: fixed; bottom: 24px; right: 16px; padding: 12px 20px; border-radius: 8px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+        .welcome-text { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .subtitle-text { color: rgba(255,255,255,0.9); text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        nav { background: rgba(0,0,0,0.3) !important; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.2); }
+        h1, .text-gray-800 { color: white !important; }
+        .text-gray-500 { color: rgba(255,255,255,0.8) !important; }
+        .dark { background-color: #0f172a !important; color: #f1f5f9 !important; }
+        .dark .bg-white, .dark .bg-gray-50, .dark .bg-white\/95 { background-color: #1e293b !important; color: #f1f5f9 !important; }
+        .dark .glassy-modal { background: rgba(30,41,59,0.9) !important; border: 1px solid #facc15 !important; }
+        .dark .glassy-modal label, .dark .glassy-modal span { color: #facc15 !important; }
+        .dark .nav-link { color: #f1f5f9 !important; }
+        .dark .nav-link:hover { color: #facc15 !important; }
     </style>
 </head>
 <body class="antialiased">
-    <!-- Background Slideshow with Kenyan Farm Images -->
+    <!-- Same background slideshow as index.html -->
     <div class="background-slideshow">
         <div class="slide" style="background-image: url('coffee1.jpg')"></div>
         <div class="slide" style="background-image: url('maize1.0.jpg')"></div>
@@ -1073,426 +82,269 @@
     </div>
     <div class="background-overlay"></div>
     
-    <!-- Navigation Bar with Blur Effect - Desktop only shows Sign Up and Login -->
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-green-100">
+    <nav class="backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/20">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="relative">
-                        <i class="fas fa-leaf text-3xl text-green-600 float-animation"></i>
-                    </div>
+                    <i class="fas fa-leaf text-3xl text-green-400 float-animation"></i>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-800">ShambaCare<span class="gradient-text"> Kenya</span></h1>
-                        <p class="text-xs text-gray-500">Smart Farming Assistant • Tuma Picha, Pata Matokeo</p>
+                        <h1 class="text-xl font-bold text-white">ShambaCare<span class="gradient-text"> Kenya</span></h1>
+                        <p class="text-xs text-white/80">Smart Farming Assistant • Tuma Picha, Pata Matokeo</p>
                     </div>
                 </div>
-                
-                <!-- Desktop Navigation - ONLY Sign Up and Login links -->
                 <div class="desktop-nav">
-                    <a href="#" onclick="switchToSignup(); return false;" class="nav-link text-gray-700">Sign Up</a>
-                    <a href="#" onclick="switchToLogin(); return false;" class="nav-link text-gray-700">Login</a>
+                    <a href="#" onclick="switchToSignup(); return false;" class="nav-link">Sign Up</a>
+                    <a href="#" onclick="switchToLogin(); return false;" class="nav-link">Login</a>
                 </div>
-                
                 <div class="flex items-center space-x-3">
-                    <button onclick="toggleTheme()" class="bg-gray-50 hover:bg-gray-100 p-2 rounded-lg transition-all duration-300">
-                        <i id="themeIcon" class="fas fa-moon text-gray-600"></i>
-                    </button>
-                    <!-- Mobile menu button -->
-                    <button id="mobileMenuToggle" class="mobile-menu-btn bg-green-50 hover:bg-green-100 p-2 rounded-lg transition-all duration-300">
-                        <i class="fas fa-bars text-green-600 text-xl"></i>
-                    </button>
+                    <button onclick="toggleTheme()" class="bg-white/10 hover:bg-white/20 p-2 rounded-lg backdrop-blur-sm"><i id="themeIcon" class="fas fa-moon text-white"></i></button>
+                    <button id="mobileMenuToggle" class="mobile-menu-btn bg-white/10 p-2 rounded-lg backdrop-blur-sm"><i class="fas fa-bars text-white text-xl"></i></button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu Panel -->
     <div id="mobileMenuOverlay" class="mobile-menu-overlay"></div>
     <div id="mobileMenuPanel" class="mobile-menu-panel">
-        <div class="flex justify-between items-center p-4 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
-            <span class="font-bold text-gray-800"><i class="fas fa-leaf text-green-600 mr-2"></i>Menu</span>
-            <button id="closeMobileMenu" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
+        <div class="flex justify-between items-center p-4 border-b bg-gradient-to-r from-green-50 to-emerald-50">
+            <span class="font-bold"><i class="fas fa-leaf text-green-600 mr-2"></i>Menu</span>
+            <button id="closeMobileMenu"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div class="flex flex-col p-4 space-y-3">
-            <a href="#" onclick="switchToLogin(); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-sign-in-alt w-6 text-green-600"></i> Login</a>
-            <a href="#" onclick="switchToSignup(); closeMobileMenu();" class="nav-link text-gray-700 hover:text-green-600 font-medium py-2 px-3 rounded-lg hover:bg-green-50 transition flex items-center"><i class="fas fa-user-plus w-6 text-green-600"></i> Sign Up</a>
-            <div class="border-t border-gray-200 my-2 pt-3"><p class="text-xs text-gray-400 px-3">ShambaCare Kenya © 2024</p></div>
+            <a href="#" onclick="switchToLogin(); closeMobileMenu();" class="py-2 px-3 rounded-lg hover:bg-green-50 flex items-center"><i class="fas fa-sign-in-alt w-6 text-green-600"></i> Login</a>
+            <a href="#" onclick="switchToSignup(); closeMobileMenu();" class="py-2 px-3 rounded-lg hover:bg-green-50 flex items-center"><i class="fas fa-user-plus w-6 text-green-600"></i> Sign Up</a>
         </div>
     </div>
 
-    <!-- Main Login/Signup Section -->
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
-            <!-- Logo and Title -->
             <div class="text-center animate-fadeInUp">
-                <div class="flex justify-center">
-                    <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-full p-4 shadow-lg">
-                        <i class="fas fa-seedling text-white text-4xl"></i>
-                    </div>
-                </div>
-                <h2 class="mt-6 text-3xl font-extrabold welcome-text">
-                    Welcome to <span class="gradient-text">ShambaCare</span>
-                </h2>
-                <p class="mt-2 text-sm subtitle-text">
-                    Your smart farming companion for Kenyan agriculture
-                </p>
+                <div class="flex justify-center"><div class="bg-gradient-to-r from-green-500 to-green-600 rounded-full p-4 shadow-lg"><i class="fas fa-seedling text-white text-4xl"></i></div></div>
+                <h2 class="mt-6 text-3xl font-extrabold welcome-text">Welcome to <span class="gradient-text">ShambaCare</span></h2>
+                <p class="mt-2 text-sm subtitle-text">Your smart farming companion for Kenyan agriculture</p>
             </div>
 
-            <!-- Toggle Buttons -->
-            <div class="flex gap-3 rounded-xl bg-gray-100/80 backdrop-blur-sm p-1 animate-fadeInUp" style="animation-delay: 0.1s">
-                <button id="loginTabBtn" onclick="switchToLogin()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 bg-white text-green-600 shadow-sm">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Login
-                </button>
-                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-gray-700 toggle-btn-text">
-                    <i class="fas fa-user-plus mr-2"></i> Sign Up
-                </button>
+            <div class="flex gap-3 rounded-xl bg-black/30 backdrop-blur-sm p-1 animate-fadeInUp" style="animation-delay: 0.1s">
+                <button id="loginTabBtn" onclick="switchToLogin()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 bg-white text-green-600 shadow-sm"><i class="fas fa-sign-in-alt mr-2"></i> Login</button>
+                <button id="signupTabBtn" onclick="switchToSignup()" class="flex-1 py-2.5 rounded-lg font-semibold transition-all duration-300 text-white"><i class="fas fa-user-plus mr-2"></i> Sign Up</button>
             </div>
 
-            <!-- Login Form - GLASSY MODAL with white text -->
+            <div id="loginRoleSelector" class="role-selector animate-fadeInUp" style="animation-delay: 0.05s">
+                <div class="role-btn active" onclick="selectRole('farmer', this)"><i class="fas fa-tractor"></i> Farmer</div>
+                <div class="role-btn" onclick="selectRole('admin', this)"><i class="fas fa-user-shield"></i> Admin</div>
+            </div>
+            <div id="loginRoleHint" class="role-hint animate-fadeInUp" style="animation-delay: 0.05s">
+                <i class="fas fa-info-circle"></i> Select Farmer for crop diagnosis or Admin for management
+            </div>
+
+            <!-- Login Form -->
             <div id="loginForm" class="glassy-modal p-6 sm:p-8 space-y-6 animate-scaleIn">
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-envelope mr-2 text-green-400"></i> Email Address
-                        </label>
-                        <input type="email" id="loginEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-lock mr-2 text-green-400"></i> Password
-                        </label>
-                        <div class="relative">
-                            <input type="password" id="loginPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl transition">
-                            <button type="button" onclick="togglePassword('loginPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-envelope mr-2 text-green-400"></i> Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="farmer@shambacare.com" class="input-field w-full px-4 py-3 rounded-xl transition"></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-lock mr-2 text-green-400"></i> Password</label>
+                    <div class="relative"><input type="password" id="loginPassword" placeholder="••••••••" class="input-field w-full px-4 py-3 rounded-xl transition">
+                    <button type="button" onclick="togglePassword('loginPassword', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-green-400"><i class="fas fa-eye"></i></button></div></div>
                 </div>
-
                 <div class="flex items-center justify-between">
-                    <label class="flex items-center">
-                        <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                        <span class="ml-2 text-sm text-white">Remember me</span>
-                    </label>
-                    <a href="#" onclick="showToast('Password reset link sent to your email!', 'info')" class="text-sm text-green-400 hover:text-green-300 font-medium">
-                        Forgot password?
-                    </a>
+                    <label class="flex items-center"><input type="checkbox" class="rounded border-gray-300 text-green-600"><span class="ml-2 text-sm text-white">Remember me</span></label>
+                    <a href="#" onclick="showToast('Password reset link sent to your email!', 'info')" class="text-sm text-green-400 hover:text-green-300">Forgot password?</a>
                 </div>
-
-                <button onclick="handleLogin()" class="btn-primary w-full text-white font-semibold py-3 rounded-xl transition transform hover:scale-[1.02] shadow-lg">
-                    <i class="fas fa-sign-in-alt mr-2"></i> Sign In
-                </button>
-
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-white/30"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-transparent text-white/80">Or continue with</span>
-                    </div>
-                </div>
-
+                <button onclick="handleLogin()" class="btn-primary w-full text-white font-semibold py-3 rounded-xl transition transform hover:scale-[1.02] shadow-lg"><i class="fas fa-sign-in-alt mr-2"></i> Sign In</button>
+                <div class="relative"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/30"></div></div><div class="relative flex justify-center text-sm"><span class="px-2 bg-transparent text-white/80">Or continue with</span></div></div>
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition">
-                        <i class="fab fa-google text-red-400"></i>
-                        <span class="text-sm font-medium text-white">Google</span>
-                    </button>
-                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition">
-                        <i class="fas fa-phone-alt text-green-400"></i>
-                        <span class="text-sm font-medium text-white">Phone</span>
-                    </button>
+                    <button onclick="showToast('Google sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition"><i class="fab fa-google text-red-400"></i><span class="text-sm font-medium text-white">Google</span></button>
+                    <button onclick="showToast('Phone sign-in coming soon!', 'info')" class="flex items-center justify-center gap-2 py-2.5 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl hover:bg-white/30 transition"><i class="fas fa-phone-alt text-green-400"></i><span class="text-sm font-medium text-white">Phone</span></button>
                 </div>
             </div>
 
-            <!-- Sign Up Form - GLASSY MODAL with white text (Hidden by default) with ALL 47 COUNTIES -->
+            <!-- Sign Up Form -->
             <div id="signupForm" class="glassy-modal p-6 sm:p-8 space-y-6 animate-scaleIn hidden">
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-user mr-2 text-green-400"></i> Full Name
-                        </label>
-                        <input type="text" id="signupName" placeholder="James Mwangi" 
-                               class="input-field w-full px-4 py-3 rounded-xl transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-envelope mr-2 text-green-400"></i> Email Address
-                        </label>
-                        <input type="email" id="signupEmail" placeholder="farmer@shambacare.com" 
-                               class="input-field w-full px-4 py-3 rounded-xl transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-phone-alt mr-2 text-green-400"></i> Phone Number
-                        </label>
-                        <input type="tel" id="signupPhone" placeholder="+254 7XX XXX XXX" 
-                               class="input-field w-full px-4 py-3 rounded-xl transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-map-marker-alt mr-2 text-green-400"></i> County
-                        </label>
-                        <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl transition">
-                            <option value="">Select your county</option>
-                            <option>Baringo</option>
-                            <option>Bomet</option>
-                            <option>Bungoma</option>
-                            <option>Busia</option>
-                            <option>Elgeyo-Marakwet</option>
-                            <option>Embu</option>
-                            <option>Garissa</option>
-                            <option>Homa Bay</option>
-                            <option>Isiolo</option>
-                            <option>Kajiado</option>
-                            <option>Kakamega</option>
-                            <option>Kericho</option>
-                            <option>Kiambu</option>
-                            <option>Kilifi</option>
-                            <option>Kirinyaga</option>
-                            <option>Kisii</option>
-                            <option>Kisumu</option>
-                            <option>Kitui</option>
-                            <option>Kwale</option>
-                            <option>Laikipia</option>
-                            <option>Lamu</option>
-                            <option>Machakos</option>
-                            <option>Makueni</option>
-                            <option>Mandera</option>
-                            <option>Marsabit</option>
-                            <option>Meru</option>
-                            <option>Migori</option>
-                            <option>Mombasa</option>
-                            <option>Murang'a</option>
-                            <option>Nairobi</option>
-                            <option>Nakuru</option>
-                            <option>Nandi</option>
-                            <option>Narok</option>
-                            <option>Nyamira</option>
-                            <option>Nyandarua</option>
-                            <option>Nyeri</option>
-                            <option>Samburu</option>
-                            <option>Siaya</option>
-                            <option>Taita-Taveta</option>
-                            <option>Tana River</option>
-                            <option>Tharaka-Nithi</option>
-                            <option>Trans Nzoia</option>
-                            <option>Turkana</option>
-                            <option>Uasin Gishu</option>
-                            <option>Vihiga</option>
-                            <option>Wajir</option>
-                            <option>West Pokot</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-lock mr-2 text-green-400"></i> Password
-                        </label>
-                        <div class="relative">
-                            <input type="password" id="signupPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl transition">
-                            <button type="button" onclick="togglePassword('signupPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <p class="text-xs text-white/70 mt-1">Password must be at least 6 characters</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-white mb-2">
-                            <i class="fas fa-check-circle mr-2 text-green-400"></i> Confirm Password
-                        </label>
-                        <div class="relative">
-                            <input type="password" id="signupConfirmPassword" placeholder="••••••••" 
-                                   class="input-field w-full px-4 py-3 rounded-xl transition">
-                            <button type="button" onclick="togglePassword('signupConfirmPassword', this)" class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-user mr-2 text-green-400"></i> Full Name</label>
+                    <input type="text" id="signupName" placeholder="James Mwangi" class="input-field w-full px-4 py-3 rounded-xl transition"></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-envelope mr-2 text-green-400"></i> Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="farmer@shambacare.com" class="input-field w-full px-4 py-3 rounded-xl transition"></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-phone-alt mr-2 text-green-400"></i> Phone Number</label>
+                    <input type="tel" id="signupPhone" placeholder="+254 7XX XXX XXX" class="input-field w-full px-4 py-3 rounded-xl transition"></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-map-marker-alt mr-2 text-green-400"></i> County</label>
+                    <select id="signupCounty" class="input-field w-full px-4 py-3 rounded-xl transition">
+                        <option value="">Select your county</option>
+                        <option>Kiambu</option><option>Nakuru</option><option>Murang'a</option>
+                        <option>Kisumu</option><option>Nairobi</option><option>Machakos</option>
+                        <option>Uasin Gishu</option><option>Meru</option><option>Kakamega</option>
+                    </select></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-lock mr-2 text-green-400"></i> Password</label>
+                    <div class="relative"><input type="password" id="signupPassword" placeholder="••••••••" class="input-field w-full px-4 py-3 rounded-xl transition">
+                    <button type="button" onclick="togglePassword('signupPassword', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-green-400"><i class="fas fa-eye"></i></button></div>
+                    <p class="text-xs text-white/70 mt-1">Password must be at least 6 characters</p></div>
+                    <div><label class="block text-sm font-semibold text-white mb-2"><i class="fas fa-check-circle mr-2 text-green-400"></i> Confirm Password</label>
+                    <div class="relative"><input type="password" id="signupConfirmPassword" placeholder="••••••••" class="input-field w-full px-4 py-3 rounded-xl transition">
+                    <button type="button" onclick="togglePassword('signupConfirmPassword', this)" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-green-400"><i class="fas fa-eye"></i></button></div></div>
                 </div>
-
-                <div class="flex items-start">
-                    <div class="flex items-center h-5">
-                        <input type="checkbox" id="termsCheckbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                    </div>
-                    <div class="ml-3 text-sm">
-                        <label class="text-white">
-                            I agree to the <a href="#" onclick="showToast('Terms and conditions would open here', 'info')" class="text-green-400 hover:text-green-300">Terms of Service</a> and 
-                            <a href="#" onclick="showToast('Privacy policy would open here', 'info')" class="text-green-400 hover:text-green-300">Privacy Policy</a>
-                        </label>
-                    </div>
-                </div>
-
-                <button onclick="handleSignup()" class="btn-primary w-full text-white font-semibold py-3 rounded-xl transition transform hover:scale-[1.02] shadow-lg">
-                    <i class="fas fa-user-plus mr-2"></i> Create Account
-                </button>
-
-                <div class="text-center text-sm text-white/80">
-                    By signing up, you'll get access to:
-                    <div class="flex justify-center gap-4 mt-2 text-xs">
-                        <span><i class="fas fa-microscope text-green-400"></i> AI Diagnosis</span>
-                        <span><i class="fas fa-chart-line text-green-400"></i> Crop Tracking</span>
-                        <span><i class="fas fa-cloud-sun text-green-400"></i> Weather Alerts</span>
-                    </div>
-                </div>
+                <div class="flex items-start"><div class="flex items-center h-5"><input type="checkbox" id="termsCheckbox" class="rounded border-gray-300 text-green-600"></div><div class="ml-3 text-sm"><label class="text-white">I agree to the <a href="#" onclick="showToast('Terms and conditions', 'info')" class="text-green-400">Terms of Service</a> and <a href="#" onclick="showToast('Privacy policy', 'info')" class="text-green-400">Privacy Policy</a></label></div></div>
+                <button onclick="handleSignup()" class="btn-primary w-full text-white font-semibold py-3 rounded-xl transition transform hover:scale-[1.02] shadow-lg"><i class="fas fa-user-plus mr-2"></i> Create Account</button>
+                <div class="text-center text-sm text-white/80">By signing up, you'll get access to:<div class="flex justify-center gap-4 mt-2 text-xs"><span><i class="fas fa-microscope text-green-400"></i> AI Diagnosis</span><span><i class="fas fa-chart-line text-green-400"></i> Crop Tracking</span><span><i class="fas fa-cloud-sun text-green-400"></i> Weather Alerts</span></div></div>
             </div>
 
-            <!-- Demo Credentials Info -->
             <div class="text-center text-xs text-gray-200 animate-fadeInUp" style="animation-delay: 0.2s">
-                <p class="bg-black/30 inline-block px-4 py-2 rounded-full backdrop-blur-sm">
-                    <i class="fas fa-flask mr-1 text-green-400"></i> Demo: farmer@shambacare.com / any password
-                </p>
+                <p class="bg-black/30 inline-block px-4 py-2 rounded-full backdrop-blur-sm"><i class="fas fa-flask mr-1 text-green-400"></i> Demo: Register or use existing account</p>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== BACKGROUND SLIDESHOW ====================
+        const API_URL = 'http://localhost:5000/api';
+        let selectedRole = 'farmer';
+
+        // Background Slideshow (same as index.html)
         class BackgroundSlideshow {
             constructor(slides, interval = 8000) {
                 this.slides = slides;
                 this.currentIndex = 0;
                 this.interval = interval;
             }
-            init() {
-                if (this.slides.length > 0) {
-                    this.slides[0].classList.add('active');
-                    this.startSlideshow();
-                }
-            }
-            nextSlide() {
-                if (this.slides.length === 0) return;
-                this.slides[this.currentIndex].classList.remove('active');
-                this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-                this.slides[this.currentIndex].classList.add('active');
-            }
-            startSlideshow() {
-                setInterval(() => {
-                    this.nextSlide();
-                }, this.interval);
+            init() { 
+                if (this.slides.length) { 
+                    this.slides[0].classList.add('active'); 
+                    setInterval(() => { 
+                        this.slides[this.currentIndex].classList.remove('active'); 
+                        this.currentIndex = (this.currentIndex + 1) % this.slides.length; 
+                        this.slides[this.currentIndex].classList.add('active'); 
+                    }, this.interval); 
+                } 
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
-            if (slides.length > 0) {
-                const slideshow = new BackgroundSlideshow(slides, 8000);
-                slideshow.init();
+            if (slides.length) { 
+                const slideshow = new BackgroundSlideshow(slides, 8000); 
+                slideshow.init(); 
             }
-            // Load saved theme - default to light mode (no dark class)
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark');
-                document.getElementById('themeIcon')?.classList.remove('fa-moon');
-                document.getElementById('themeIcon')?.classList.add('fa-sun');
+            if (localStorage.getItem('theme') === 'dark') { 
+                document.body.classList.add('dark'); 
+                document.getElementById('themeIcon')?.classList.replace('fa-moon', 'fa-sun'); 
             }
-            
-            // Mobile menu event listeners
-            const mobileToggle = document.getElementById('mobileMenuToggle');
-            const closeBtn = document.getElementById('closeMobileMenu');
-            const overlay = document.getElementById('mobileMenuOverlay');
-            
-            if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
-            if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
-            if (overlay) overlay.addEventListener('click', closeMobileMenu);
         });
 
-        // ==================== MOBILE MENU FUNCTIONS ====================
-        function openMobileMenu() {
-            const overlay = document.getElementById('mobileMenuOverlay');
-            const panel = document.getElementById('mobileMenuPanel');
-            overlay.classList.add('active');
-            panel.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        function selectRole(role, element) { 
+            selectedRole = role; 
+            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active')); 
+            element.classList.add('active'); 
         }
 
-        function closeMobileMenu() {
-            const overlay = document.getElementById('mobileMenuOverlay');
-            const panel = document.getElementById('mobileMenuPanel');
-            overlay.classList.remove('active');
-            panel.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // ==================== TOGGLE FUNCTIONS ====================
         function switchToLogin() {
             document.getElementById('loginForm').classList.remove('hidden');
             document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginRoleSelector').style.display = 'flex';
+            document.getElementById('loginRoleHint').style.display = 'block';
             document.getElementById('loginTabBtn').classList.add('bg-white', 'text-green-600', 'shadow-sm');
-            document.getElementById('loginTabBtn').classList.remove('text-gray-700');
             document.getElementById('signupTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
-            document.getElementById('signupTabBtn').classList.add('text-gray-700');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('signupTabBtn').classList.add('text-white');
         }
-
+        
         function switchToSignup() {
             document.getElementById('loginForm').classList.add('hidden');
             document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('loginRoleSelector').style.display = 'none';
+            document.getElementById('loginRoleHint').style.display = 'none';
             document.getElementById('signupTabBtn').classList.add('bg-white', 'text-green-600', 'shadow-sm');
-            document.getElementById('signupTabBtn').classList.remove('text-gray-700');
             document.getElementById('loginTabBtn').classList.remove('bg-white', 'text-green-600', 'shadow-sm');
-            document.getElementById('loginTabBtn').classList.add('text-gray-700');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('loginTabBtn').classList.add('text-white');
         }
-
-        // ==================== PASSWORD TOGGLE ====================
-        function togglePassword(inputId, button) {
-            const input = document.getElementById(inputId);
-            const icon = button.querySelector('i');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+        
+        function togglePassword(inputId, btn) { 
+            const input = document.getElementById(inputId); 
+            const icon = btn.querySelector('i'); 
+            if (input.type === 'password') { 
+                input.type = 'text'; 
+                icon.classList.replace('fa-eye', 'fa-eye-slash'); 
+            } else { 
+                input.type = 'password'; 
+                icon.classList.replace('fa-eye-slash', 'fa-eye'); 
+            } 
         }
-
-        // ==================== TOAST NOTIFICATION ====================
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
-            const colors = { success: 'bg-green-600', error: 'bg-red-600', info: 'bg-blue-600' };
-            toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg`;
-            toast.innerHTML = `<i class="fas ${icons[type]} mr-2"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+        
+        function toggleTheme() { 
+            document.body.classList.toggle('dark'); 
+            const icon = document.getElementById('themeIcon'); 
+            if (document.body.classList.contains('dark')) { 
+                icon.classList.replace('fa-moon', 'fa-sun'); 
+                localStorage.setItem('theme', 'dark'); 
+            } else { 
+                icon.classList.replace('fa-sun', 'fa-moon'); 
+                localStorage.setItem('theme', 'light'); 
+            } 
         }
+        
+        function showToast(msg, type) { 
+            const toast = document.createElement('div'); 
+            toast.className = `toast ${type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600'}`; 
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>${msg}`; 
+            document.body.appendChild(toast); 
+            setTimeout(() => toast.remove(), 3000); 
+        }
+        
+        function openMobileMenu() { 
+            document.getElementById('mobileMenuOverlay').classList.add('active'); 
+            document.getElementById('mobileMenuPanel').classList.add('active'); 
+        }
+        
+        function closeMobileMenu() { 
+            document.getElementById('mobileMenuOverlay').classList.remove('active'); 
+            document.getElementById('mobileMenuPanel').classList.remove('active'); 
+        }
+        
+        document.getElementById('mobileMenuToggle')?.addEventListener('click', openMobileMenu);
+        document.getElementById('closeMobileMenu')?.addEventListener('click', closeMobileMenu);
+        document.getElementById('mobileMenuOverlay')?.addEventListener('click', closeMobileMenu);
 
-        // ==================== HANDLE LOGIN ====================
-        function handleLogin() {
+        // ==================== API INTEGRATION ====================
+        
+        async function handleLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
             
-            if (!email) {
-                showToast('Please enter your email address', 'error');
-                return;
-            }
-            if (!password) {
-                showToast('Please enter your password', 'error');
+            if (!email || !password) {
+                showToast('Please enter email and password', 'error');
                 return;
             }
             
-            showToast('Login successful! Redirecting to dashboard...', 'success');
+            showToast('Logging in...', 'info');
             
-            localStorage.setItem('shambacare_user', JSON.stringify({
-                name: email.split('@')[0],
-                email: email,
-                loggedIn: true,
-                county: 'Kiambu',
-                phone: '+254 7XX XXX XXX'
-            }));
-            
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, role: selectedRole })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('shambacare_token', data.token);
+                    localStorage.setItem('shambacare_user', JSON.stringify(data.user));
+                    
+                    showToast('Login successful! Redirecting...', 'success');
+                    
+                    setTimeout(() => {
+                        if (data.user.role === 'admin') {
+                            window.location.href = 'admin.html';
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    }, 1500);
+                } else {
+                    showToast(data.message || 'Login failed', 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showToast('Network error. Please make sure the backend server is running on port 5000', 'error');
+            }
         }
-
-        // ==================== HANDLE SIGNUP ====================
-        function handleSignup() {
+        
+        async function handleSignup() {
             const name = document.getElementById('signupName').value.trim();
             const email = document.getElementById('signupEmail').value.trim();
             const phone = document.getElementById('signupPhone').value.trim();
@@ -1501,36 +353,16 @@
             const confirmPassword = document.getElementById('signupConfirmPassword').value;
             const termsChecked = document.getElementById('termsCheckbox').checked;
             
-            if (!name) {
-                showToast('Please enter your full name', 'error');
-                return;
-            }
-            if (!email) {
-                showToast('Please enter your email address', 'error');
-                return;
-            }
-            if (!email.includes('@') || !email.includes('.')) {
-                showToast('Please enter a valid email address', 'error');
-                return;
-            }
-            if (!phone) {
-                showToast('Please enter your phone number', 'error');
-                return;
-            }
-            if (!county) {
-                showToast('Please select your county', 'error');
-                return;
-            }
-            if (!password) {
-                showToast('Please create a password', 'error');
-                return;
-            }
-            if (password.length < 6) {
-                showToast('Password must be at least 6 characters', 'error');
+            if (!name || !email || !phone || !county || !password) {
+                showToast('Please fill all fields', 'error');
                 return;
             }
             if (password !== confirmPassword) {
                 showToast('Passwords do not match', 'error');
+                return;
+            }
+            if (password.length < 6) {
+                showToast('Password must be at least 6 characters', 'error');
                 return;
             }
             if (!termsChecked) {
@@ -1538,46 +370,46 @@
                 return;
             }
             
-            showToast('Account created successfully! Redirecting to dashboard...', 'success');
+            showToast('Creating account...', 'info');
             
-            localStorage.setItem('shambacare_user', JSON.stringify({
-                name: name,
-                email: email,
-                phone: phone,
-                county: county,
-                loggedIn: true
-            }));
-            
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
-        }
-
-        // ==================== THEME TOGGLE ====================
-        function toggleTheme() {
-            const isDark = document.body.classList.toggle('dark');
-            const icon = document.getElementById('themeIcon');
-            if (isDark) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'light');
+            try {
+                const response = await fetch(`${API_URL}/auth/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, county, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('shambacare_token', data.token);
+                    localStorage.setItem('shambacare_user', JSON.stringify(data.user));
+                    
+                    showToast('Account created successfully! Redirecting...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showToast(data.message || 'Signup failed', 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showToast('Network error. Please make sure the backend server is running on port 5000', 'error');
             }
         }
         
-        // ==================== ENTER KEY SUBMISSION ====================
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                if (!document.getElementById('loginForm').classList.contains('hidden')) {
-                    handleLogin();
-                } else if (!document.getElementById('signupForm').classList.contains('hidden')) {
-                    handleSignup();
-                }
+        // Check if already logged in
+        const token = localStorage.getItem('shambacare_token');
+        const user = localStorage.getItem('shambacare_user');
+        if (token && user) {
+            const parsedUser = JSON.parse(user);
+            if (parsedUser.role === 'admin') {
+                window.location.href = 'admin.html';
+            } else {
+                window.location.href = 'index.html';
             }
-        });
+        }
     </script>
 </body>
 </html>
